@@ -2,14 +2,18 @@
 <Shell
     x:Class="Habitualize.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Habitualize"
-    Shell.FlyoutBehavior="Flyout"
-    Title="Habitualize">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <Shell.FlyoutHeader>
+        <Label Text="Header" FontSize="20" TextColor="White" HorizontalOptions="Center" />
+    </Shell.FlyoutHeader>
+
+    <Shell.FlyoutFooter>
+        <Label Text="Footer" FontSize="20" TextColor="White" HorizontalOptions="Center" />
+    </Shell.FlyoutFooter>
+    
+    <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
 
 </Shell>
+
