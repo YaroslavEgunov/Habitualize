@@ -5,63 +5,105 @@
              x:Class="Habitualize.MainPage"
              BackgroundColor="#121212">
 
-    <ContentPage.Resources>
-        <Style x:Key="HeaderFooterLabelStyle" TargetType="Label">
-            <Setter Property="FontSize" Value="20" />
-            <Setter Property="TextColor" Value="White" />
-            <Setter Property="HorizontalOptions" Value="Center" />
-            <Setter Property="VerticalOptions" Value="Center" />
-        </Style>
-        <Style x:Key="MainContentLabelStyle" TargetType="Label">
-            <Setter Property="FontSize" Value="24" />
-            <Setter Property="FontAttributes" Value="Bold" />
-            <Setter Property="HorizontalTextAlignment" Value="Center" />
-            <Setter Property="VerticalTextAlignment" Value="Center" />
-            <Setter Property="Margin" Value="0,10" />
-            <Setter Property="TextColor" Value="White" />
-        </Style>
-        <Style x:Key="ButtonStyle" TargetType="Button">
-            <Setter Property="FontSize" Value="18" />
-            <Setter Property="BackgroundColor" Value="#1E88E5" />
-            <Setter Property="TextColor" Value="White" />
-            <Setter Property="CornerRadius" Value="0" />
-            <Setter Property="Margin" Value="0" />
-            <Setter Property="Padding" Value="10,5" />
-        </Style>
-    </ContentPage.Resources>
-
     <Grid RowDefinitions="Auto, *, Auto">
         <!-- Header -->
-        <Border Grid.Row="0" BackgroundColor="#2196F3" Padding="10">
-            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Spacing="0">
-                <Button Text="Главная" Style="{StaticResource ButtonStyle}" HorizontalOptions="FillAndExpand" />
-                <Button Text="Поиск" Style="{StaticResource ButtonStyle}" HorizontalOptions="FillAndExpand" />
-                <Button Text="Уведомления" Style="{StaticResource ButtonStyle}" HorizontalOptions="FillAndExpand" />
-            </StackLayout>
+        <Border Grid.Row="0" BackgroundColor="#121212" Padding="10">
+            <Grid ColumnDefinitions="*,*,*,*">
+                <ImageButton Source="Resources\Images\main.png" Grid.Column="0" Style="{StaticResource ButtonStyle}" />
+                <ImageButton Source="Resources\Images\find.png" Grid.Column="3" Style="{StaticResource ButtonStyle}" />
+            </Grid>
         </Border>
 
         <!-- Main Content -->
         <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never">
             <StackLayout Padding="20" Spacing="20">
                 <Label Text="Добро пожаловать в Habitualize!" Style="{StaticResource MainContentLabelStyle}" />
-                <Frame BackgroundColor="#1E88E5" CornerRadius="20" Padding="20">
+                <Border BackgroundColor="#1E88E5" StrokeShape="RoundRectangle 20" Padding="20" Margin="0,10,0,0">
+                    <Border.Shadow>
+                        <Shadow Brush="Black"
+                        Offset="20,20"
+                        Radius="40"
+                        Opacity="0.8" />
+                    </Border.Shadow>
                     <Label Text="Это центр" Style="{StaticResource MainContentLabelStyle}" />
-                </Frame>
-                <Frame BackgroundColor="#1E88E5" CornerRadius="20" Padding="20">
+                </Border>                
+                <Border BackgroundColor="#1E88E5" StrokeShape="RoundRectangle 20" Padding="20" Margin="0,10,0,0">
+                    <Border.Shadow>
+                        <Shadow Brush="Black"
+                        Offset="20,20"
+                        Radius="40"
+                        Opacity="0.8" />
+                    </Border.Shadow>
                     <Label Text="Это центр" Style="{StaticResource MainContentLabelStyle}" />
-                </Frame>
+                </Border>                
+                <Border BackgroundColor="#1E88E5" StrokeShape="RoundRectangle 20" Padding="20" Margin="0,10,0,0">
+                    <Border.Shadow>
+                        <Shadow Brush="Black"
+                        Offset="20,20"
+                        Radius="40"
+                        Opacity="0.8" />
+                    </Border.Shadow>
+                    <Label Text="Это центр" Style="{StaticResource MainContentLabelStyle}" />
+                </Border>                
+                <Border BackgroundColor="#1E88E5" StrokeShape="RoundRectangle 20" Padding="20" Margin="0,10,0,0">
+                    <Border.Shadow>
+                        <Shadow Brush="Black"
+                        Offset="20,20"
+                        Radius="40"
+                        Opacity="0.8" />
+                    </Border.Shadow>
+                    <Label Text="Это центр" Style="{StaticResource MainContentLabelStyle}" />
+                </Border>
+                <Border BackgroundColor="#1E88E5" StrokeShape="RoundRectangle 20" Padding="20" Margin="0,10,0,0">
+                    <Border.Shadow>
+                        <Shadow Brush="Black"
+                        Offset="20,20"
+                        Radius="40"
+                        Opacity="0.8" />
+                    </Border.Shadow>
+                    <Label Text="Это центр" Style="{StaticResource MainContentLabelStyle}" />
+                </Border>
+                <Border BackgroundColor="#1E88E5" StrokeShape="RoundRectangle 20" Padding="20" Margin="0,10,0,0">
+                    <Border.Shadow>
+                        <Shadow Brush="Black"
+                        Offset="20,20"
+                        Radius="40"
+                        Opacity="0.8" />
+                    </Border.Shadow>
+                    <Label Text="Это центр" Style="{StaticResource MainContentLabelStyle}" />
+                </Border>
+                <Border BackgroundColor="#1E88E5" StrokeShape="RoundRectangle 20" Padding="20" Margin="0,10,0,0">
+                    <Border.Shadow>
+                        <Shadow Brush="Black"
+                        Offset="20,20"
+                        Radius="40"
+                        Opacity="0.8" />
+                    </Border.Shadow>
+                    <Label Text="Это центр" Style="{StaticResource MainContentLabelStyle}" />
+                </Border>
+                <Border BackgroundColor="#1E88E5" StrokeShape="RoundRectangle 20" Padding="20" Margin="0,10,0,0">
+                    <Border.Shadow>
+                        <Shadow Brush="Black"
+                        Offset="20,20"
+                        Radius="40"
+                        Opacity="0.8" />
+                    </Border.Shadow>
+                    <Label Text="Это центр" Style="{StaticResource MainContentLabelStyle}" />
+                </Border>
             </StackLayout>
         </ScrollView>
 
         <!-- Footer -->
-        <Border Grid.Row="2" BackgroundColor="#2196F3" Padding="0">
-            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Spacing="0">
-                <Button Text="Начать" Style="{StaticResource ButtonStyle}" HorizontalOptions="FillAndExpand" />
-                <Button Text="Настройки" Style="{StaticResource ButtonStyle}" HorizontalOptions="FillAndExpand" />
-                <Button Text="Профиль" Style="{StaticResource ButtonStyle}" HorizontalOptions="FillAndExpand" />
-            </StackLayout>
+        <Border Grid.Row="2" BackgroundColor="#121212" Padding="0">
+            <Grid ColumnDefinitions="*,*,*,*">
+                <ImageButton Source="Resources\Images\map.png" Grid.Column="0" Style="{StaticResource ButtonStyle}" />
+                <ImageButton Source="Resources\Images\avatar.png" Grid.Column="1" Style="{StaticResource ButtonStyle}" />
+                <ImageButton Source="Resources\Images\notif.png" Grid.Column="2" Style="{StaticResource ButtonStyle}" />
+                <ImageButton Source="Resources\Images\settings.png" Grid.Column="3" Style="{StaticResource ButtonStyle}" Clicked="OnSettingsButtonClicked" />
+            </Grid>
         </Border>
     </Grid>
 
 </ContentPage>
+
 

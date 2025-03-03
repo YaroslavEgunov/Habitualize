@@ -50,7 +50,6 @@
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
-		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -60,11 +59,35 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiImage Remove="Resources\Images\avatar.png" />
+	  <MauiImage Remove="Resources\Images\dotnet_bot.png" />
+	  <MauiImage Remove="Resources\Images\find.png" />
+	  <MauiImage Remove="Resources\Images\main.png" />
+	  <MauiImage Remove="Resources\Images\map.png" />
+	  <MauiImage Remove="Resources\Images\notif.png" />
+	  <MauiImage Remove="Resources\Images\settings.png" />
+	  <MauiImage Remove="Resources\Images\settingsPurp.png" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Content Include="Resources\Images\avatar.png" />
+	  <Content Include="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
+	  <Content Include="Resources\Images\find.png" />
+	  <Content Include="Resources\Images\main.png" />
+	  <Content Include="Resources\Images\map.png" />
+	  <Content Include="Resources\Images\notif.png" />
+	  <Content Include="Resources\Images\settings.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="AppSettings.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="NewPage2.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
