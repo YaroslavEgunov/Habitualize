@@ -12,4 +12,9 @@ public partial class AppSettings : ContentPage
     {
         await Navigation.PushAsync(new MainPage());
     }
+
+    private async void OnProfileButtonClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new AppProfile());
+    }
 }
