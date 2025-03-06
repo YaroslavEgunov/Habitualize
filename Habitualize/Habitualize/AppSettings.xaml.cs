@@ -7,4 +7,9 @@ public partial class AppSettings : ContentPage
 		InitializeComponent();
         NavigationPage.SetHasNavigationBar(this, false);
     }
+
+    private async void OnMapButtonClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new MainPage());
+    }
 }

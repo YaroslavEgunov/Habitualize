@@ -20,6 +20,15 @@
         <Setter Property="TextColor" Value="White" />
     </Style>
 
+    <Style x:Key="MainSettingsLabelStyle" TargetType="Label">
+        <Setter Property="FontSize" Value="24" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="HorizontalTextAlignment" Value="Start" />
+        <Setter Property="VerticalTextAlignment" Value="Center" />
+        <Setter Property="Margin" Value="0,10" />
+        <Setter Property="TextColor" Value="White" />
+    </Style>
+
     <Style x:Key="ButtonStyle" TargetType="ImageButton">
         <Setter Property="BackgroundColor" Value="#121212" />
         <Setter Property="CornerRadius" Value="0" />

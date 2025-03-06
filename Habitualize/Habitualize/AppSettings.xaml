@@ -6,68 +6,88 @@
              x:Class="Habitualize.AppSettings"
              Title="AppSettings">
 
-    <Grid RowDefinitions="Auto, *, Auto">
+    <Grid RowDefinitions="Auto,*,Auto">
         <!-- Header -->
-        <Border Grid.Row="0" BackgroundColor="#121212" Padding="10">
-            <Grid ColumnDefinitions="*,*,*,*">
-                <ImageButton Source="Resources\Images\main.png" Grid.Column="0" Style="{StaticResource ButtonStyle}" />
-                <ImageButton Source="Resources\Images\find.png" Grid.Column="3" Style="{StaticResource ButtonStyle}" />
+        <Border Grid.Row="0" BackgroundColor="Transparent" Padding="0" StrokeThickness="1" Stroke="Transparent" HorizontalOptions="End">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <ImageButton Source="Resources\Images\notif.png" Grid.Column="0" Style="{StaticResource ButtonStyle}" />
             </Grid>
         </Border>
 
         <!-- Main Content -->
         <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never">
             <StackLayout Padding="20" Spacing="20">
-                <Label Text="Добро пожаловать в Habitualize!" Style="{StaticResource MainContentLabelStyle}" />
-                <Border BackgroundColor="#1E88E5" StrokeShape="RoundRectangle 20" Padding="20">
-                    <Label Text="Это центр" Style="{StaticResource MainContentLabelStyle}" />
-                </Border>
-                <Border BackgroundColor="#1E88E5" StrokeShape="RoundRectangle 20" Padding="20">
-                    <Label Text="Это центр" Style="{StaticResource MainContentLabelStyle}" />
-                </Border>
-                <Border BackgroundColor="#1E88E5" StrokeShape="RoundRectangle 20" Padding="20">
-                    <Label Text="Это центр" Style="{StaticResource MainContentLabelStyle}" />
-                </Border>
-                <Border BackgroundColor="#1E88E5" StrokeShape="RoundRectangle 20" Padding="20">
-                    <Label Text="Это центр" Style="{StaticResource MainContentLabelStyle}" />
-                </Border>
-                <Border BackgroundColor="#1E88E5" StrokeShape="RoundRectangle 20" Padding="20">
-                    <Label Text="Это центр" Style="{StaticResource MainContentLabelStyle}" />
-                </Border>
-                <Border BackgroundColor="#1E88E5" StrokeShape="RoundRectangle 20" Padding="20">
-                    <Label Text="Это центр" Style="{StaticResource MainContentLabelStyle}" />
-                </Border>
-                <Border BackgroundColor="#1E88E5" StrokeShape="RoundRectangle 20" Padding="20">
-                    <Label Text="Это центр" Style="{StaticResource MainContentLabelStyle}" />
-                </Border>
-                <Border BackgroundColor="#1E88E5" StrokeShape="RoundRectangle 20" Padding="20">
-                    <Label Text="Это центр" Style="{StaticResource MainContentLabelStyle}" />
-                </Border>
-                <Border BackgroundColor="#1E88E5" StrokeShape="RoundRectangle 20" Padding="20">
-                    <Label Text="Это центр" Style="{StaticResource MainContentLabelStyle}" />
-                </Border>
-                <Border BackgroundColor="#1E88E5" StrokeShape="RoundRectangle 20" Padding="20">
-                    <Label Text="Это центр" Style="{StaticResource MainContentLabelStyle}" />
-                </Border>
-                <Border BackgroundColor="#1E88E5" StrokeShape="RoundRectangle 20" Padding="20">
-                    <Label Text="Это центр" Style="{StaticResource MainContentLabelStyle}" />
-                </Border>
-                <Border BackgroundColor="#1E88E5" StrokeShape="RoundRectangle 20" Padding="20">
-                    <Label Text="Это центр" Style="{StaticResource MainContentLabelStyle}" />
-                </Border>
-                <Border BackgroundColor="#1E88E5" StrokeShape="RoundRectangle 20" Padding="20">
-                    <Label Text="Это центр" Style="{StaticResource MainContentLabelStyle}" />
-                </Border>
+                <!-- Settings List -->
+                <StackLayout Padding="10" Spacing="10">
+
+                    <Label Text="General" Style="{StaticResource MainSettingsLabelStyle}" />
+
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <Label Text="Notifications" VerticalOptions="Center" TextColor="White" />
+                        <Switch IsToggled="True" />
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <Label Text="Dark Theme" VerticalOptions="Center" TextColor="White" />
+                        <Switch IsToggled="True" />
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <Label Text="Volume" VerticalOptions="Center" TextColor="White" />
+                        <Switch IsToggled="True" />
+                    </StackLayout>
+
+                    <Label Text="Account" Style="{StaticResource MainSettingsLabelStyle}" />
+                    
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <Label Text="User ID" VerticalOptions="Center" TextColor="White" />
+                        <Label Text="8sdjsl654af8hddb" VerticalOptions="Center" TextColor="White" />
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <Label Text="Logout" VerticalOptions="Center" TextColor="White" />
+                        <Button Text="Logout" TextColor="White" BackgroundColor="#FF0000" />
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <Label Text="Delete Account" VerticalOptions="Center" TextColor="White" />
+                        <Button Text="Delete" TextColor="White" BackgroundColor="#FF0000" />
+                    </StackLayout>
+
+                    <Label Text="About" Style="{StaticResource MainSettingsLabelStyle}" />
+                    
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <Label Text="App Version" VerticalOptions="Center" TextColor="White" />
+                        <Label Text="1.0.0" VerticalOptions="Center" TextColor="White" />
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <Label Text="Privacy Policy" VerticalOptions="Center" TextColor="White" />
+                        <Button Text="View" TextColor="White" BackgroundColor="#1E88E5" />
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <Label Text="Terms and Conditions" VerticalOptions="Center" TextColor="White" />
+                        <Button Text="View" TextColor="White" BackgroundColor="#1E88E5" />
+                    </StackLayout>
+                </StackLayout>
             </StackLayout>
         </ScrollView>
 
         <!-- Footer -->
-        <Border Grid.Row="2" BackgroundColor="#121212" Padding="0">
-            <Grid ColumnDefinitions="*,*,*,*">
+        <Border Grid.Row="2" BackgroundColor="Transparent" Padding="0" StrokeThickness="1" Stroke="Transparent">
+            <Border.Shadow>
+                <Shadow Brush="Black" Offset="20,20" Radius="40" Opacity="0.8" />
+            </Border.Shadow>
+            <Grid ColumnDefinitions="*,*,*,*,*">
                 <ImageButton Source="Resources\Images\map.png" Grid.Column="0" Style="{StaticResource ButtonStyle}" />
                 <ImageButton Source="Resources\Images\avatar.png" Grid.Column="1" Style="{StaticResource ButtonStyle}" />
-                <ImageButton Source="Resources\Images\notif.png" Grid.Column="2" Style="{StaticResource ButtonStyle}" />
-                <ImageButton Source="Resources\Images\settings.png" Grid.Column="3" Style="{StaticResource ButtonStyle}" />
+                <ImageButton Source="Resources\Images\stat.png" Grid.Column="2" Style="{StaticResource ButtonStyle}" />
+                <ImageButton Source="Resources\Images\chest.png" Grid.Column="3" Style="{StaticResource ButtonStyle}" />
+                <ImageButton Source="Resources\Images\settings.png" Grid.Column="4" Style="{StaticResource ButtonStyle}" />
             </Grid>
         </Border>
     </Grid>

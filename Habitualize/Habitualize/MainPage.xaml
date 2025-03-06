@@ -5,105 +5,77 @@
              x:Class="Habitualize.MainPage"
              BackgroundColor="#121212">
 
-    <Grid RowDefinitions="Auto, *, Auto">
+    <Grid RowDefinitions="Auto,*,Auto">
         <!-- Header -->
-        <Border Grid.Row="0" BackgroundColor="#121212" Padding="10">
-            <Grid ColumnDefinitions="*,*,*,*">
-                <ImageButton Source="Resources\Images\main.png" Grid.Column="0" Style="{StaticResource ButtonStyle}" />
-                <ImageButton Source="Resources\Images\find.png" Grid.Column="3" Style="{StaticResource ButtonStyle}" />
+        <Border Grid.Row="0" BackgroundColor="Transparent" Padding="0" StrokeThickness="1" Stroke="Transparent" HorizontalOptions="End">
+            
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <ImageButton Source="Resources\Images\notif.png" Grid.Column="0" Style="{StaticResource ButtonStyle}" />
             </Grid>
+            
         </Border>
 
         <!-- Main Content -->
         <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never">
             <StackLayout Padding="20" Spacing="20">
-                <Label Text="Добро пожаловать в Habitualize!" Style="{StaticResource MainContentLabelStyle}" />
-                <Border BackgroundColor="#1E88E5" StrokeShape="RoundRectangle 20" Padding="20" Margin="0,10,0,0">
-                    <Border.Shadow>
-                        <Shadow Brush="Black"
-                        Offset="20,20"
-                        Radius="40"
-                        Opacity="0.8" />
-                    </Border.Shadow>
-                    <Label Text="Это центр" Style="{StaticResource MainContentLabelStyle}" />
-                </Border>                
-                <Border BackgroundColor="#1E88E5" StrokeShape="RoundRectangle 20" Padding="20" Margin="0,10,0,0">
-                    <Border.Shadow>
-                        <Shadow Brush="Black"
-                        Offset="20,20"
-                        Radius="40"
-                        Opacity="0.8" />
-                    </Border.Shadow>
-                    <Label Text="Это центр" Style="{StaticResource MainContentLabelStyle}" />
-                </Border>                
-                <Border BackgroundColor="#1E88E5" StrokeShape="RoundRectangle 20" Padding="20" Margin="0,10,0,0">
-                    <Border.Shadow>
-                        <Shadow Brush="Black"
-                        Offset="20,20"
-                        Radius="40"
-                        Opacity="0.8" />
-                    </Border.Shadow>
-                    <Label Text="Это центр" Style="{StaticResource MainContentLabelStyle}" />
-                </Border>                
-                <Border BackgroundColor="#1E88E5" StrokeShape="RoundRectangle 20" Padding="20" Margin="0,10,0,0">
-                    <Border.Shadow>
-                        <Shadow Brush="Black"
-                        Offset="20,20"
-                        Radius="40"
-                        Opacity="0.8" />
-                    </Border.Shadow>
-                    <Label Text="Это центр" Style="{StaticResource MainContentLabelStyle}" />
-                </Border>
-                <Border BackgroundColor="#1E88E5" StrokeShape="RoundRectangle 20" Padding="20" Margin="0,10,0,0">
-                    <Border.Shadow>
-                        <Shadow Brush="Black"
-                        Offset="20,20"
-                        Radius="40"
-                        Opacity="0.8" />
-                    </Border.Shadow>
-                    <Label Text="Это центр" Style="{StaticResource MainContentLabelStyle}" />
-                </Border>
-                <Border BackgroundColor="#1E88E5" StrokeShape="RoundRectangle 20" Padding="20" Margin="0,10,0,0">
-                    <Border.Shadow>
-                        <Shadow Brush="Black"
-                        Offset="20,20"
-                        Radius="40"
-                        Opacity="0.8" />
-                    </Border.Shadow>
-                    <Label Text="Это центр" Style="{StaticResource MainContentLabelStyle}" />
-                </Border>
-                <Border BackgroundColor="#1E88E5" StrokeShape="RoundRectangle 20" Padding="20" Margin="0,10,0,0">
-                    <Border.Shadow>
-                        <Shadow Brush="Black"
-                        Offset="20,20"
-                        Radius="40"
-                        Opacity="0.8" />
-                    </Border.Shadow>
-                    <Label Text="Это центр" Style="{StaticResource MainContentLabelStyle}" />
-                </Border>
-                <Border BackgroundColor="#1E88E5" StrokeShape="RoundRectangle 20" Padding="20" Margin="0,10,0,0">
-                    <Border.Shadow>
-                        <Shadow Brush="Black"
-                        Offset="20,20"
-                        Radius="40"
-                        Opacity="0.8" />
-                    </Border.Shadow>
-                    <Label Text="Это центр" Style="{StaticResource MainContentLabelStyle}" />
-                </Border>
+                <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="10" RowSpacing="10">
+                    
+                    <Border Grid.Row="0" Grid.Column="0" BackgroundColor="#04cc51" StrokeShape="RoundRectangle 20" Padding="20" Margin="0,10,0,0">
+                        <Border.Shadow>
+                            <Shadow Brush="Black" Offset="20,20" Radius="40" Opacity="0.8" />
+                        </Border.Shadow>
+                        <Label Text="Plants" Style="{StaticResource MainContentLabelStyle}" />
+                    </Border>
+                    
+                    <Border Grid.Row="0" Grid.Column="1" BackgroundColor="#eb3b3b" StrokeShape="RoundRectangle 20" Padding="20" Margin="0,10,0,0">
+                        <Border.Shadow>
+                            <Shadow Brush="Black" Offset="20,20" Radius="40" Opacity="0.8" />
+                        </Border.Shadow>
+                        <Label Text="Sport" Style="{StaticResource MainContentLabelStyle}" />
+                    </Border>
+                    
+                    <Border Grid.Row="1" Grid.Column="0" BackgroundColor="#9c3d02" StrokeShape="RoundRectangle 20" Padding="20" Margin="0,10,0,0">
+                        <Border.Shadow>
+                            <Shadow Brush="Black" Offset="20,20" Radius="40" Opacity="0.8" />
+                        </Border.Shadow>
+                        <Label Text="Books" Style="{StaticResource MainContentLabelStyle}" />
+                    </Border>
+                    
+                    <Border Grid.Row="1" Grid.Column="1" BackgroundColor="#1E88E5" StrokeShape="RoundRectangle 20" Padding="20" Margin="0,10,0,0">
+                        <Border.Shadow>
+                            <Shadow Brush="Black" Offset="20,20" Radius="40" Opacity="0.8" />
+                        </Border.Shadow>
+                        <Label Text="Chores" Style="{StaticResource MainContentLabelStyle}" />
+                    </Border>
+                    
+                    <Border Grid.Row="2" Grid.Column="0" BackgroundColor="Black" StrokeShape="RoundRectangle 20" Padding="20" Margin="0,10,0,0">
+                        <Border.Shadow>
+                            <Shadow Brush="Black" Offset="20,20" Radius="40" Opacity="0.8" />
+                        </Border.Shadow>
+                        <Label Text="AddSomeSh*t" Style="{StaticResource MainContentLabelStyle}" />
+                    </Border>
+                    
+                </Grid>
             </StackLayout>
         </ScrollView>
 
         <!-- Footer -->
-        <Border Grid.Row="2" BackgroundColor="#121212" Padding="0">
-            <Grid ColumnDefinitions="*,*,*,*">
+        <Border Grid.Row="2" BackgroundColor="Transparent" Padding="0" StrokeThickness="1" Stroke="Transparent">
+            <Border.Shadow>
+                <Shadow Brush="Black" Offset="20,20" Radius="40" Opacity="0.8" />
+            </Border.Shadow>
+            <Grid ColumnDefinitions="*,*,*,*,*">
                 <ImageButton Source="Resources\Images\map.png" Grid.Column="0" Style="{StaticResource ButtonStyle}" />
                 <ImageButton Source="Resources\Images\avatar.png" Grid.Column="1" Style="{StaticResource ButtonStyle}" />
-                <ImageButton Source="Resources\Images\notif.png" Grid.Column="2" Style="{StaticResource ButtonStyle}" />
-                <ImageButton Source="Resources\Images\settings.png" Grid.Column="3" Style="{StaticResource ButtonStyle}" Clicked="OnSettingsButtonClicked" />
+                <ImageButton Source="Resources\Images\stat.png" Grid.Column="2" Style="{StaticResource ButtonStyle}" />
+                <ImageButton Source="Resources\Images\chest.png" Grid.Column="3" Style="{StaticResource ButtonStyle}" />
+                <ImageButton Source="Resources\Images\settings.png" Grid.Column="4" Style="{StaticResource ButtonStyle}" Clicked="OnSettingsButtonClicked" />
             </Grid>
         </Border>
     </Grid>
 
 </ContentPage>
-
 

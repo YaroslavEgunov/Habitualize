@@ -60,13 +60,14 @@
 
 	<ItemGroup>
 	  <MauiImage Remove="Resources\Images\avatar.png" />
-	  <MauiImage Remove="Resources\Images\dotnet_bot.png" />
+	  <MauiImage Remove="Resources\Images\chest.png" />
 	  <MauiImage Remove="Resources\Images\find.png" />
 	  <MauiImage Remove="Resources\Images\main.png" />
 	  <MauiImage Remove="Resources\Images\map.png" />
 	  <MauiImage Remove="Resources\Images\notif.png" />
 	  <MauiImage Remove="Resources\Images\settings.png" />
 	  <MauiImage Remove="Resources\Images\settingsPurp.png" />
+	  <MauiImage Remove="Resources\Images\stat.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -76,15 +77,19 @@
 
 	<ItemGroup>
 	  <Content Include="Resources\Images\avatar.png" />
-	  <Content Include="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
+	  <Content Include="Resources\Images\chest.png" />
 	  <Content Include="Resources\Images\find.png" />
 	  <Content Include="Resources\Images\main.png" />
 	  <Content Include="Resources\Images\map.png" />
 	  <Content Include="Resources\Images\notif.png" />
 	  <Content Include="Resources\Images\settings.png" />
+	  <Content Include="Resources\Images\stat.png" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="AppProfile.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="AppSettings.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
