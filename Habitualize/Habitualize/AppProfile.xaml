@@ -38,6 +38,7 @@
                 HorizontalOptions="Center"
                 Margin="0,20,0,0" />
 
+                
             <!-- Друзья -->
             <Label 
                 Text="Друзья"
