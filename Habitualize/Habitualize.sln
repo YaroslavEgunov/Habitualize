@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35825.156 d17.13
+VisualStudioVersion = 17.13.35825.156
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Habitualize", "Habitualize\Habitualize.csproj", "{ADDC5F6F-A712-4751-A2BC-5B242B4F543C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Habitualize.API", "Habitualize.API\Habitualize.API.csproj", "{943DF8E7-D94C-4B11-B483-74F9A8B8EF29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Habitualize.Core", "Habitualize.Core\Habitualize.Core.csproj", "{07EB78C1-A428-421D-AF92-213A4D58255D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{ADDC5F6F-A712-4751-A2BC-5B242B4F543C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADDC5F6F-A712-4751-A2BC-5B242B4F543C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADDC5F6F-A712-4751-A2BC-5B242B4F543C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{943DF8E7-D94C-4B11-B483-74F9A8B8EF29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{943DF8E7-D94C-4B11-B483-74F9A8B8EF29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{943DF8E7-D94C-4B11-B483-74F9A8B8EF29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{943DF8E7-D94C-4B11-B483-74F9A8B8EF29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07EB78C1-A428-421D-AF92-213A4D58255D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07EB78C1-A428-421D-AF92-213A4D58255D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07EB78C1-A428-421D-AF92-213A4D58255D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07EB78C1-A428-421D-AF92-213A4D58255D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

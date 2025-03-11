@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Habitualize.SignPages.SignUpView"
+             BackgroundColor="#121212">
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!-- Header -->
+        <Border Grid.Row="0" BackgroundColor="Transparent" Padding="0" StrokeThickness="1" Stroke="Transparent" HorizontalOptions="End">
+        </Border>
+
+        <!-- Main Content -->
+        <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never">
+            <StackLayout Padding="20" Spacing="20">
+                <Border Grid.Row="0" Grid.Column="0" BackgroundColor="#7950F2" StrokeShape="RoundRectangle 20" Padding="20" Margin="0,10,0,0">
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Offset="20,20" Radius="40" Opacity="0.8" />
+                    </Border.Shadow>
+                    <StackLayout Spacing="20">
+                        <Entry Text="{Binding Email}" />
+                        <Entry Text="{Binding Username}" />
+                        <Entry IsPassword="True" Text="{Binding Password}" />
+                        <Button Command="{Binding SignUpCommand}" Text="Sign Up" />
+                        <Button Command="{Binding NavigateSignInCommand}" Text="Already have an account? Sign in" />
+                    </StackLayout>
+                </Border>
+            </StackLayout>
+        </ScrollView>
+
+        <!-- Footer -->
+        <Border Grid.Row="2" BackgroundColor="Transparent" Padding="0" StrokeThickness="1" Stroke="Transparent">
+            <Border.Shadow>
+                <Shadow Brush="Black" Offset="20,20" Radius="40" Opacity="0.8" />
+            </Border.Shadow>
+            <Grid ColumnDefinitions="*,*,*,*,*">
+                <ImageButton Source="Resources\Images\map.png" Grid.Column="0" Style="{StaticResource ButtonStyle}" />
+                <ImageButton Source="Resources\Images\avatar.png" Grid.Column="1" Style="{StaticResource ButtonStyle}" />
+                <ImageButton Source="Resources\Images\stat.png" Grid.Column="2" Style="{StaticResource ButtonStyle}" />
+                <ImageButton Source="Resources\Images\chest.png" Grid.Column="3" Style="{StaticResource ButtonStyle}" />
+                <ImageButton Source="Resources\Images\settings.png" Grid.Column="4" Style="{StaticResource ButtonStyle}" />
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,6 @@
+@Habitualize.API_HostAddress = http://localhost:5078
+
+GET {{Habitualize.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
