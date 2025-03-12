@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Habitualize.SignPages;
+using Habitualize.View;
 
 namespace Habitualize.SignPages
 {
@@ -25,12 +28,15 @@ namespace Habitualize.SignPages
         public SignUpViewModel(FirebaseAuthClient authClient)
         {
             _authClient = authClient;
+            LogoutCommand = new RelayCommand(OnLogout);
         }
 
         [RelayCommand]
         private async Task SignUp()
         {
             await _authClient.CreateUserWithEmailAndPasswordAsync(Email, Password, Username);
+
+            Preferences.Set("IsLoggedIn", true);
 
             await Shell.Current.GoToAsync("//SignIn");
         }
@@ -40,5 +46,14 @@ namespace Habitualize.SignPages
         {
             await Shell.Current.GoToAsync("//SignIn");
         }
+
+        private void OnLogout()
+        {
+            _authClient.SignOut();
+            Preferences.Remove("IsLoggedIn");
+            Application.Current.MainPage = new AppShell();
+        }
+
+        public ICommand LogoutCommand { get; }
     }
 }

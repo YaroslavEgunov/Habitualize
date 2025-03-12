@@ -21,7 +21,6 @@
                         <Entry IsPassword="True" Text="{Binding Password}" />
                         <Button Command="{Binding SignInCommand}" Text="Sign In" />
                         <Button Command="{Binding NavigateSignUpCommand}" Text="Need an account? Sign up" />
-                        <Label Margin="0,20,0,0" Text="{Binding Username}" />
                         <Label Margin="0,20,0,0" Text="{Binding HabitualizeMessage}" />
                     </StackLayout>
                 </Border>

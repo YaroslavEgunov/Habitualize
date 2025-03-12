@@ -37,7 +37,7 @@ namespace Habitualize.SignPages
 
             _getHabitualizeQuery.Execute().ContinueWith(response =>
             {
-                HabitualizeMessage = response?.Result?.Message ?? "";
+                //HabitualizeMessage = response?.Result?.Message ?? "";
             });
         }
 
@@ -45,6 +45,11 @@ namespace Habitualize.SignPages
         private async Task SignIn()
         {
             await _authClient.SignInWithEmailAndPasswordAsync(Email, Password);
+
+            Preferences.Set("IsLoggedIn", true);
+            Preferences.Set("Username", Username);
+
+            await Shell.Current.GoToAsync("//MainPage");
 
             OnPropertyChanged(nameof(Username));
         }

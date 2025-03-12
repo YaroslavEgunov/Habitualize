@@ -12,7 +12,14 @@ namespace Habitualize
             //Можешь менять начальную страницу, чтобы проверить что-то
             //MainPage = new NavigationPage(new MainPage());
 
-            MainPage = new AppShell();
+            if (Preferences.Get("IsLoggedIn", false))
+            {
+                MainPage = new NavigationPage(new MainPage());
+            }
+            else
+            {
+                MainPage = new AppShell();
+            }
         }
     }
 }

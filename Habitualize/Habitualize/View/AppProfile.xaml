@@ -21,6 +21,7 @@
 
         <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never">
             <VerticalStackLayout Padding="20">
+                
             <!-- Аватар пользователя с возможностью добавления фотографии -->
             <Border BackgroundColor="Gray" StrokeShape="RoundRectangle 75" HeightRequest="150" WidthRequest="150" HorizontalOptions="Center">
                 <Image Source="default_avatar.png" Aspect="AspectFill" HeightRequest="150" WidthRequest="150">
@@ -32,11 +33,11 @@
 
             <!-- Имя пользователя -->
             <Label 
-                Text="Имя пользователя"
+                Text="{Binding Username}"
                 FontSize="24"
                 VerticalOptions="Center" 
                 HorizontalOptions="Center"
-                Margin="0,20,0,0" />
+                Margin="0,20,0,0"/>
 
                 
             <!-- Друзья -->

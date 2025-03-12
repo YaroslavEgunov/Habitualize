@@ -95,9 +95,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="SignPages\AppRegisterPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="SignPages\SignInView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

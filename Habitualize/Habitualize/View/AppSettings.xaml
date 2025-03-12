@@ -20,6 +20,7 @@
         <!-- Main Content -->
         <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never">
             <StackLayout Padding="20" Spacing="20">
+                
                 <!-- Settings List -->
                 <StackLayout Padding="10" Spacing="10">
 
@@ -49,7 +50,7 @@
 
                     <StackLayout Orientation="Horizontal" Spacing="10">
                         <Label Text="Logout" VerticalOptions="Center" TextColor="White" />
-                        <Button Text="Logout" TextColor="White" BackgroundColor="#FF0000" />
+                        <Button Text="Logout" TextColor="White" BackgroundColor="#FF0000" Command="{Binding LogoutCommand}" />
                     </StackLayout>
 
                     <StackLayout Orientation="Horizontal" Spacing="10">

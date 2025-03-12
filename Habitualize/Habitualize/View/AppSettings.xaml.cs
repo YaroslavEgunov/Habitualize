@@ -1,10 +1,14 @@
+using Habitualize.SignPages;
+using Habitualize.View;
+
 namespace Habitualize;
 
 public partial class AppSettings : ContentPage
 {
-	public AppSettings()
+	public AppSettings(SignUpViewModel viewModel)
 	{
 		InitializeComponent();
+        BindingContext = viewModel;
         NavigationPage.SetHasNavigationBar(this, false);
     }
 
@@ -16,5 +20,11 @@ public partial class AppSettings : ContentPage
     private async void OnProfileButtonClicked(object sender, EventArgs e)
     {
         await Navigation.PushAsync(new AppProfile());
+    }
+
+    private void OnLogoutButtonClicked(object sender, EventArgs e)
+    {
+        Preferences.Remove("IsLoggedIn");
+        Application.Current.MainPage = new AppShell();
     }
 }
