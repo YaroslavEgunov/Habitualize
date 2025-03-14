@@ -6,12 +6,23 @@ using System.Threading.Tasks;
 
 namespace Habitualize.Model
 {
-    class Reading
+    class Reading : HabitTemplate
     {
-        public string BookName { get; set; }
-
-        public int AmountOfPages { get; set; }
-
         public bool BookComplete = false;
+
+        public int PagesInBook 
+        { 
+            get
+            {
+                return PagesInBook;
+            }
+            set
+            {
+                Validator.MoreThanZero(value, nameof(PagesInBook));
+                PagesInBook = value;
+            }
+        }
+
+        public int PagesRead = 0;
     }
 }
