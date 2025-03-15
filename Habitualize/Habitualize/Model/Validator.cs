@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Ignore Spelling: Habitualize Validator
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,14 +10,14 @@ namespace Habitualize.Model
 {
     public static class Validator
     {
-        //public static void TodayDateRequired(DateOnly value, string propertyName)
-        //{
-        //    if (value < DateTime.Today.Date)
-        //    {
-        //        throw new ArgumentException(
-        //            $"{propertyName} can't be already passed date.");
-        //    }
-        //}
+        public static void TodayDateRequired(DateOnly value, string propertyName)
+        {
+            if (value < DateOnly.FromDateTime(DateTime.Today))
+            {
+                throw new ArgumentException(
+                    $"{propertyName} can't be already passed date.");
+            }
+        }
 
         public static void LessThanNCharacters(string value, int n, string propertyName)
         {
@@ -32,6 +34,15 @@ namespace Habitualize.Model
             {
                 throw new ArgumentException(
                     $"{propertyName} can't be less than zero.");
+            }
+        }
+
+        public static void MoreThanDecimal(double value, double n, string propertyName)
+        {
+            if(value < n)
+            {
+                throw new ArgumentException(
+                    $"{propertyName} can't be less than {n}.");
             }
         }
     }

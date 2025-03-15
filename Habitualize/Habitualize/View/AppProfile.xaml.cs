@@ -10,6 +10,11 @@ namespace Habitualize;
 public partial class AppProfile : ContentPage
 {
     public string Username { get; }
+
+    public int Age { get; set; }
+
+    public string Gender { get; set; }
+
     public AppProfile()
 	{
 		InitializeComponent();

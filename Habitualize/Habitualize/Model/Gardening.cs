@@ -1,5 +1,5 @@
-﻿using Android.Content.Res;
-using Android.Icu.Util;
+﻿// Ignore Spelling: Habitualize
+
 using System;
 using System.Collections.Generic;
 using System.Linq;

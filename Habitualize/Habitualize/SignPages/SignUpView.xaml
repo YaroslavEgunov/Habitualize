@@ -17,8 +17,11 @@
                         <Shadow Brush="Black" Offset="20,20" Radius="40" Opacity="0.8" />
                     </Border.Shadow>
                     <StackLayout Spacing="20">
+                        <Label Margin="0,20,0,0" Text="Enter email" />
                         <Entry Text="{Binding Email}" />
+                        <Label Margin="0,20,0,0" Text="Enter username" />
                         <Entry Text="{Binding Username}" />
+                        <Label Margin="0,20,0,0" Text="Enter password" />
                         <Entry IsPassword="True" Text="{Binding Password}" />
                         <Button Command="{Binding SignUpCommand}" Text="Sign Up" />
                         <Button Command="{Binding NavigateSignInCommand}" Text="Already have an account? Sign in" />
@@ -27,7 +30,7 @@
             </StackLayout>
         </ScrollView>
 
-        <!-- Footer -->
+        <!-- Footer --><!--
         <Border Grid.Row="2" BackgroundColor="Transparent" Padding="0" StrokeThickness="1" Stroke="Transparent">
             <Border.Shadow>
                 <Shadow Brush="Black" Offset="20,20" Radius="40" Opacity="0.8" />
@@ -39,6 +42,6 @@
                 <ImageButton Source="Resources\Images\chest.png" Grid.Column="3" Style="{StaticResource ButtonStyle}" />
                 <ImageButton Source="Resources\Images\settings.png" Grid.Column="4" Style="{StaticResource ButtonStyle}" />
             </Grid>
-        </Border>
+        </Border>-->
     </Grid>
 </ContentPage>

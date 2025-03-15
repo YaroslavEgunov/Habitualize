@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Ignore Spelling: Habitualize
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,16 +10,20 @@ namespace Habitualize.Model
 {
     class HabitTemplate
     {
+        private string _habitName;
+
+        private string _habitDescription;
+
         public string HabitName 
         {
             get
             {
-                return HabitName;
+                return _habitName;
             }
             set
             {
                 Validator.LessThanNCharacters(value, 100, nameof(HabitName));
-                HabitName = value;
+                _habitName = value;
             }
         }
 
@@ -25,27 +31,17 @@ namespace Habitualize.Model
         {  
             get
             {
-                return HabitDescription;
+                return _habitDescription;
             }
             set
             {
                 Validator.LessThanNCharacters(value, 300, nameof(HabitDescription));
-                HabitDescription = value;
+                _habitDescription = value;
             }
         }
 
-        public DateOnly HabitStartTime 
-        {
-            get
-            {
-                return HabitStartTime;
-            }
-            set
-            {
-                HabitStartTime = value;
-            }
-        } 
-
+        public DateOnly HabitStartTime = DateOnly.FromDateTime(DateTime.Today);
+      
         public string[] Tasks { get; set; }
 
         public DateOnly RepeatSchedule { get; set; }
