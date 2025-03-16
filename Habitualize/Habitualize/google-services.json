@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "250281391704",
+    "firebase_url": "https://habitualize-249ef-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "habitualize-249ef",
+    "storage_bucket": "habitualize-249ef.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:250281391704:android:21177473a8ec3373aabc2d",
+        "android_client_info": {
+          "package_name": "com.melon.habitualize"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "250281391704-q7nk9e15k4tsbfa9314k6b493jlrgopj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBi_Jdj-_ewg3mWY5t4Ndt9cjv8bHaIm0Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "250281391704-q7nk9e15k4tsbfa9314k6b493jlrgopj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -57,6 +57,11 @@
                         <Label Text="Delete Account" VerticalOptions="Center" TextColor="White" />
                         <Button Text="Delete" TextColor="White" BackgroundColor="#FF0000" />
                     </StackLayout>
+                    
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <Label Text="Token FMC" VerticalOptions="Center" TextColor="White" />
+                        <Button Text="Get" TextColor="White" BackgroundColor="#1E88E5"  Clicked="OnCounterClicked" />
+                    </StackLayout>
 
                     <Label Text="About" Style="{StaticResource MainSettingsLabelStyle}" />
                     
@@ -85,7 +90,7 @@
             </Border.Shadow>
             <Grid ColumnDefinitions="*,*,*,*,*">
                 <ImageButton Source="map.png" Grid.Column="0" Style="{StaticResource ButtonStyle}" Clicked="OnMapButtonClicked"/>
-                <ImageButton Source="Ravatar.png" Grid.Column="1" Style="{StaticResource ButtonStyle}" Clicked="OnProfileButtonClicked" />
+                <ImageButton Source="avatar.png" Grid.Column="1" Style="{StaticResource ButtonStyle}" Clicked="OnProfileButtonClicked" />
                 <ImageButton Source="stat.png" Grid.Column="2" Style="{StaticResource ButtonStyle}" />
                 <ImageButton Source="chest.png" Grid.Column="3" Style="{StaticResource ButtonStyle}" />
                 <ImageButton Source="settings.png" Grid.Column="4" Style="{StaticResource ButtonStyle}" />

@@ -7,24 +7,32 @@ using Habitualize.SignPages;
 using Microsoft.Extensions.Logging;
 using Refit;
 using System.Net.Http.Headers;
+using Plugin.Firebase.CloudMessaging;
+using Microsoft.Maui.LifecycleEvents;
+
+#if IOS
+using Plugin.Firebase.Core.Platforms.iOS;
+#elif ANDROID
+using Plugin.Firebase.Core.Platforms.Android;
+#endif
 
 namespace Habitualize;
 
 public static class MauiProgram
 {
-	public static MauiApp CreateMauiApp()
-	{
-		var builder = MauiApp.CreateBuilder();
-		builder
-			.UseMauiApp<App>()
-			.ConfigureFonts(fonts =>
-			{
-				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-			});
+    public static MauiApp CreateMauiApp()
+    {
+        var builder = MauiApp.CreateBuilder();
+        builder
+            .UseMauiApp<App>()
+            .ConfigureFonts(fonts =>
+            {
+                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+            });
 
 #if DEBUG
-		builder.Logging.AddDebug();
+        builder.Logging.AddDebug();
 #endif
 
         builder.Services.AddSingleton(new FirebaseAuthClient(new FirebaseAuthConfig()
@@ -50,37 +58,57 @@ public static class MauiProgram
                 .AddHttpMessageHandler<FirebaseAuthHttpMessageHandler>();
 
         return builder.Build();
-	}
-}
-
-public class FirebaseAuthHttpMessageHandler : DelegatingHandler
-{
-    private readonly FirebaseAuthClient _authClient;
-
-    public FirebaseAuthHttpMessageHandler(FirebaseAuthClient authClient)
-    {
-        _authClient = authClient;
     }
 
-    protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+    private static MauiAppBuilder RegisterFirebase(this MauiAppBuilder builder)
     {
-        string accessToken = await GetAccessToken();
-
-        if (accessToken != null)
+        builder.ConfigureLifecycleEvents(events =>
         {
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-        }
+#if IOS
+        events.AddiOS(iOS => iOS.FinishedLaunching((app, launchOptions) => {
+            Firebase.Core.App.Configure();
+            return false;
+        }));
+#else
+            events.AddAndroid(android => android.OnCreate((activity, bundle) =>
+            {
+                Firebase.FirebaseApp.InitializeApp(activity);
+            }));
+#endif
+        });
 
-        return await base.SendAsync(request, cancellationToken);
+        return builder;
     }
 
-    private async Task<string> GetAccessToken()
+    public class FirebaseAuthHttpMessageHandler : DelegatingHandler
     {
-        if (_authClient.User == null)
+        private readonly FirebaseAuthClient _authClient;
+
+        public FirebaseAuthHttpMessageHandler(FirebaseAuthClient authClient)
         {
-            return null;
+            _authClient = authClient;
         }
 
-        return await _authClient.User.GetIdTokenAsync();
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            string accessToken = await GetAccessToken();
+
+            if (accessToken != null)
+            {
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            }
+
+            return await base.SendAsync(request, cancellationToken);
+        }
+
+        private async Task<string> GetAccessToken()
+        {
+            if (_authClient.User == null)
+            {
+                return null;
+            }
+
+            return await _authClient.User.GetIdTokenAsync();
+        }
     }
 }

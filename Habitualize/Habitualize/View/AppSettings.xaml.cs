@@ -1,5 +1,6 @@
 using Habitualize.SignPages;
 using Habitualize.View;
+using Plugin.Firebase.CloudMessaging;
 
 namespace Habitualize;
 
@@ -26,5 +27,12 @@ public partial class AppSettings : ContentPage
     {
         Preferences.Remove("IsLoggedIn");
         Application.Current.MainPage = new AppShell();
+    }
+
+    private async void OnCounterClicked(object sender, EventArgs e)
+    {
+        await CrossFirebaseCloudMessaging.Current.CheckIfValidAsync();
+        var token = await CrossFirebaseCloudMessaging.Current.GetTokenAsync();
+        Console.WriteLine($"FCM token: {token}");
     }
 }

@@ -58,14 +58,13 @@
                         </Border.Shadow>
                         <Label Text="AddSomeSh*t" Style="{StaticResource MainContentLabelStyle}" />
                     </Border>
-                    
+
                     <Border Grid.Row="2" Grid.Column="1" BackgroundColor="DarkGoldenrod" StrokeShape="RoundRectangle 20" Padding="20" Margin="0,10,0,0">
                         <Border.Shadow>
                             <Shadow Brush="Black" Offset="20,20" Radius="40" Opacity="0.8" />
                         </Border.Shadow>
                         <Label Text="𓆝 𓆟 𓆞 𓆝 𓆟" Style="{StaticResource MainContentLabelStyle}" />
                     </Border>
-                    
                 </Grid>
             </StackLayout>
         </ScrollView>
@@ -80,7 +79,7 @@
                 <ImageButton Source="avatar.png" Grid.Column="1" Style="{StaticResource ButtonStyle}"  Clicked="OnProfileButtonClicked" />
                 <ImageButton Source="stat.png" Grid.Column="2" Style="{StaticResource ButtonStyle}" />
                 <ImageButton Source="chest.png" Grid.Column="3" Style="{StaticResource ButtonStyle}" />
-                <ImageButton Source="settings.png" Grid.Column="4" Style="{StaticResource ButtonStyle}" Clicked="OnSettingsButtonClicked" />
+                <ImageButton Source="settings.png" Grid.Column="4" Style="{StaticResource ButtonStyle}"  Clicked="OnSettingsButtonClicked"/>
             </Grid>
         </Border>
     </Grid>

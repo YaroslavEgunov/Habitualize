@@ -2,6 +2,8 @@
 using Firebase.Auth.Repository;
 using Firebase.Auth;
 using Habitualize.SignPages;
+using Plugin.Firebase.CloudMessaging;
+using FirebaseAdmin;
 
 namespace Habitualize
 {
@@ -33,5 +35,4 @@ namespace Habitualize
             await Navigation.PushAsync(new AppProfile());
         }
     }
-
 }
