@@ -9,21 +9,20 @@ using System.Threading.Tasks;
 
 namespace Habitualize.Model
 {
-    class Gardening : HabitTemplate
+    public class Gardening : HabitTemplate
     {
+        private Image _plantImage;
+
         public Image PlantImage
         {
-            get
-            {
-                return PlantImage;
-            }
+            get => _plantImage;
             set
             {
                 if (value.Source.IsEmpty)
                 {
-                    PlantImage.Source = ImageSource.FromResource("Resources\\Images\\kridisome.png");
+                    value.Source = ImageSource.FromResource("kridisome.png");
                 }
-                PlantImage = value;
+                _plantImage = value;
             }
         }
 

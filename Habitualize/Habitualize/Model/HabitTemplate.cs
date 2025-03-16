@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Habitualize.Model
 {
-    class HabitTemplate
+    public class HabitTemplate
     {
         private string _habitName;
 
@@ -16,10 +16,7 @@ namespace Habitualize.Model
 
         public string HabitName 
         {
-            get
-            {
-                return _habitName;
-            }
+            get => _habitName;
             set
             {
                 Validator.LessThanNCharacters(value, 100, nameof(HabitName));
@@ -28,11 +25,8 @@ namespace Habitualize.Model
         }
 
         public string HabitDescription 
-        {  
-            get
-            {
-                return _habitDescription;
-            }
+        {
+            get => _habitDescription;
             set
             {
                 Validator.LessThanNCharacters(value, 300, nameof(HabitDescription));

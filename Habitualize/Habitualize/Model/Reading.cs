@@ -8,16 +8,15 @@ using System.Threading.Tasks;
 
 namespace Habitualize.Model
 {
-    class Reading : HabitTemplate
+    public class Reading : HabitTemplate
     {
+        private int _pagesInBook;
+
         public bool BookComplete = false;
 
         public int PagesInBook 
-        { 
-            get
-            {
-                return PagesInBook;
-            }
+        {
+            get => _pagesInBook;
             set
             {
                 Validator.MoreThanZero(value, nameof(PagesInBook));

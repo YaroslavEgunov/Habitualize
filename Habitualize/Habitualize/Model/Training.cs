@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Habitualize.Model
 {
-    class Training : HabitTemplate
+    public class Training : HabitTemplate
     {
         private double _weightTarget;
 
@@ -18,22 +18,17 @@ namespace Habitualize.Model
 
         public double WeightTarget
         {
-            get
-            {
-                return _weightTarget;
-            }
+            get => _weightTarget;
             set
             {
+                Validator.MoreThanDecimal(value, 0, nameof(WeightTarget));
                 _weightTarget = value;
             }
         }
 
         public double BodyFatPercentTarget
         {
-            get
-            {
-                return _bodyFatPercentTarget;
-            }
+            get => _bodyFatPercentTarget;
             set
             {
                 //minimal body fat% for human to live is 5%, less isn't healthy

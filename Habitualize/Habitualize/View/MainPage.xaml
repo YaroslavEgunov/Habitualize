@@ -28,7 +28,8 @@
                         <Border.Shadow>
                             <Shadow Brush="Black" Offset="20,20" Radius="40" Opacity="0.8" />
                         </Border.Shadow>
-                        <Label Text="Plants" Style="{StaticResource MainContentLabelStyle}" />
+                        <!--<Label Text="Plants" Style="{StaticResource MainContentLabelStyle}" />-->
+                        <Button Text="PLANTS" Clicked="OnPlantsButtonClicked" />
                     </Border>
                     
                     <Border Grid.Row="0" Grid.Column="1" BackgroundColor="#eb3b3b" StrokeShape="RoundRectangle 20" Padding="20" Margin="0,10,0,0">
