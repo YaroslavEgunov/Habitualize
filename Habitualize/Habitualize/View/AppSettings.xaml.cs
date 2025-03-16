@@ -8,8 +8,8 @@ public partial class AppSettings : ContentPage
 	public AppSettings(SignUpViewModel viewModel)
 	{
 		InitializeComponent();
-        BindingContext = viewModel;
         NavigationPage.SetHasNavigationBar(this, false);
+        BindingContext = viewModel;
     }
 
     private async void OnMapButtonClicked(object sender, EventArgs e)
