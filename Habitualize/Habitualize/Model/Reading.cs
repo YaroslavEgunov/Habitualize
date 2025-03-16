@@ -10,7 +10,7 @@ namespace Habitualize.Model
 {
     public class Reading : HabitTemplate
     {
-        private int _pagesInBook;
+        private int _pagesInBook = 1;
 
         public bool BookComplete = false;
 
@@ -20,7 +20,7 @@ namespace Habitualize.Model
             set
             {
                 Validator.MoreThanZero(value, nameof(PagesInBook));
-                PagesInBook = value;
+                _pagesInBook = value;
             }
         }
 

@@ -4,6 +4,9 @@ using Firebase.Auth;
 using Habitualize.SignPages;
 using Plugin.Firebase.CloudMessaging;
 using FirebaseAdmin;
+using Habitualize.Services;
+using Habitualize.Model;
+using Habitualize.View;
 
 namespace Habitualize
 {

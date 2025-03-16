@@ -18,10 +18,17 @@ namespace Habitualize.Model
             get => _plantImage;
             set
             {
-                if (value.Source.IsEmpty)
-                {
-                    value.Source = ImageSource.FromResource("kridisome.png");
-                }
+                //if (value == null)
+                //{
+                //    _plantImage.Source = ImageSource.FromResource("kridisome.png");
+                //    return;
+                //}
+
+                //if (value.Source.IsEmpty && value != null)
+                //{
+                //    value.Source = ImageSource.FromResource("kridisome.png");
+                //    _plantImage = value;
+                //}
                 _plantImage = value;
             }
         }

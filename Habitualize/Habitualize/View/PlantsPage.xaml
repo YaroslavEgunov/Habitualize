@@ -8,7 +8,7 @@
         <ListView x:Name="HabitListView">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding Name}" Detail="{Binding Description}" />
+                    <TextCell Text="{Binding HabitName}" Detail="{Binding HabitDescription}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

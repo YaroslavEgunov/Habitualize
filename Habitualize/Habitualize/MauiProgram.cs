@@ -60,25 +60,26 @@ public static class MauiProgram
         return builder.Build();
     }
 
-    private static MauiAppBuilder RegisterFirebase(this MauiAppBuilder builder)
-    {
-        builder.ConfigureLifecycleEvents(events =>
-        {
-#if IOS
-        events.AddiOS(iOS => iOS.FinishedLaunching((app, launchOptions) => {
-            Firebase.Core.App.Configure();
-            return false;
-        }));
-#else
-            events.AddAndroid(android => android.OnCreate((activity, bundle) =>
-            {
-                Firebase.FirebaseApp.InitializeApp(activity);
-            }));
-#endif
-        });
 
-        return builder;
-    }
+//    private static MauiAppBuilder RegisterFirebase(this MauiAppBuilder builder)
+//    {
+//        builder.ConfigureLifecycleEvents(events =>
+//        {
+//#if IOS
+//        events.AddiOS(iOS => iOS.FinishedLaunching((app, launchOptions) => {
+//            Firebase.Core.App.Configure();
+//            return false;
+//        }));
+//#else
+//            events.AddAndroid(android => android.OnCreate((activity, bundle) =>
+//            {
+//                Firebase.FirebaseApp.InitializeApp(activity);
+//            }));
+//#endif
+//        });
+
+//        return builder;
+//    }
 
     public class FirebaseAuthHttpMessageHandler : DelegatingHandler
     {

@@ -14,7 +14,6 @@ namespace Habitualize.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PlantsPage : ContentPage
     {
-
         public PlantsPage(List<Gardening> data)
         {
             InitializeComponent();

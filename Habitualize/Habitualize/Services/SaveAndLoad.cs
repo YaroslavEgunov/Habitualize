@@ -9,7 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
 using System.Threading.Tasks;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Habitualize.Services
 {
@@ -28,14 +27,20 @@ namespace Habitualize.Services
         }
         public async Task SaveHabits(List<HabitTemplate> habits)
         {
-            string json = JsonSerializer.Serialize(habits);
+            string json = JsonConvert.SerializeObject(habits, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
             await SaveToFile("Habitualize.json", json);
         }
 
         public async Task<List<HabitTemplate>> LoadHabits()
         {
             string json = await LoadFromFile("Habitualize.json");
-            return JsonSerializer.Deserialize<List<HabitTemplate>>(json);
+            return JsonConvert.DeserializeObject<List<HabitTemplate>>(json, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
         }
     }
 }

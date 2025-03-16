@@ -10,9 +10,9 @@ namespace Habitualize.Model
 {
     public class Training : HabitTemplate
     {
-        private double _weightTarget;
+        private double _weightTarget = 1;
 
-        private double _bodyFatPercentTarget;
+        private double _bodyFatPercentTarget = 0.15;
 
         public int TotalDaysSkipped = 0;
 
