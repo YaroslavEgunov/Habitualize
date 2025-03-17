@@ -44,6 +44,11 @@ public partial class AppProfile : ContentPage
         await Navigation.PushAsync(new AppSettings(new SignUpViewModel(authClient)));
     }
 
+    private async void OnScheduleButtonClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new AppSchedule());
+    }
+
     private async void OnMapButtonClicked(object sender, EventArgs e)
     {
         await Navigation.PushAsync(new MainPage());

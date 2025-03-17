@@ -2,13 +2,38 @@
 <?xaml-comp compile="true" ?>
 <ResourceDictionary 
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cal="clr-namespace:Plugin.Maui.Calendar.Controls;assembly=Plugin.Maui.Calendar">
 
     <Style x:Key="HeaderFooterLabelStyle" TargetType="Label">
         <Setter Property="FontSize" Value="20" />
         <Setter Property="TextColor" Value="White" />
         <Setter Property="HorizontalOptions" Value="Center" />
         <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+
+    <Style x:Key="CalendarStyle" TargetType="cal:Calendar">
+        <Setter Property="ArrowsBorderWidth" Value="10" />
+        <Setter Property="ArrowsBorderColor" Value="#121212" />
+        <Setter Property="MonthLabelColor" Value="#7950F2" />
+        <Setter Property="OtherMonthDayColor" Value="Gray" />
+        <Setter Property="WeekendDayColor" Value="Red" />
+        <Setter Property="FirstDayOfWeek" Value="Monday" />
+        <Setter Property="TodayTextColor" Value="White" />
+        <Setter Property="TodayFillColor" Value="Transparent" />
+        <Setter Property="TodayOutlineColor" Value="#7950F2" />
+        <Setter Property="DaysTitleColor" Value="White" />
+        <Setter Property="DaysTitleWeekendColor" Value="Red" />
+        <Setter Property="DeselectedDayTextColor" Value="White" />
+        <Setter Property="EventIndicatorTextColor" Value="#7950F2" />
+        <Setter Property="EventIndicatorColor" Value="#A9D3FF" />
+        <Setter Property="EventIndicatorSelectedColor" Value="White" />
+        <Setter Property="EventIndicatorSelectedTextColor" Value="#7950F2" />
+        <Setter Property="SelectedDateColor" Value="#7950F2" />
+        <Setter Property="SelectedDayBackgroundColor" Value="Black" />
+        <Setter Property="SelectedDayTextColor" Value="White" />
+        <Setter Property="SwipeToChangeMonthEnabled" Value="True" />
+        <Setter Property="ShowYearPicker" Value="False" />
     </Style>
 
     <Style x:Key="MainContentLabelStyle" TargetType="Label">

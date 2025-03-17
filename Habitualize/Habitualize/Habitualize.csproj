@@ -73,6 +73,7 @@
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
 		<PackageReference Include="Plugin.Firebase.CloudMessaging" Version="3.1.2" />
+		<PackageReference Include="Plugin.Maui.Calendar" Version="1.2.6" />
 		<PackageReference Include="Refit" Version="8.0.0" />
 		<PackageReference Include="Refit.HttpClientFactory" Version="8.0.0" />
 	</ItemGroup>
@@ -83,6 +84,12 @@
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0-android'">
 		<GoogleServicesJson Include="google-services.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="View\AppSchedule.xaml.cs">
+	    <DependentUpon>AppSchedule.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 	
 	<ItemGroup>
@@ -105,6 +112,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\AppShell.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\AppSchedule.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

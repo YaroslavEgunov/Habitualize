@@ -23,6 +23,11 @@ public partial class AppSettings : ContentPage
         await Navigation.PushAsync(new AppProfile());
     }
 
+    private async void OnScheduleButtonClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new AppSchedule());
+    }
+
     private void OnLogoutButtonClicked(object sender, EventArgs e)
     {
         Preferences.Remove("IsLoggedIn");
