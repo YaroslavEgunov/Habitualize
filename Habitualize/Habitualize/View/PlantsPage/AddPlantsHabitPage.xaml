@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage  xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Habitualize.View.AddPlantsHabitPage">
+    <ContentPage.Content>
+        <StackLayout Padding="20">
+        <Label Text="Plant Name:" />
+        <Entry Text="{Binding HabitName}" />
+        <Label Text="Description:" />
+        <Editor Text="{Binding HabitDescription}" HeightRequest="60" />
+        <Label Text="Plant Image:" />
+        <Image Source="{Binding PlantImage}" WidthRequest="100" HeightRequest="100" />
+        <Button Text="Pick Image" Clicked="OnSelectImageClicked" />
+        <Label Text="Additional Tasks:" />
+        <ListView ItemsSource="{Binding Tasks}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding .}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Entry Text="{Binding NewTask}" Placeholder="Enter new task" />
+            <Button Text="Add Task" Clicked="OnAddTaskButtonClicked" />
+
+        <Label Text="Watering Schedule:" />
+        <DatePicker Date="{Binding RepeatSchedule}" />
+        
+            <Button Text="Add" Clicked="OnAddButtonClicked" />
+            <Button Text="Cancel" Clicked="OnCancelButtonClicked" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

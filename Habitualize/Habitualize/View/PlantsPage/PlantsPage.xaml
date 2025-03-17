@@ -4,7 +4,7 @@
              x:Class="Habitualize.View.PlantsPage">
     
     <StackLayout Padding="20">
-        <Label Text="Список привычек" FontSize="24" />
+        <Label Text="Plants List:" FontSize="24" />
         <ListView x:Name="HabitListView">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -12,6 +12,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Text="Назад" Clicked="OnBackButtonClicked" />
+        <Button Text="Add Habit" Clicked="OnCreatePlantHabitButtonClicked"/>
+        <Button Text="Back" Clicked="OnBackButtonClicked" />
     </StackLayout>
 </ContentPage>

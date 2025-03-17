@@ -33,8 +33,12 @@ namespace Habitualize.View
 
         private async void OnBackButtonClicked(object sender, EventArgs e)
         {
-            //await Shell.Current.GoToAsync("MainPage");
             await Navigation.PopAsync();
+        }
+
+        private async void OnCreatePlantHabitButtonClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new AddPlantsHabitPage());
         }
 
         //private async void OnSaveHabitClicked(object sender, EventArgs e)

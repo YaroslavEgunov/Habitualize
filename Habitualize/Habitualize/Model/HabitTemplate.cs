@@ -2,13 +2,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Habitualize.Model
 {
-    public class HabitTemplate
+    public class HabitTemplate : INotifyPropertyChanged
     {
         private string _habitName;
 
@@ -36,12 +37,19 @@ namespace Habitualize.Model
 
         public DateOnly HabitStartTime = DateOnly.FromDateTime(DateTime.Today);
       
-        public string[] Tasks { get; set; }
+        public List<string> Tasks { get; set; }
 
         public DateOnly RepeatSchedule { get; set; }
 
         public int TotalDaysDone = 0;
 
         public TimeOnly TotalTimeSpentOnHabit;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }
