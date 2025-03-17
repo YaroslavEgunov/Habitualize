@@ -18,7 +18,7 @@ namespace Habitualize
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
-            InitialData();
+            //InitialData();
         }
 
         private async void InitialData()

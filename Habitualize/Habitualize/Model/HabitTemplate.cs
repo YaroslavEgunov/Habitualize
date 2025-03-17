@@ -35,15 +35,15 @@ namespace Habitualize.Model
             }
         }
 
-        public DateOnly HabitStartTime = DateOnly.FromDateTime(DateTime.Today);
+        public DateOnly HabitStartTime { get; set; }
       
         public List<string> Tasks { get; set; }
 
         public DateOnly RepeatSchedule { get; set; }
 
-        public int TotalDaysDone = 0;
+        public int TotalDaysDone { get; set; }
 
-        public TimeOnly TotalTimeSpentOnHabit;
+        public TimeOnly TotalTimeSpentOnHabit { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
