@@ -29,9 +29,9 @@ namespace Habitualize
         {
             var habits = new List<HabitTemplate>
             {
-                new Gardening { HabitName = "Уход за растениями", HabitDescription = "Полив и удобрение"},
-                new Reading { HabitName = "Чтение книг", HabitDescription = "Читать 20 страниц в день",},
-                new Training { HabitName = "Фитнес", HabitDescription = "Тренироваться 3 раза в неделю"}
+                new Gardening { HabitName = "Уход за растениями", HabitDescription = "Поливать"},
+                new Reading { HabitName = "Чтение книг", HabitDescription = "Читать",},
+                new Training { HabitName = "Фитнес", HabitDescription = "Тренироваться"}
             };
             await SavingLoadingSystem.SaveHabits(habits);
         }

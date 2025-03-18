@@ -27,6 +27,7 @@ namespace Habitualize.Services
             var filePath = Path.Combine(FileSystem.AppDataDirectory, fileName);
             return await File.ReadAllTextAsync(filePath);
         }
+
         public async Task SaveHabits(List<HabitTemplate> habits)
         {
             string json = JsonConvert.SerializeObject(habits, new JsonSerializerSettings

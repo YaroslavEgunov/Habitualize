@@ -20,9 +20,9 @@
 
         <!-- Main Content -->
         <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never">
-            <StackLayout Padding="20" Spacing="20">
-                <Grid ColumnDefinitions="20,*,20" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="10" RowSpacing="10">
-                    <cal:Calendar Events="{Binding Events}" EventsScrollViewVisible="True"  Grid.Column="1" Style="{StaticResource CalendarStyle}">
+            <!--<StackLayout Padding="20" Spacing="20">
+                <Grid ColumnDefinitions="20,*,20" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="10" RowSpacing="10">-->
+                    <!--<cal:Calendar Events="{Binding Events}" EventsScrollViewVisible="True"  Grid.Column="1" Style="{StaticResource CalendarStyle}">
                         <cal:Calendar.EventTemplate>
                             <DataTemplate>
                                 <VerticalStackLayout>
@@ -33,9 +33,27 @@
                         </cal:Calendar.EventTemplate>
                         
                         
-                    </cal:Calendar>
-                </Grid>
-            </StackLayout>
+                    </cal:Calendar>-->
+                    <VerticalStackLayout>
+                        <Label Text="Календарь привычек" FontSize="24" HorizontalOptions="Center" />
+
+                        <cal:Calendar x:Name="HabitCalendar" MinimumDate="{Binding CurrentDate}" SelectedDate="{Binding SelectedDate}" Style="{StaticResource CalendarStyle}"/>
+
+                        <CollectionView x:Name="HabitCollectionView">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                            <Border StrokeShape="RoundRectangle 10" Margin="15" Padding="5" BackgroundColor="MediumPurple">
+                                <StackLayout>
+                                    <Label Text="{Binding HabitName}" FontSize="18" />
+                                    <Label Text="{Binding HabitDescription}" FontSize="14" />
+                                </StackLayout>
+                            </Border>
+                        </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                <!--</Grid>
+            </StackLayout>-->
         </ScrollView>
 
         <!-- Footer -->
