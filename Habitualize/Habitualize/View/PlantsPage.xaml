@@ -15,7 +15,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Text="Add Habit" Clicked="OnCreatePlantHabitButtonClicked" Style="{StaticResource HabitsButtonStyle}"/>
+        <Button Text="Add Plant" Clicked="OnCreatePlantHabitButtonClicked" Style="{StaticResource HabitsButtonStyle}"/>
         <Button Text="Back" Clicked="OnBackButtonClicked" Style="{StaticResource HabitsButtonStyle}" />
     </StackLayout>
 </ContentPage>
