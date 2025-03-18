@@ -75,11 +75,11 @@ namespace Habitualize
         //    await Navigation.PushAsync(new SportPage(trainingHabits));
         //}
 
-        //private async void OnBooksButtonClicked(object sender, EventArgs e)
-        //{
-        //    var data = await SavingLoadingSystem.LoadHabits();
-        //    var trainingHabits = data.OfType<Training>().ToList();
-        //    await Navigation.PushAsync(new BooksPage(trainingHabits));
-        //}
+        private async void OnBooksButtonClicked(object sender, EventArgs e)
+        {
+            var data = await SavingLoadingSystem.LoadHabits();
+            var readingHabits = data.OfType<Reading>().ToList();
+            await Navigation.PushAsync(new BooksPage(readingHabits));
+        }
     }
 }

@@ -28,7 +28,7 @@ public partial class AddPlantsPage : ContentPage
         if (string.IsNullOrWhiteSpace(HabitNameEntry.Text) || string.IsNullOrWhiteSpace(HabitDescriptionEntry.Text))
         {
             await DisplayAlert("Nuh uh!", "Please enter plant name and description", "Sowwy...");
-            return; // Прерываем выполнение метода
+            return; 
         }
         var existingHabits = await MainPage.SavingLoadingSystem.LoadHabits();
         existingHabits.Add(CurrentPlant);

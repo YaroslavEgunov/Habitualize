@@ -13,7 +13,17 @@ namespace Habitualize.Model
 {
     public class Gardening : HabitTemplate
     {
-        public bool PlantIsWatered { get; set; }
+        private bool _plantIsWatered = false;
+
+        public bool PlantIsWatered
+        {
+            get => _plantIsWatered;
+            set
+            {
+                _plantIsWatered = value;
+                OnPropertyChanged(nameof(PlantIsWatered));
+            }
+        }
 
     }
 }
