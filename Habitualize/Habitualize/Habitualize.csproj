@@ -95,8 +95,6 @@
 	    <DependentUpon>AppSchedule.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
-	  </Compile>
-	</ItemGroup>
 	
 	<ItemGroup>
 	  <MauiXaml Update="SignPages\SignInView.xaml">
