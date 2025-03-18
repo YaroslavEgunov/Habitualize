@@ -21,10 +21,11 @@
         </ListView>
 
         <Label Text="Watering Schedule:" Style="{StaticResource HabitsLabelStyle}" />
-        <DatePicker Date="{Binding RepeatSchedule}" IsEnabled="False" Format="d" />
+        <DatePicker x:Name="DatePick" Date="{Binding RepeatSchedule}" IsEnabled="False" Format="d" />
         <Label Text="Is plant watered?" Style="{StaticResource HabitsLabelStyle}" />
         <Switch IsToggled="{Binding PlantIsWatered, Mode=TwoWay}" />
         <Button Text="Confirm" Clicked="OnConfirmButtonClicked" Style="{StaticResource HabitsButtonStyle}" />
+        <Button Text="Delete" Clicked="OnDeleteButtonClicked" Style="{StaticResource HabitsButtonStyle}" BackgroundColor="Red" />
         <Button Text="Cancel" Clicked="OnCancelButtonClicked" Style="{StaticResource HabitsButtonStyle}" />
     </StackLayout>
 </ContentPage>
