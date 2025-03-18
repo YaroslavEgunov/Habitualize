@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cal="clr-namespace:Plugin.Maui.Calendar.Controls;assembly=Plugin.Maui.Calendar"
+             x:Class="Habitualize.View.AppSchedule"
+             BackgroundColor="#121212">
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!-- Header -->
+        <Border Grid.Row="0" BackgroundColor="Transparent" Padding="0" StrokeThickness="1" Stroke="Transparent" HorizontalOptions="End">
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <ImageButton Source="notif.png" Grid.Column="0" Style="{StaticResource ButtonStyle}" />
+            </Grid>
+
+        </Border>
+
+        <!-- Main Content -->
+        <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never">
+            <StackLayout Padding="20" Spacing="20">
+                <Grid ColumnDefinitions="20,*,20" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="10" RowSpacing="10">
+                    <cal:Calendar Events="{Binding Events}" EventsScrollViewVisible="True"  Grid.Column="1" Style="{StaticResource CalendarStyle}">
+                        <cal:Calendar.EventTemplate>
+                            <DataTemplate>
+                                <VerticalStackLayout>
+                                    <Label Text="{Binding Name}" FontSize="25"/>
+                                    <Label Text="{Binding Description}"  />
+                                </VerticalStackLayout>
+                            </DataTemplate>
+                        </cal:Calendar.EventTemplate>
+                        
+                        
+                    </cal:Calendar>
+                </Grid>
+            </StackLayout>
+        </ScrollView>
+
+        <!-- Footer -->
+        <Border Grid.Row="2" BackgroundColor="Transparent" Padding="0" StrokeThickness="1" Stroke="Transparent">
+            <Border.Shadow>
+                <Shadow Brush="Black" Offset="20,20" Radius="40" Opacity="0.8" />
+            </Border.Shadow>
+            <Grid ColumnDefinitions="*,*,*,*,*">
+                <ImageButton Source="map.png" Grid.Column="0" Style="{StaticResource ButtonStyle}" Clicked="OnMapButtonClicked" />
+                <ImageButton Source="avatar.png" Grid.Column="1" Style="{StaticResource ButtonStyle}"  Clicked="OnProfileButtonClicked" />
+                <ImageButton Source="schedule.png" Grid.Column="2" Style="{StaticResource ButtonStyle}" />
+                <ImageButton Source="chest.png" Grid.Column="3" Style="{StaticResource ButtonStyle}" />
+                <ImageButton Source="settings.png" Grid.Column="4" Style="{StaticResource ButtonStyle}"  Clicked="OnSettingsButtonClicked"/>
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

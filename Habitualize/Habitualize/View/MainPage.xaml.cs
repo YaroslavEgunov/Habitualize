@@ -56,6 +56,11 @@ namespace Habitualize
             await Navigation.PushAsync(new AppProfile());
         }
 
+        private async void OnScheduleButtonClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new AppSchedule());
+        }
+
         private async void OnPlantsButtonClicked(object sender, EventArgs e)
         {
             var data = await SavingLoadingSystem.LoadHabits(); // Загружаем привычки

@@ -87,7 +87,7 @@
             <Grid ColumnDefinitions="*,*,*,*,*">
                 <ImageButton Source="map.png" Grid.Column="0" Style="{StaticResource ButtonStyle}" Clicked="OnMapButtonClicked"/>
                 <ImageButton Source="avatar.png" Grid.Column="1" Style="{StaticResource ButtonStyle}" />
-                <ImageButton Source="stat.png" Grid.Column="2" Style="{StaticResource ButtonStyle}" />
+                <ImageButton Source="schedule.png" Grid.Column="2" Style="{StaticResource ButtonStyle}" Clicked="OnScheduleButtonClicked"/>
                 <ImageButton Source="chest.png" Grid.Column="3" Style="{StaticResource ButtonStyle}" />
                 <ImageButton Source="settings.png" Grid.Column="4" Style="{StaticResource ButtonStyle}" Clicked="OnSettingsButtonClicked"/>
             </Grid>
