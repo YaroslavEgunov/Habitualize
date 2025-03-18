@@ -10,33 +10,38 @@ namespace Habitualize.Model
 {
     public class Training : HabitTemplate
     {
-        private double _weightTarget = 1;
+        private string _targetWeight = "";
 
-        private double _bodyFatPercentTarget = 0.15;
+        private string _currentWeight = "";
 
-        public int TotalDaysSkipped = 0;
+        private bool _trainingComplete = false;
 
-        public double WeightTarget
+        public string TargetWeight
         {
-            get => _weightTarget;
+            get => _targetWeight;
             set
             {
-                Validator.MoreThanDecimal(value, 0, nameof(WeightTarget));
-                _weightTarget = value;
+                _targetWeight = value;
             }
         }
 
-        public double BodyFatPercentTarget
+        public string CurrentWeight
         {
-            get => _bodyFatPercentTarget;
+            get => _currentWeight;
             set
             {
-                //minimal body fat% for human to live is 5%, less isn't healthy
-                Validator.MoreThanDecimal(value, 0.05, nameof(WeightTarget));
-                _bodyFatPercentTarget = value;
+                _currentWeight = value;
             }
         }
 
-
+        public bool TrainingComplete
+        {
+            get => _trainingComplete;
+            set
+            {
+                OnPropertyChanged(nameof(TrainingComplete));
+                _trainingComplete = value;
+            }
+        }
     }
 }

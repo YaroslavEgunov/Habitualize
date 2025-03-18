@@ -4,7 +4,6 @@ namespace Habitualize.View;
 
 public partial class BooksPage : ContentPage
 {
-
     public BooksPage(List<Reading> data)
 	{
 		InitializeComponent();
@@ -33,4 +32,5 @@ public partial class BooksPage : ContentPage
             HabitListView.SelectedItem = null;
         }
     }
+
 }

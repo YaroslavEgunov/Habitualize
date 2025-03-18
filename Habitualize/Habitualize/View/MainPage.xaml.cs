@@ -68,12 +68,12 @@ namespace Habitualize
             await Navigation.PushAsync(new PlantsPage(gardeningHabits)); // Передаем список привычек на вторую страницу
         }
 
-        //private async void OnSportButtonClicked(object sender, EventArgs e)
-        //{
-        //    var data = await SavingLoadingSystem.LoadHabits();
-        //    var trainingHabits = data.OfType<Training>().ToList();
-        //    await Navigation.PushAsync(new SportPage(trainingHabits));
-        //}
+        private async void OnSportButtonClicked(object sender, EventArgs e)
+        {
+            var data = await SavingLoadingSystem.LoadHabits();
+            var trainingHabits = data.OfType<Training>().ToList();
+            await Navigation.PushAsync(new SportPage(trainingHabits));
+        }
 
         private async void OnBooksButtonClicked(object sender, EventArgs e)
         {

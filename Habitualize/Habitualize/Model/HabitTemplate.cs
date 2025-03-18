@@ -36,11 +36,11 @@ namespace Habitualize.Model
             }
         }
 
-        public DateTime HabitStartTime { get; set; }
+        public DateTime HabitStartTime { get; set; } = DateTime.Now;
 
         public ObservableCollection<string> Tasks { get; set; } = new ObservableCollection<string>();
 
-        public DateTime RepeatSchedule { get; set; }
+        public DateTime RepeatSchedule { get; set; } = DateTime.Now;
 
         public int TotalDaysDone { get; set; }
 

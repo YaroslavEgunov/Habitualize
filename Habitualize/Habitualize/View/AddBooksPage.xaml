@@ -7,8 +7,8 @@
         <Label Text="Add new book to read!" Style="{StaticResource HabitsLabelStyle}" FontSize="36" HorizontalTextAlignment="Center"/>
         <Label Text="Book Name:" Style="{StaticResource HabitsLabelStyle}" />
         <Entry x:Name="BookNameEntry" Text="{Binding HabitName}" HeightRequest="60"/>
-        <Label x:Name="BookAuthorEntry" Text="Book Author:" Style="{StaticResource HabitsLabelStyle}" />
-        <Entry Text="{Binding HabitDescription}" HeightRequest="60" />
+        <Label Text="Book Author:" Style="{StaticResource HabitsLabelStyle}" />
+        <Entry x:Name="BookAuthorEntry" Text="{Binding HabitDescription}" HeightRequest="60" />
         <Label Text="How many pages in this book:" Style="{StaticResource HabitsLabelStyle}" />
         <Entry x:Name="BookPagesEntry" Keyboard="Numeric" Text="{Binding PagesInBook}" />
         <Button Text="Add" Clicked="OnAddButtonClicked" Style="{StaticResource HabitsButtonStyle}" />

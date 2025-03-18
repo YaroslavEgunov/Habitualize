@@ -81,7 +81,7 @@ public partial class EditBooksPage : ContentPage
 
     private async void OnDeleteButtonClicked(object sender, EventArgs e)
     {
-        var result = await DisplayAlert("Delete this book", "You sure you want to delete this plant?", "Yep", "Nope");
+        var result = await DisplayAlert("Delete this book", "You sure you want to delete this book?", "Yep", "Nope");
         if (result)
         {
             var existingHabits = await MainPage.SavingLoadingSystem.LoadHabits();
