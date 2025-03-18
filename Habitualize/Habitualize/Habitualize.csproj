@@ -87,8 +87,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="View\PlantsPage.xaml.cs">
+	    <DependentUpon>PlantsPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 	  <Compile Update="View\AppSchedule.xaml.cs">
 	    <DependentUpon>AppSchedule.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 	  </Compile>
 	</ItemGroup>
 	
@@ -97,6 +103,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="SignPages\SignUpView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\AddPlantsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\AppProfile.xaml">
@@ -114,6 +123,12 @@
 	  <MauiXaml Update="View\AppShell.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\EditPlantsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\PlantsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
 	  <MauiXaml Update="View\AppSchedule.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

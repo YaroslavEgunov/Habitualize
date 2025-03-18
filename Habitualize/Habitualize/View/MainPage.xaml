@@ -24,26 +24,25 @@
             <StackLayout Padding="20" Spacing="20">
                 <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="10" RowSpacing="10">
                     
-                    <Border Grid.Row="0" Grid.Column="0" BackgroundColor="#04cc51" StrokeShape="RoundRectangle 20" Padding="20" Margin="0,10,0,0">
+                    <Border Grid.Row="0" Grid.Column="0" BackgroundColor="#04cc51" StrokeShape="RoundRectangle 20" Padding="0" Margin="0,10,0,0">
                         <Border.Shadow>
                             <Shadow Brush="Black" Offset="20,20" Radius="40" Opacity="0.8" />
                         </Border.Shadow>
-                        <!--<Label Text="Plants" Style="{StaticResource MainContentLabelStyle}" />-->
-                        <Button Text="PLANTS" Clicked="OnPlantsButtonClicked" />
+                        <Button Text="Plants" Style="{StaticResource MainContentButtonStyle}" Clicked="OnPlantsButtonClicked" />
                     </Border>
                     
                     <Border Grid.Row="0" Grid.Column="1" BackgroundColor="#eb3b3b" StrokeShape="RoundRectangle 20" Padding="20" Margin="0,10,0,0">
                         <Border.Shadow>
                             <Shadow Brush="Black" Offset="20,20" Radius="40" Opacity="0.8" />
                         </Border.Shadow>
-                        <Label Text="Sport" Style="{StaticResource MainContentLabelStyle}" />
+                        <!--<Button Text="Sport" Style="{StaticResource MainContentButtonStyle}" Clicked="OnSportButtonClicked" />-->
                     </Border>
                     
                     <Border Grid.Row="1" Grid.Column="0" BackgroundColor="#9c3d02" StrokeShape="RoundRectangle 20" Padding="20" Margin="0,10,0,0">
                         <Border.Shadow>
                             <Shadow Brush="Black" Offset="20,20" Radius="40" Opacity="0.8" />
                         </Border.Shadow>
-                        <Label Text="Books" Style="{StaticResource MainContentLabelStyle}" />
+                        <!--<Button Text="Books" Style="{StaticResource MainContentButtonStyle}" Clicked="OnBooksButtonClicked" />-->
                     </Border>
                     
                     <Border Grid.Row="1" Grid.Column="1" BackgroundColor="#1E88E5" StrokeShape="RoundRectangle 20" Padding="20" Margin="0,10,0,0">

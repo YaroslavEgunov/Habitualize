@@ -8,6 +8,8 @@ namespace Habitualize.Model
 {
     public static class Achievments
     {
+        public static bool FirstTimeLoad = true;
+
         //read 1 book
         public static bool BeginnerReader = false;
 

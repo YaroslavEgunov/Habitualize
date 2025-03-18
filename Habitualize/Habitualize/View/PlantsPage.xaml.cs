@@ -1,60 +1,35 @@
-п»їusing Habitualize.Services;
-using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
 using Habitualize.Model;
-using Habitualize.View;
-using Microsoft.Maui.Controls;
-using System.Collections.Generic;
+namespace Habitualize.View;
 
-namespace Habitualize.View
+public partial class PlantsPage : ContentPage
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PlantsPage : ContentPage
+    public PlantsPage(List<Gardening> data)
     {
-        public PlantsPage(List<Gardening> data)
+        InitializeComponent();
+        HabitListView.ItemsSource = data;
+    }
+
+    private async void OnBackButtonClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new MainPage());
+    }
+
+    private async void OnCreatePlantHabitButtonClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new AddPlantsPage());
+    }
+
+    private async void OnItemTapped(object sender, ItemTappedEventArgs e)
+    {
+        if (e.Item != null)
         {
-            InitializeComponent();
-            HabitListView.ItemsSource = data;
+            // Получаем выбранный элемент
+            var selectedPlant = e.Item as Gardening; // Замените YourHabitModel на вашу модель данных
+            await Navigation.PushAsync(new EditPlantsPage(selectedPlant));
         }
-
-        //async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
-        //{
-        //    if (e.Item == null)
-        //        return;
-
-        //    await DisplayAlert("Item Tapped", "An item was tapped.", "OK");
-
-        //    //Deselect Item
-        //    ((ListView)sender).SelectedItem = null;
-        //}
-
-        private async void OnBackButtonClicked(object sender, EventArgs e)
+        else
         {
-            //await Shell.Current.GoToAsync("MainPage");
-            await Navigation.PopAsync();
+            HabitListView.SelectedItem = null;
         }
-
-        //private async void OnSaveHabitClicked(object sender, EventArgs e)
-        //{
-        //    var habit = new HabitTemplate
-        //    {
-        //        HabitName = HabitNameEntry.Text,
-        //        HabitDescription = HabitDescriptionEntry.Text
-        //    };
-
-        //    UserData.Add(habit);
-        //    await SaveAndLoad.SaveHabits(SaveAndLoad.UserData);
-        //    ResultLabel.Text = "РџСЂРёРІС‹С‡РєР° СЃРѕС…СЂР°РЅРµРЅР°!";
-        //}
-
-        //private async void OnLoadHabitsClicked(object sender, EventArgs e)
-        //{
-        //    habits = await habitManager.LoadHabits();
-        //    ResultLabel.Text = "РџСЂРёРІС‹С‡РєРё Р·Р°РіСЂСѓР¶РµРЅС‹!";
-        //    // Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Р№ РєРѕРґ РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ Р·Р°РіСЂСѓР¶РµРЅРЅС‹С… РїСЂРёРІС‹С‡РµРє
-        //}
     }
 }

@@ -21,7 +21,7 @@ namespace Habitualize.Model
 
         public static void LessThanNCharacters(string value, int n, string propertyName)
         {
-            if (value.Length == 0 || value.Length > n)
+            if ((value.Length < 0 || value.Length > n) && value!=null)
             {
                 throw new ArgumentException(
                     $"{propertyName} can't be more than {n} characters.");
