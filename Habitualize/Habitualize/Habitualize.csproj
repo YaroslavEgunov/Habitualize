@@ -89,12 +89,12 @@
 	<ItemGroup>
 	  <Compile Update="View\PlantsPage.xaml.cs">
 	    <DependentUpon>PlantsPage.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
+    	  </Compile>
+  	<ItemGroup>
 	  <Compile Update="View\AppSchedule.xaml.cs">
 	    <DependentUpon>AppSchedule.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
+    	  </Compile>
+  	</ItemGroup>
 	
 	<ItemGroup>
 	  <MauiXaml Update="SignPages\SignInView.xaml">
