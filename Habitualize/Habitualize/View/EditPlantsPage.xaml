@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Habitualize.View.AddPlantsPage"
-             Title="">
+             x:Class="Habitualize.View.EditPlantsPage"
+             Title="EditPlantsPage">
     <StackLayout Margin="10" Padding="20">
-        <Label Text="Add new plant!" Style="{StaticResource HabitsLabelStyle}" FontSize="36" HorizontalTextAlignment="Center"/>
+        <Label Text="View your plant or edit it!" Style="{StaticResource HabitsLabelStyle}"/>
         <Label Text="Plant Name:" Style="{StaticResource HabitsLabelStyle}" />
-        <Entry x:Name="HabitNameEntry" Text="{Binding HabitName}" HeightRequest="60"/>
-        <Label x:Name="HabitDescriptionEntry" Text="Description:" Style="{StaticResource HabitsLabelStyle}" />
+        <Entry Text="{Binding HabitName}" HeightRequest="60" />
+        <Label Text="Description:" Style="{StaticResource HabitsLabelStyle}" />
         <Entry Text="{Binding HabitDescription}" HeightRequest="60" />
         <Label Text="Additional Tasks:" Style="{StaticResource HabitsLabelStyle}" />
-        <ListView ItemsSource="{Binding Tasks}" Style="{StaticResource HabitsListViewStyle}">
+        <ListView ItemsSource="{Binding Tasks}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -19,12 +19,12 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Text="Add Task" Clicked="OnAddTaskButtonClicked"  Style="{StaticResource HabitsButtonStyle}" />
 
         <Label Text="Watering Schedule:" Style="{StaticResource HabitsLabelStyle}" />
-        <DatePicker x:Name="DatePick" Date="{Binding RepeatSchedule}" />
-
-        <Button Text="Add" Clicked="OnAddButtonClicked" Style="{StaticResource HabitsButtonStyle}" />
+        <DatePicker Date="{Binding RepeatSchedule}" IsEnabled="False" Format="d" />
+        <Label Text="Is plant watered?" Style="{StaticResource HabitsLabelStyle}" />
+        <Switch IsToggled="{Binding PlantIsWatered, Mode=TwoWay}" />
+        <Button Text="Confirm" Clicked="OnConfirmButtonClicked" Style="{StaticResource HabitsButtonStyle}" />
         <Button Text="Cancel" Clicked="OnCancelButtonClicked" Style="{StaticResource HabitsButtonStyle}" />
     </StackLayout>
 </ContentPage>

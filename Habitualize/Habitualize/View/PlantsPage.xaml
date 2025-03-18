@@ -4,15 +4,18 @@
              x:Class="Habitualize.View.PlantsPage"
              Title="PlantsPage">
     <StackLayout Padding="20">
-        <Label Text="Plants List:" FontSize="24" />
-        <ListView x:Name="HabitListView">
+        <Label Text="You plants list!" Style="{StaticResource HabitsLabelStyle}"/>
+        <Label Text="Plants List:" Style="{StaticResource HabitsLabelStyle}" />
+        <ListView x:Name="HabitListView" ItemTapped="OnItemTapped" Style="{StaticResource HabitsListViewStyle}" IsEnabled="True">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding HabitName}" Detail="{Binding HabitDescription}" />
+                    <ViewCell>
+                        <Label Text="{Binding HabitName}" Style="{StaticResource HabitsListViewLabelStyle}"/>
+                    </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Text="Add Habit" Clicked="OnCreatePlantHabitButtonClicked"/>
-        <Button Text="Back" Clicked="OnBackButtonClicked" />
+        <Button Text="Add Habit" Clicked="OnCreatePlantHabitButtonClicked" Style="{StaticResource HabitsButtonStyle}"/>
+        <Button Text="Back" Clicked="OnBackButtonClicked" Style="{StaticResource HabitsButtonStyle}" />
     </StackLayout>
 </ContentPage>

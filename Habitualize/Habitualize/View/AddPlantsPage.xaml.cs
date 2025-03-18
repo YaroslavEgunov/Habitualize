@@ -4,49 +4,32 @@ namespace Habitualize.View;
 
 public partial class AddPlantsPage : ContentPage
 {
-    public Gardening CurrentPlant = new Gardening
-    {
-        PlantImage = new Image()
-    };
-
-    public string NewTask = "";
+    public Gardening CurrentPlant = new Gardening();
 
     public AddPlantsPage()
     {
         InitializeComponent();
         BindingContext = CurrentPlant;
-    }
-
-    private async void OnSelectImageClicked(object sender, EventArgs e)
-    {
-        var result = await FilePicker.PickAsync(new PickOptions
-        {
-            FileTypes = FilePickerFileType.Images,
-            PickerTitle = "Choose plant image"
-        });
-
-        if (result != null)
-        {
-            using (var stream = await result.OpenReadAsync())
-            {
-                CurrentPlant.PlantImage.Source = ImageSource.FromStream(() => stream);
-            }
-        }
+        DatePick.MinimumDate = DateTime.Now;
     }
 
     private async void OnAddTaskButtonClicked(object sender, EventArgs e)
     {
+        string result = await DisplayPromptAsync("New Task", "Enter task:");
 
-        string task = NewTask?.Trim();
-        if (!string.IsNullOrEmpty(task))
+        if (!string.IsNullOrEmpty(result))
         {
-            CurrentPlant.Tasks.Add(task);
-            NewTask = string.Empty; // Очистка поля ввода задачи
+            CurrentPlant.Tasks.Add(result.Trim());
         }
     }
 
     private async void OnAddButtonClicked(object sender, EventArgs e)
     {
+        if (string.IsNullOrWhiteSpace(HabitNameEntry.Text) || string.IsNullOrWhiteSpace(HabitDescriptionEntry.Text))
+        {
+            await DisplayAlert("Nuh uh!", "Please enter plant name and description", "Sowwy...");
+            return; // Прерываем выполнение метода
+        }
         var existingHabits = await MainPage.SavingLoadingSystem.LoadHabits();
         existingHabits.Add(CurrentPlant);
         await MainPage.SavingLoadingSystem.SaveHabits(existingHabits);

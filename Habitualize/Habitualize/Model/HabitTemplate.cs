@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -35,15 +36,15 @@ namespace Habitualize.Model
             }
         }
 
-        public DateOnly HabitStartTime { get; set; }
-      
-        public List<string> Tasks { get; set; }
+        public DateTime HabitStartTime { get; set; }
 
-        public DateOnly RepeatSchedule { get; set; }
+        public ObservableCollection<string> Tasks { get; set; } = new ObservableCollection<string>();
+
+        public DateTime RepeatSchedule { get; set; }
 
         public int TotalDaysDone { get; set; }
 
-        public TimeOnly TotalTimeSpentOnHabit { get; set; }
+        public DateTime TotalTimeSpentOnHabit { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

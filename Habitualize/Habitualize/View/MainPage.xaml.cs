@@ -18,7 +18,11 @@ namespace Habitualize
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
-            //InitialData();
+            if (Achievments.FirstTimeLoad)
+            {
+                InitialData();
+                Achievments.FirstTimeLoad = false;
+            }
         }
 
         private async void InitialData()
@@ -58,5 +62,19 @@ namespace Habitualize
             var gardeningHabits = data.OfType<Gardening>().ToList(); // Фильтруем только привычки Gardening
             await Navigation.PushAsync(new PlantsPage(gardeningHabits)); // Передаем список привычек на вторую страницу
         }
+
+        //private async void OnSportButtonClicked(object sender, EventArgs e)
+        //{
+        //    var data = await SavingLoadingSystem.LoadHabits();
+        //    var trainingHabits = data.OfType<Training>().ToList();
+        //    await Navigation.PushAsync(new SportPage(trainingHabits));
+        //}
+
+        //private async void OnBooksButtonClicked(object sender, EventArgs e)
+        //{
+        //    var data = await SavingLoadingSystem.LoadHabits();
+        //    var trainingHabits = data.OfType<Training>().ToList();
+        //    await Navigation.PushAsync(new BooksPage(trainingHabits));
+        //}
     }
 }
