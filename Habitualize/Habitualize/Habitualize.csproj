@@ -91,6 +91,7 @@
 	    <DependentUpon>PlantsPage.xaml</DependentUpon>
     	  </Compile>
   	</ItemGroup>
+	<ItemGroup>
 	  <Compile Update="View\AppSchedule.xaml.cs">
 	    <DependentUpon>AppSchedule.xaml</DependentUpon>
     	  </Compile>
@@ -125,8 +126,8 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\PlantsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </MauiXaml>
+      	    <Generator>MSBuild:Compile</Generator>
+    	  </MauiXaml>
 	  <MauiXaml Update="View\AppSchedule.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
