@@ -19,63 +19,87 @@
 
         </Border>
 
+        <!-- Main -->
         <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never">
             <VerticalStackLayout Padding="20">
-                
-            <!-- Аватар пользователя с возможностью добавления фотографии -->
-            <Border BackgroundColor="Gray" StrokeShape="RoundRectangle 75" HeightRequest="150" WidthRequest="150" HorizontalOptions="Center">
-                <Image Source="default_avatar.png" Aspect="AspectFill" HeightRequest="150" WidthRequest="150">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnAvatarTapped" />
-                    </Image.GestureRecognizers>
-                </Image>
-            </Border>
 
-            <!-- Имя пользователя -->
-            <Label 
+                <!-- Аватар пользователя с возможностью добавления фотографии -->
+                <Border BackgroundColor="Gray" StrokeShape="RoundRectangle 75" HeightRequest="150" WidthRequest="150" HorizontalOptions="Center">
+                    <Image x:Name="AvatarImage" Source="profile_avatar.jpg" Aspect="AspectFill" HeightRequest="150" WidthRequest="150">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAvatarTapped" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                </Border>
+
+                <!-- Имя пользователя -->
+                <Label 
                 Text="{Binding Username}"
                 FontSize="24"
                 VerticalOptions="Center" 
                 HorizontalOptions="Center"
                 Margin="0,20,0,0"/>
 
-                
-            <!-- Друзья -->
-            <Label 
-                Text="Друзья"
-                FontSize="18"
-                VerticalOptions="Start" 
-                HorizontalOptions="Start"
-                Margin="0,20,0,0" />
-            <CollectionView ItemsSource="{Binding Friends}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <StackLayout Orientation="Horizontal" Padding="10">
-                            <Image Source="{Binding Avatar}" WidthRequest="50" HeightRequest="50" Aspect="AspectFill" />
-                            <Label Text="{Binding Name}" VerticalOptions="Center" Margin="10,0,0,0" />
-                        </StackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                <!-- Краткая биография -->
+                <Editor 
+                x:Name="BioEditor"
+                Text="{Binding Bio}"
+                FontSize="16"
+                VerticalOptions="Center" 
+                HorizontalOptions="FillAndExpand"
+                Placeholder="About me..."
+                PlaceholderColor="Gray"
+                Margin="0,10,0,0"
+                IsReadOnly="True"
+                MaxLength="100"
+                HeightRequest="150"
+                Focused="OnBioEditorFocused"
+                Unfocused="OnBioEditorUnfocused"
+                TextChanged="OnBioTextChanged"/>
 
-            <!-- Достижения -->
+
+
+                <!-- Достижения -->
                 <Label 
-                Text="Достижения"
+                Text="Achivments"
                 FontSize="18"
                 VerticalOptions="Start" 
                 HorizontalOptions="Start"
-                Margin="0,20,0,0" />        
-                <CollectionView ItemsSource="{Binding Achievements}" ItemsLayout="HorizontalList">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Padding="10" ColumnDefinitions="*,*,*">
-                                <Image Source="{Binding Icon}" WidthRequest="50" HeightRequest="50" Aspect="AspectFill" Grid.Column="0" />
-                                <Image Source="{Binding Icon}" WidthRequest="50" HeightRequest="50" Aspect="AspectFill" Grid.Column="1" />
-                                <Image Source="{Binding Icon}" WidthRequest="50" HeightRequest="50" Aspect="AspectFill" Grid.Column="2" />
-                            </Grid>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                Margin="0,20,0,0" />    
+                <Border BackgroundColor="Transparent" StrokeThickness="1" HeightRequest="150" HorizontalOptions="FillAndExpand">
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Offset="20,20" Radius="40" Opacity="0.8" />
+                    </Border.Shadow>
+                    <Grid ColumnDefinitions="*,*,*" >
+                        <Image Source="attentionpro.jpg"  Grid.Column="0">
+                            <Image.Clip>
+                                <EllipseGeometry Center="75,75" RadiusX="75" RadiusY="75" />
+                            </Image.Clip>
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnAchievementTapped" CommandParameter="Complete the first task" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                        <Image Source="closed_achiv.png" Grid.Column="1">
+                            <Image.Clip>
+                                <EllipseGeometry Center="75,75" RadiusX="75" RadiusY="75" />
+                            </Image.Clip>
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnAchievementTapped" CommandParameter="Achievement not yet received" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                        <Image Source="closed_achiv.png" Grid.Column="2">
+                            <Image.Clip>
+                                <EllipseGeometry Center="75,75" RadiusX="75" RadiusY="75" />
+                            </Image.Clip>
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnAchievementTapped" CommandParameter="Achievement not yet received" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </Grid>
+                </Border>
+
+
+
             </VerticalStackLayout>
         </ScrollView>
         

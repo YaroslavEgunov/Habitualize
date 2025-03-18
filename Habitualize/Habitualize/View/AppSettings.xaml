@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>    
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Habitualize"
@@ -24,40 +24,13 @@
                 <!-- Settings List -->
                 <StackLayout Padding="10" Spacing="10">
 
-                    <Label Text="General" Style="{StaticResource MainSettingsLabelStyle}" />
-
-                    <StackLayout Orientation="Horizontal" Spacing="10">
-                        <Label Text="Notifications" VerticalOptions="Center" TextColor="White" />
-                        <Switch IsToggled="True" />
-                    </StackLayout>
-
-                    <StackLayout Orientation="Horizontal" Spacing="10">
-                        <Label Text="Dark Theme" VerticalOptions="Center" TextColor="White" />
-                        <Switch IsToggled="True" />
-                    </StackLayout>
-
-                    <StackLayout Orientation="Horizontal" Spacing="10">
-                        <Label Text="Volume" VerticalOptions="Center" TextColor="White" />
-                        <Switch IsToggled="True" />
-                    </StackLayout>
-
                     <Label Text="Account" Style="{StaticResource MainSettingsLabelStyle}" />
-                    
-                    <StackLayout Orientation="Horizontal" Spacing="10">
-                        <Label Text="User ID" VerticalOptions="Center" TextColor="White" />
-                        <Label Text="8sdjsl654af8hddb" VerticalOptions="Center" TextColor="White" />
-                    </StackLayout>
 
                     <StackLayout Orientation="Horizontal" Spacing="10">
                         <Label Text="Logout" VerticalOptions="Center" TextColor="White" />
                         <Button Text="Logout" TextColor="White" BackgroundColor="#FF0000" Command="{Binding LogoutCommand}" />
                     </StackLayout>
 
-                    <StackLayout Orientation="Horizontal" Spacing="10">
-                        <Label Text="Delete Account" VerticalOptions="Center" TextColor="White" />
-                        <Button Text="Delete" TextColor="White" BackgroundColor="#FF0000" />
-                    </StackLayout>
-                    
                     <StackLayout Orientation="Horizontal" Spacing="10">
                         <Label Text="Token FMC" VerticalOptions="Center" TextColor="White" />
                         <Button Text="Get" TextColor="White" BackgroundColor="#1E88E5"  Clicked="OnCounterClicked" />
@@ -67,17 +40,17 @@
                     
                     <StackLayout Orientation="Horizontal" Spacing="10">
                         <Label Text="App Version" VerticalOptions="Center" TextColor="White" />
-                        <Label Text="1.0.0" VerticalOptions="Center" TextColor="White" />
+                        <Label Text="a0.0.4" VerticalOptions="Center" TextColor="White" />
                     </StackLayout>
 
                     <StackLayout Orientation="Horizontal" Spacing="10">
                         <Label Text="Privacy Policy" VerticalOptions="Center" TextColor="White" />
-                        <Button Text="View" TextColor="White" BackgroundColor="#1E88E5" />
+                        <Button Text="View" TextColor="White" BackgroundColor="#1E88E5" Clicked="OnPrivacyPolicyClicked" />
                     </StackLayout>
 
                     <StackLayout Orientation="Horizontal" Spacing="10">
                         <Label Text="Terms and Conditions" VerticalOptions="Center" TextColor="White" />
-                        <Button Text="View" TextColor="White" BackgroundColor="#1E88E5" />
+                        <Button Text="View" TextColor="White" BackgroundColor="#1E88E5" Clicked="OnTermsAndConditionsClicked" />
                     </StackLayout>
                 </StackLayout>
             </StackLayout>
