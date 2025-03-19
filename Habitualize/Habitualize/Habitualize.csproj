@@ -88,7 +88,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="View\PlantsPage.xaml.cs">
+	  <Compile Update="View\PlantsPages\PlantsPage.xaml.cs">
 	    <DependentUpon>PlantsPage.xaml</DependentUpon>
     	  </Compile>
   	</ItemGroup>
@@ -105,13 +105,13 @@
 	  <MauiXaml Update="SignPages\SignUpView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\AddBooksPage.xaml">
+	  <MauiXaml Update="View\BooksPages\AddBooksPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\AddPlantsPage.xaml">
+	  <MauiXaml Update="View\PlantsPages\AddPlantsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\AddSportPage.xaml">
+	  <MauiXaml Update="View\SportPages\AddSportPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\AppProfile.xaml">
@@ -129,25 +129,25 @@
 	  <MauiXaml Update="View\AppShell.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\BooksPage.xaml">
+	  <MauiXaml Update="View\BooksPages\BooksPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\EditBooksPage.xaml">
+	  <MauiXaml Update="View\BooksPages\EditBooksPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\EditPlantsPage.xaml">
+	  <MauiXaml Update="View\PlantsPages\EditPlantsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\EditSportPage.xaml">
+	  <MauiXaml Update="View\SportPages\EditSportPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\PlantsPage.xaml">
+	  <MauiXaml Update="View\PlantsPages\PlantsPage.xaml">
       	    <Generator>MSBuild:Compile</Generator>
     	  </MauiXaml>
 	  <MauiXaml Update="View\AppSchedule.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\SportPage.xaml">
+	  <MauiXaml Update="View\SportPages\SportPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
