@@ -11,6 +11,8 @@
         <Entry x:Name="BookAuthorEntry" Text="{Binding HabitDescription}" HeightRequest="60" />
         <Label Text="How many pages in this book:" Style="{StaticResource HabitsLabelStyle}" />
         <Entry x:Name="BookPagesEntry" Keyboard="Numeric" Text="{Binding PagesInBook}" />
+        <Label Text="Select deadline:" Style="{StaticResource HabitsLabelStyle}" />
+        <DatePicker x:Name="DatePick" Date="{Binding RepeatSchedule}" />
         <Button Text="Add" Clicked="OnAddButtonClicked" Style="{StaticResource HabitsButtonStyle}" />
         <Button Text="Cancel" Clicked="OnCancelButtonClicked" Style="{StaticResource HabitsButtonStyle}" />
     </StackLayout>

@@ -11,6 +11,7 @@ public partial class AddBooksPage : ContentPage
 	{
 		InitializeComponent();
         BindingContext = CurrentBook;
+        DatePick.MinimumDate = DateTime.Now;
     }
 
     private async void OnAddButtonClicked(object sender, EventArgs e)

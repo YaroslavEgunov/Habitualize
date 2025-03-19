@@ -11,6 +11,7 @@ public partial class AddSportPage : ContentPage
 	{
 		InitializeComponent();
 		BindingContext = CurrentTraining;
+        DatePick.MinimumDate = DateTime.Now;
     }
 
     private async void OnAddExerciseButtonClicked(object sender, EventArgs e)

@@ -92,6 +92,7 @@ public partial class EditBooksPage : ContentPage
                 if (existingHabits[i] is Reading)
                 {
                     existingHabits.RemoveAt(i);
+                    i--;
                 }
             }
             for (int i = 0; i < existingBooks.Count; i++)

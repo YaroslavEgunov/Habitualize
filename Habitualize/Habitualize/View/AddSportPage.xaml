@@ -22,6 +22,8 @@
         <Button Text="Add Exercise" Clicked="OnAddExerciseButtonClicked"  Style="{StaticResource HabitsButtonStyle}" />
         <Label Text="What weight you want to achieve?" Style="{StaticResource HabitsLabelStyle}" />
         <Entry x:Name="TrainingWeightEntry" Text="{Binding TargetWeight}" />
+        <Label Text="Select deadline:" Style="{StaticResource HabitsLabelStyle}" />
+        <DatePicker x:Name="DatePick" Date="{Binding RepeatSchedule}" />
         <Button Text="Add" Clicked="OnAddButtonClicked" Style="{StaticResource HabitsButtonStyle}" />
         <Button Text="Cancel" Clicked="OnCancelButtonClicked" Style="{StaticResource HabitsButtonStyle}" />
     </StackLayout>

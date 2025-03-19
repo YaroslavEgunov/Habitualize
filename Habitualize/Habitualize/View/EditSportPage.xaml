@@ -25,6 +25,8 @@
         </ListView>
         <Label Text="Day you started your training:" Style="{StaticResource HabitsLabelStyle}"/>
         <DatePicker x:Name="DatePick" Date="{Binding HabitStartTime}" IsEnabled="False" Format="d" />
+        <Label Text="Training deadline:" Style="{StaticResource HabitsLabelStyle}" />
+        <DatePicker x:Name="DateDeadline" Date="{Binding RepeatSchedule}" IsEnabled="False" Format="d" />
         <Button Text="Confirm" Clicked="OnConfirmButtonClicked" Style="{StaticResource HabitsButtonStyle}" />
         <Button Text="Delete" Clicked="OnDeleteButtonClicked" Style="{StaticResource HabitsButtonStyle}" BackgroundColor="Red" />
         <Button Text="Cancel" Clicked="OnCancelButtonClicked" Style="{StaticResource HabitsButtonStyle}" />

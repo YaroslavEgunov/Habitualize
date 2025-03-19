@@ -7,8 +7,8 @@
         <Label Text="Add new plant!" Style="{StaticResource HabitsLabelStyle}" FontSize="36" HorizontalTextAlignment="Center"/>
         <Label Text="Plant Name:" Style="{StaticResource HabitsLabelStyle}" />
         <Entry x:Name="HabitNameEntry" Text="{Binding HabitName}" HeightRequest="60"/>
-        <Label x:Name="HabitDescriptionEntry" Text="Description:" Style="{StaticResource HabitsLabelStyle}" />
-        <Entry Text="{Binding HabitDescription}" HeightRequest="60" />
+        <Label Text="Description:" Style="{StaticResource HabitsLabelStyle}" />
+        <Entry x:Name="HabitDescriptionEntry" Text="{Binding HabitDescription}" HeightRequest="60" />
         <Label Text="Additional Tasks:" Style="{StaticResource HabitsLabelStyle}" />
         <ListView ItemsSource="{Binding Tasks}" Style="{StaticResource HabitsListViewStyle}">
             <ListView.ItemTemplate>

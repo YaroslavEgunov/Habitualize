@@ -80,6 +80,7 @@ public partial class EditSportPage : ContentPage
                 if (existingHabits[i] is Training)
                 {
                     existingHabits.RemoveAt(i);
+                    i--;
                 }
             }
             for (int i = 0; i < existingTrainings.Count; i++)

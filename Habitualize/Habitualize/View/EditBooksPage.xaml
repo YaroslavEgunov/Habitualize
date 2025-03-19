@@ -13,6 +13,8 @@
         <Label Text="{Binding PagesInBook}" Style="{StaticResource HabitsLabelStyle}" />
         <Label Text="Pages you read:" Style="{StaticResource HabitsLabelStyle}" />
         <Entry Text="{Binding PagesRead}" Keyboard="Numeric" />
+        <Label Text="Book deadline:" Style="{StaticResource HabitsLabelStyle}" />
+        <DatePicker x:Name="DatePick" Date="{Binding RepeatSchedule}" IsEnabled="False" Format="d" />
         <Label Text="Is book complete?" Style="{StaticResource HabitsLabelStyle}" />
         <Switch x:Name="BookSwitch" IsToggled="{Binding BoolComplete}" IsEnabled="False" />
         <Button Text="Confirm" Clicked="OnConfirmButtonClicked" Style="{StaticResource HabitsButtonStyle}" />

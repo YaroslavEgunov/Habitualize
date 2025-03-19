@@ -25,7 +25,7 @@ public partial class AddPlantsPage : ContentPage
 
     private async void OnAddButtonClicked(object sender, EventArgs e)
     {
-        if (string.IsNullOrWhiteSpace(HabitNameEntry.Text) || string.IsNullOrWhiteSpace(HabitDescriptionEntry.Text))
+        if (string.IsNullOrEmpty(HabitNameEntry.Text) || string.IsNullOrEmpty(HabitDescriptionEntry.Text))
         {
             await DisplayAlert("Nuh uh!", "Please enter plant name and description", "Sowwy...");
             return; 

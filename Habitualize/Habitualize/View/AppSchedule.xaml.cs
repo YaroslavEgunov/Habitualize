@@ -9,16 +9,10 @@ using System.ComponentModel;
 //using static AndroidX.ViewPager.Widget.ViewPager;
 
 namespace Habitualize.View;
-//internal class EventModel
-//{
-//    public string Name { get; set; }
-
-//    public string Description { get; set; }
-//}
 
 public partial class AppSchedule : ContentPage, INotifyPropertyChanged
 {
-    //public EventCollection Events { get; set; }
+    public EventCollection Events { get; set; } = new EventCollection();
 
     private List<HabitTemplate> _habits;
 
@@ -37,8 +31,6 @@ public partial class AppSchedule : ContentPage, INotifyPropertyChanged
             }
         }
     }
-
-    public DateTime CurrentDate = DateTime.Now;
 
     public AppSchedule()
 	{
@@ -84,6 +76,16 @@ public partial class AppSchedule : ContentPage, INotifyPropertyChanged
         _habits = await MainPage.SavingLoadingSystem.LoadHabits();
         // Фильтруем привычки по выбранной дате
         var habitsForSelectedDate = _habits.Where(h => h.RepeatSchedule.Date == date.Date).ToList();
+        Events.Clear();
+        var sortedHabits = _habits.OrderBy(habit => habit.RepeatSchedule);
+        var groupedHabits = sortedHabits.GroupBy(habit => habit.RepeatSchedule.Date).ToDictionary(group => group.Key, group => group.Select(habit => habit.HabitName).ToList());
+        foreach(var entry in groupedHabits)
+        {
+            var dateInDict = entry.Key;
+            var habitNames = entry.Value;
+            Events.Add(dateInDict, habitNames);
+        }
+
         HabitCollectionView.ItemsSource = habitsForSelectedDate;
     }
 
