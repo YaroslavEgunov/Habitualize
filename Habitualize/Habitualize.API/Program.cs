@@ -29,7 +29,7 @@ app.UseAuthorization();
 
 app.MapGet("/", [Authorize] (ClaimsPrincipal principal) =>
 {
-    return Results.Json(new HabitualizeResponse() { Message = "Ёховжъю пвъзн щфр-фр двипрж? Пвскък опж д фе, рфствдна мтхирщжм щфрню..." });
+    return Results.Json(new HabitualizeResponse() { Message = "Данные отправлены и получены" });
 });
 
 

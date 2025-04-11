@@ -21,7 +21,7 @@
         <!-- Main Content -->
         <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never">
             <VerticalStackLayout>
-                        <Label Text="Календарь привычек" FontSize="24" HorizontalOptions="Center" />
+                <Label Text="Habit Calendar" FontSize="24" HorizontalOptions="Center" />
 
                 <cal:Calendar x:Name="HabitCalendar" Events="{Binding Events}" EventsScrollViewVisible="False" SelectedDate="{Binding SelectedDate}" Style="{StaticResource CalendarStyle}"/>
 

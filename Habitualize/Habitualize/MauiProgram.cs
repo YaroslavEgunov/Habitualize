@@ -54,7 +54,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<FirebaseAuthHttpMessageHandler>();
 
         builder.Services.AddRefitClient<IGetHabitualizeQuery>()
-                .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://localhost:5440"))//Yarik: 7026 Krugloveskiy: 5440
+                .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://localhost:7026"))//Yarik: 7026 Krugloveskiy: 5440
                 .AddHttpMessageHandler<FirebaseAuthHttpMessageHandler>();
 
         return builder.Build();

@@ -71,9 +71,9 @@
                         <Shadow Brush="Black" Offset="20,20" Radius="40" Opacity="0.8" />
                     </Border.Shadow>
                     <Grid ColumnDefinitions="*,*,*" >
-                        <Image Source="attentionpro.jpg"  Grid.Column="0">
+                        <Image Source="exp.png"  Grid.Column="0">
                             <Image.Clip>
-                                <EllipseGeometry Center="75,75" RadiusX="75" RadiusY="75" />
+                                <EllipseGeometry Center="63,70" RadiusX="55" RadiusY="55" />
                             </Image.Clip>
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="OnAchievementTapped" CommandParameter="Complete the first task" />
