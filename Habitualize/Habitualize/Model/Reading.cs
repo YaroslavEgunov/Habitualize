@@ -10,7 +10,7 @@ namespace Habitualize.Model
 {
     public class Reading : HabitTemplate
     {
-        private string _pagesInBook = "";
+        private int _pagesInBook = 0;
 
         private bool _bookComplete = false;
 
@@ -24,7 +24,7 @@ namespace Habitualize.Model
             }
         }
 
-        public string PagesInBook 
+        public int PagesInBook 
         {
             get => _pagesInBook;
             set
@@ -33,6 +33,6 @@ namespace Habitualize.Model
             }
         }
 
-        public string PagesRead { get; set; }
+        public int PagesRead { get; set; }
     }
 }
