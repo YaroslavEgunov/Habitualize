@@ -12,6 +12,10 @@
         <Setter Property="VerticalOptions" Value="Center" />
     </Style>
 
+    <Style TargetType="ContentPage">
+        <Setter Property="BackgroundColor" Value="{StaticResource BackgroundColor}" />
+    </Style>
+
     <Style x:Key="CalendarStyle" TargetType="cal:Calendar">
         <Setter Property="ArrowsBorderWidth" Value="10" />
         <Setter Property="ArrowsBorderColor" Value="#121212" />

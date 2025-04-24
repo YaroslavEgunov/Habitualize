@@ -5,8 +5,7 @@
              x:Class="Habitualize.View.AppShell"
              xmlns:pages="clr-namespace:Habitualize.SignPages"
              Title="AppShell"
-             Shell.FlyoutBehavior="Disabled"
-            BackgroundColor="#121212">
+             Shell.FlyoutBehavior="Disabled">
     <ShellContent
         ContentTemplate="{DataTemplate pages:SignInView}"
         Route="SignIn" />
