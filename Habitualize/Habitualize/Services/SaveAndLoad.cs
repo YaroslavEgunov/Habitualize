@@ -16,16 +16,16 @@ namespace Habitualize.Services
 {
     public class SaveAndLoad
     {
-        private async Task SaveToFile(string fileName, string jsonContent)
+        private string _filePath = Path.Combine(FileSystem.AppDataDirectory, "Habitualize.json");
+
+        private async Task SaveToFile(string jsonContent)
         {
-            var filePath = Path.Combine(FileSystem.AppDataDirectory, fileName);
-            await File.WriteAllTextAsync(filePath, jsonContent);
+            await File.WriteAllTextAsync(_filePath, jsonContent);
         }
 
-        private async Task<string> LoadFromFile(string fileName)
+        private async Task<string> LoadFromFile()
         {
-            var filePath = Path.Combine(FileSystem.AppDataDirectory, fileName);
-            return await File.ReadAllTextAsync(filePath);
+            return await File.ReadAllTextAsync(_filePath);
         }
 
         public async Task SaveHabits(List<HabitTemplate> habits)
@@ -34,12 +34,17 @@ namespace Habitualize.Services
             {
                 TypeNameHandling = TypeNameHandling.Auto
             });
-            await SaveToFile("Habitualize.json", json);
+            await SaveToFile(json);
         }
 
         public async Task<List<HabitTemplate>> LoadHabits()
         {
-            string json = await LoadFromFile("Habitualize.json");
+            if (!File.Exists(_filePath) || new FileInfo(_filePath).Length == 0)
+            {
+                await SaveToFile("[]");
+                return new List<HabitTemplate>();
+            }
+            string json = await LoadFromFile();
             return JsonConvert.DeserializeObject<List<HabitTemplate>>(json, new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.Auto

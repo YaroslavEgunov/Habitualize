@@ -44,7 +44,11 @@ namespace Habitualize.Model
 
         public int TotalDaysDone { get; set; }
 
-        public DateTime TotalTimeSpentOnHabit { get; set; }
+        public DateTime LastTimeDone { get; set; }
+
+        public int DaysDoneInARow { get; set; }
+
+        //public DateTime TotalTimeSpentOnHabit { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

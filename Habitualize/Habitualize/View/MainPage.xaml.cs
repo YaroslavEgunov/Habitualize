@@ -14,15 +14,17 @@ namespace Habitualize
     {
         public static SaveAndLoad SavingLoadingSystem = new SaveAndLoad();
 
+        public static Achievements Achievements = new Achievements();
+
         public MainPage()
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
-            if (Achievments.FirstTimeLoad)
-            {
-                InitialData();
-                Achievments.FirstTimeLoad = false;
-            }
+            //if (Achievments.FirstTimeLoad)
+            //{
+            //    InitialData();
+            //    Achievments.FirstTimeLoad = false;
+            //}
         }
 
         private async void InitialData()
