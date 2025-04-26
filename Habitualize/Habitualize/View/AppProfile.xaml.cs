@@ -3,15 +3,14 @@ using Firebase.Auth;
 using Firebase.Auth.Providers;
 using Firebase.Auth.Repository;
 using Habitualize.SignPages;
-using Habitualize.View;
 using Habitualize.ViewModel;
 using Microsoft.Maui;
 using Microsoft.Maui.Media;
 using Microsoft.Maui.Storage;
 
-namespace Habitualize;
+namespace Habitualize.View;
 
-public partial class AppProfile : ContentPage
+public partial class AppProfile : ContentView
 {
     public string Username { get; }
 
@@ -22,9 +21,9 @@ public partial class AppProfile : ContentPage
     public string Gender { get; set; }
 
     public AppProfile()
-	{
-		InitializeComponent();
-        NavigationPage.SetHasNavigationBar(this, false);
+    {
+        InitializeComponent();
+
         Username = Preferences.Get("Username", "Default Username");
         Bio = Preferences.Get("UserBio", "Enter a short biography...");
 
@@ -60,7 +59,7 @@ public partial class AppProfile : ContentPage
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Error", $"Failed to select photo: {ex.Message}", "OK");
+            await Application.Current.MainPage.DisplayAlert("Error", $"Failed to select photo: {ex.Message}", "OK");
         }
     }
 
@@ -83,48 +82,7 @@ public partial class AppProfile : ContentPage
     private async void OnAchievementTapped(object sender, EventArgs e)
     {
         var description = (string)((TappedEventArgs)e).Parameter;
-        await DisplayAlert("Achivment: ", description, "OK");
-    }
-
-    private async void OnSettingsButtonClicked(object sender, EventArgs e)
-    {
-        var authClient = new FirebaseAuthClient(new FirebaseAuthConfig()
-        {
-            ApiKey = "AIzaSyAO6SGqXASw8zw_YD2xqCjBBP7ZOHDDcf0",
-            AuthDomain = "habitualize-249ef.firebaseapp.com",
-            Providers = new FirebaseAuthProvider[]
-        {
-            new EmailProvider()
-        },
-            UserRepository = new FileUserRepository("Habitualize")
-        });
-        await Navigation.PushAsync(new AppSettings(new SignUpViewModel(authClient)));
-    }
-
-    private async void OnScheduleButtonClicked(object sender, EventArgs e)
-    {
-        await Navigation.PushAsync(new AppSchedule());
-    }
-
-    private async void OnMapButtonClicked(object sender, EventArgs e)
-    {
-        await Navigation.PushAsync(new MainPage());
-    }
-
-    private async void OnTabClicked(object sender, EventArgs e)
-    {
-        if (sender is ImageButton button && button.CommandParameter is string tabName)
-        {
-            // Установите активную вкладку
-            if (BindingContext is ProfileViewModel viewModel)
-            {
-                viewModel.ActiveTab = tabName;
-            }
-
-            // Анимация смещения
-            await button.TranslateTo(0, -10, 100); // Смещение вверх
-            await button.TranslateTo(0, 0, 100);  // Возврат в исходное положение
-        }
+        await Application.Current.MainPage.DisplayAlert("Achivment: ", description, "OK");
     }
 }
 public class Achievement

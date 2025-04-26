@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Habitualize.View;
 
-public partial class AppSchedule : ContentPage, INotifyPropertyChanged
+public partial class AppSchedule : ContentView, INotifyPropertyChanged
 {
     public EventCollection Events { get; set; } = new EventCollection();
 
@@ -87,31 +87,6 @@ public partial class AppSchedule : ContentPage, INotifyPropertyChanged
         }
 
         HabitCollectionView.ItemsSource = habitsForSelectedDate;
-    }
-
-    private async void OnSettingsButtonClicked(object sender, EventArgs e)
-    {
-        var authClient = new FirebaseAuthClient(new FirebaseAuthConfig()
-        {
-            ApiKey = "AIzaSyAO6SGqXASw8zw_YD2xqCjBBP7ZOHDDcf0",
-            AuthDomain = "habitualize-249ef.firebaseapp.com",
-            Providers = new FirebaseAuthProvider[]
-{
-            new EmailProvider()
-},
-            UserRepository = new FileUserRepository("Habitualize")
-        });
-        await Navigation.PushAsync(new AppSettings(new SignUpViewModel(authClient)));
-    }
-
-    private async void OnMapButtonClicked(object sender, EventArgs e)
-    {
-        await Navigation.PushAsync(new MainPage());
-    }
-
-    private async void OnProfileButtonClicked(object sender, EventArgs e)
-    {
-        await Navigation.PushAsync(new AppProfile());
     }
 
     public event PropertyChangedEventHandler PropertyChanged;

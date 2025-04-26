@@ -1,73 +1,43 @@
-<?xml version="1.0" encoding="utf-8" ?>    
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Habitualize"
-             x:Class="Habitualize.AppSettings"
-             Title="AppSettings">
+             x:Class="Habitualize.AppSettings">
 
-    <Grid RowDefinitions="Auto,*,Auto">
-        <!-- Header -->
-        <Border Grid.Row="0" BackgroundColor="Transparent" Padding="0" StrokeThickness="1" Stroke="Transparent" HorizontalOptions="End">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <ImageButton Source="notif.png" Grid.Column="0" Style="{StaticResource ButtonStyle}" />
-            </Grid>
-        </Border>
+    <ScrollView VerticalScrollBarVisibility="Never" 
+                HorizontalScrollBarVisibility="Never">
+        <StackLayout Padding="20" Spacing="20">
+            <StackLayout Padding="10" Spacing="10">
+                <Label Text="Account" Style="{StaticResource MainSettingsLabelStyle}" />
 
-        <!-- Main Content -->
-        <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never">
-            <StackLayout Padding="20" Spacing="20">
-                
-                <!-- Settings List -->
-                <StackLayout Padding="10" Spacing="10">
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <Label Text="Logout" VerticalOptions="Center" TextColor="White" />
+                    <Button Text="Logout" TextColor="White" BackgroundColor="#FF0000" Command="{Binding LogoutCommand}" />
+                </StackLayout>
 
-                    <Label Text="Account" Style="{StaticResource MainSettingsLabelStyle}" />
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <Label Text="Token FMC" VerticalOptions="Center" TextColor="White" />
+                    <Button Text="Get" TextColor="White" BackgroundColor="#1E88E5"  Clicked="OnCounterClicked" />
+                </StackLayout>
 
-                    <StackLayout Orientation="Horizontal" Spacing="10">
-                        <Label Text="Logout" VerticalOptions="Center" TextColor="White" />
-                        <Button Text="Logout" TextColor="White" BackgroundColor="#FF0000" Command="{Binding LogoutCommand}" />
-                    </StackLayout>
+                <Label Text="About" Style="{StaticResource MainSettingsLabelStyle}" />
 
-                    <StackLayout Orientation="Horizontal" Spacing="10">
-                        <Label Text="Token FMC" VerticalOptions="Center" TextColor="White" />
-                        <Button Text="Get" TextColor="White" BackgroundColor="#1E88E5"  Clicked="OnCounterClicked" />
-                    </StackLayout>
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <Label Text="App Version" VerticalOptions="Center" TextColor="White" />
+                    <Label Text="a0.0.4" VerticalOptions="Center" TextColor="White" />
+                </StackLayout>
 
-                    <Label Text="About" Style="{StaticResource MainSettingsLabelStyle}" />
-                    
-                    <StackLayout Orientation="Horizontal" Spacing="10">
-                        <Label Text="App Version" VerticalOptions="Center" TextColor="White" />
-                        <Label Text="a0.0.4" VerticalOptions="Center" TextColor="White" />
-                    </StackLayout>
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <Label Text="Privacy Policy" VerticalOptions="Center" TextColor="White" />
+                    <Button Text="View" TextColor="White" BackgroundColor="#1E88E5" Clicked="OnPrivacyPolicyClicked" />
+                </StackLayout>
 
-                    <StackLayout Orientation="Horizontal" Spacing="10">
-                        <Label Text="Privacy Policy" VerticalOptions="Center" TextColor="White" />
-                        <Button Text="View" TextColor="White" BackgroundColor="#1E88E5" Clicked="OnPrivacyPolicyClicked" />
-                    </StackLayout>
-
-                    <StackLayout Orientation="Horizontal" Spacing="10">
-                        <Label Text="Terms and Conditions" VerticalOptions="Center" TextColor="White" />
-                        <Button Text="View" TextColor="White" BackgroundColor="#1E88E5" Clicked="OnTermsAndConditionsClicked" />
-                    </StackLayout>
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <Label Text="Terms and Conditions" VerticalOptions="Center" TextColor="White" />
+                    <Button Text="View" TextColor="White" BackgroundColor="#1E88E5" Clicked="OnTermsAndConditionsClicked" />
                 </StackLayout>
             </StackLayout>
-        </ScrollView>
-
-        <!-- Footer -->
-        <Border Grid.Row="2" BackgroundColor="Transparent" Padding="0" StrokeThickness="1" Stroke="Transparent">
-            <Border.Shadow>
-                <Shadow Brush="Black" Offset="20,20" Radius="40" Opacity="0.8" />
-            </Border.Shadow>
-            <Grid ColumnDefinitions="*,*,*,*,*">
-                <ImageButton Source="map.png" Grid.Column="0" Style="{StaticResource ButtonStyle}" Clicked="OnMapButtonClicked"/>
-                <ImageButton Source="avatar.png" Grid.Column="1" Style="{StaticResource ButtonStyle}" Clicked="OnProfileButtonClicked" />
-                <ImageButton Source="schedule.png" Grid.Column="2" Style="{StaticResource ButtonStyle}" Clicked="OnScheduleButtonClicked"/>
-                <ImageButton Source="chest.png" Grid.Column="3" Style="{StaticResource ButtonStyle}" />
-                <ImageButton Source="settings.png" Grid.Column="4" Style="{StaticResource ButtonStyle}" />
-            </Grid>
-        </Border>
-    </Grid>
-
-</ContentPage>
+        </StackLayout>
+    </ScrollView>
+    
+</ContentView>

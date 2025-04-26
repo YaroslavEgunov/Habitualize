@@ -1,166 +1,84 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:Habitualize"
-             x:Class="Habitualize.AppProfile">
+             x:Class="Habitualize.View.AppProfile">
+    
+    <ScrollView VerticalScrollBarVisibility="Never" 
+                HorizontalScrollBarVisibility="Never">
+        <StackLayout Padding="20">
 
-    <Grid RowDefinitions="Auto,*,Auto">
-        
-        <!-- Header -->
-        <Border Grid.Row="0" BackgroundColor="Transparent" Padding="0" StrokeThickness="1" Stroke="Transparent" HorizontalOptions="End">
+            <!-- Аватар пользователя с возможностью добавления фотографии -->
+            <Border BackgroundColor="Gray" StrokeShape="RoundRectangle 75" HeightRequest="150" WidthRequest="150" HorizontalOptions="Center">
+                <Image x:Name="AvatarImage" Source="profile_avatar.jpg" Aspect="AspectFill" HeightRequest="150" WidthRequest="150">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnAvatarTapped" />
+                    </Image.GestureRecognizers>
+                </Image>
+            </Border>
 
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <ImageButton Source="notif.png" Grid.Column="0" Style="{StaticResource ButtonStyle}" />
-            </Grid>
+            <!-- Имя пользователя -->
+            <Label 
+            Text="{Binding Username}"
+            FontSize="24"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center"
+            Margin="0,20,0,0"/>
 
-        </Border>
+            <!-- Краткая биография -->
+            <Editor 
+            x:Name="BioEditor"
+            Text="{Binding Bio}"
+            FontSize="16"
+            VerticalOptions="Center" 
+            HorizontalOptions="FillAndExpand"
+            Placeholder="About me..."
+            PlaceholderColor="Gray"
+            Margin="0,10,0,0"
+            IsReadOnly="True"
+            MaxLength="100"
+            HeightRequest="150"
+            Focused="OnBioEditorFocused"
+            Unfocused="OnBioEditorUnfocused"
+            TextChanged="OnBioTextChanged"/>
 
-        <!-- Main -->
-        <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never">
-            <VerticalStackLayout Padding="20">
-
-                <!-- Аватар пользователя с возможностью добавления фотографии -->
-                <Border BackgroundColor="Gray" StrokeShape="RoundRectangle 75" HeightRequest="150" WidthRequest="150" HorizontalOptions="Center">
-                    <Image x:Name="AvatarImage" Source="profile_avatar.jpg" Aspect="AspectFill" HeightRequest="150" WidthRequest="150">
+            <!-- Достижения -->
+            <Label 
+            Text="Achivments"
+            FontSize="18"
+            VerticalOptions="Start" 
+            HorizontalOptions="Start"
+            Margin="0,20,0,0" />
+            <Border BackgroundColor="Transparent" StrokeThickness="1" HeightRequest="150" HorizontalOptions="FillAndExpand">
+                <Border.Shadow>
+                    <Shadow Brush="Black" Offset="20,20" Radius="40" Opacity="0.8" />
+                </Border.Shadow>
+                <Grid ColumnDefinitions="*,*,*" >
+                    <Image Source="exp.png"  Grid.Column="0">
+                        <Image.Clip>
+                            <EllipseGeometry Center="63,70" RadiusX="55" RadiusY="55" />
+                        </Image.Clip>
                         <Image.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnAvatarTapped" />
+                            <TapGestureRecognizer Tapped="OnAchievementTapped" CommandParameter="Complete the first task" />
                         </Image.GestureRecognizers>
                     </Image>
-                </Border>
-
-                <!-- Имя пользователя -->
-                <Label 
-                Text="{Binding Username}"
-                FontSize="24"
-                VerticalOptions="Center" 
-                HorizontalOptions="Center"
-                Margin="0,20,0,0"/>
-
-                <!-- Краткая биография -->
-                <Editor 
-                x:Name="BioEditor"
-                Text="{Binding Bio}"
-                FontSize="16"
-                VerticalOptions="Center" 
-                HorizontalOptions="FillAndExpand"
-                Placeholder="About me..."
-                PlaceholderColor="Gray"
-                Margin="0,10,0,0"
-                IsReadOnly="True"
-                MaxLength="100"
-                HeightRequest="150"
-                Focused="OnBioEditorFocused"
-                Unfocused="OnBioEditorUnfocused"
-                TextChanged="OnBioTextChanged"/>
-
-
-
-                <!-- Достижения -->
-                <Label 
-                Text="Achivments"
-                FontSize="18"
-                VerticalOptions="Start" 
-                HorizontalOptions="Start"
-                Margin="0,20,0,0" />    
-                <Border BackgroundColor="Transparent" StrokeThickness="1" HeightRequest="150" HorizontalOptions="FillAndExpand">
-                    <Border.Shadow>
-                        <Shadow Brush="Black" Offset="20,20" Radius="40" Opacity="0.8" />
-                    </Border.Shadow>
-                    <Grid ColumnDefinitions="*,*,*" >
-                        <Image Source="exp.png"  Grid.Column="0">
-                            <Image.Clip>
-                                <EllipseGeometry Center="63,70" RadiusX="55" RadiusY="55" />
-                            </Image.Clip>
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnAchievementTapped" CommandParameter="Complete the first task" />
-                            </Image.GestureRecognizers>
-                        </Image>
-                        <Image Source="closed_achiv.png" Grid.Column="1">
-                            <Image.Clip>
-                                <EllipseGeometry Center="75,75" RadiusX="75" RadiusY="75" />
-                            </Image.Clip>
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnAchievementTapped" CommandParameter="Achievement not yet received" />
-                            </Image.GestureRecognizers>
-                        </Image>
-                        <Image Source="closed_achiv.png" Grid.Column="2">
-                            <Image.Clip>
-                                <EllipseGeometry Center="75,75" RadiusX="75" RadiusY="75" />
-                            </Image.Clip>
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnAchievementTapped" CommandParameter="Achievement not yet received" />
-                            </Image.GestureRecognizers>
-                        </Image>
-                    </Grid>
-                </Border>
-
-
-
-            </VerticalStackLayout>
-        </ScrollView>
-
-        <!-- Footer -->
-        <Border Grid.Row="2" 
-        HeightRequest="100" 
-        Padding="0" 
-        Stroke="Transparent">
-            <Grid ColumnDefinitions="*,*,*,*,*">
-                <StackLayout Grid.Column="0" 
-                     HorizontalOptions="Center" 
-                     VerticalOptions="Center">
-                    <ImageButton Source="map_unselect.png" 
-                         Style="{StaticResource FooterButtonStyle}" 
-                         Clicked="OnMapButtonClicked" 
-                         CommandParameter="Map" />
-                </StackLayout>
-                <StackLayout Grid.Column="1" 
-                     HorizontalOptions="Center" 
-                     VerticalOptions="Center">
-                    <StackLayout.Shadow>
-                        <Shadow Brush="#7950F2"
-                                Radius="15" 
-                                Opacity="0.8" />
-                    </StackLayout.Shadow>
-                    <Label Text="Profile" 
-                           IsVisible="{Binding ActiveTab, Converter={StaticResource 
-                                      TabVisibilityConverter}, ConverterParameter='Map'}" 
-                           FontSize="16" 
-                           FontAttributes="Bold" 
-                           TextColor="#7950F2" 
-                           HorizontalOptions="Center" />
-                    <ImageButton Source="avatar.png" 
-                         Style="{StaticResource FooterButtonStyle}" 
-                         Clicked="OnTabClicked" 
-                         CommandParameter="Profile" />
-                </StackLayout>
-                <StackLayout Grid.Column="2" 
-                     HorizontalOptions="Center" 
-                     VerticalOptions="Center">
-                    <ImageButton Source="schedule_unselect.png" 
-                         Style="{StaticResource FooterButtonStyle}" 
-                         Clicked="OnScheduleButtonClicked" 
-                         CommandParameter="Schedule" />
-                </StackLayout>
-                <StackLayout Grid.Column="3" 
-                     HorizontalOptions="Center" 
-                     VerticalOptions="Center">
-                    <ImageButton Source="chest_unselect.png" 
-                         Style="{StaticResource FooterButtonStyle}" 
-                         CommandParameter="Chest" />
-                </StackLayout>
-                <StackLayout Grid.Column="4" 
-                     HorizontalOptions="Center" 
-                     VerticalOptions="Center">
-                    <ImageButton Source="settings_unselect.png" 
-                         Style="{StaticResource FooterButtonStyle}" 
-                         Clicked="OnSettingsButtonClicked" 
-                         CommandParameter="Settings" />
-                </StackLayout>
-            </Grid>
-        </Border>
-
-    </Grid>
-</ContentPage>
+                    <Image Source="closed_achiv.png" Grid.Column="1">
+                        <Image.Clip>
+                            <EllipseGeometry Center="75,75" RadiusX="75" RadiusY="75" />
+                        </Image.Clip>
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAchievementTapped" CommandParameter="Achievement not yet received" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Image Source="closed_achiv.png" Grid.Column="2">
+                        <Image.Clip>
+                            <EllipseGeometry Center="75,75" RadiusX="75" RadiusY="75" />
+                        </Image.Clip>
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAchievementTapped" CommandParameter="Achievement not yet received" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                </Grid>
+            </Border>
+        </StackLayout>
+    </ScrollView>
+</ContentView>

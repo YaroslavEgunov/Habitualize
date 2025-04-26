@@ -6,6 +6,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <local:TabVisibilityConverter x:Key="TabVisibilityConverter" />
+            <local:TabImageConverter x:Key="TabImageConverter" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="../Resources/Styles/Styles.xaml" />

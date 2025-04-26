@@ -25,51 +25,7 @@
         </Border>
 
         <!-- Main Content -->
-        <ScrollView Grid.Row="1" 
-                    VerticalScrollBarVisibility="Never" 
-                    HorizontalScrollBarVisibility="Never">
-            <StackLayout Padding="20" 
-                         Spacing="20">
-                <Grid ColumnDefinitions="*,*" 
-                      RowDefinitions="Auto,Auto,Auto" 
-                      ColumnSpacing="10" 
-                      RowSpacing="10">
-
-                    <Border Grid.Row="0" 
-                            Grid.Column="0" 
-                            BackgroundColor="#04cc51" 
-                            StrokeShape="RoundRectangle 20" 
-                            Padding="20" 
-                            Margin="0,10,0,0">
-                        <Button Text="Plants" 
-                                Style="{StaticResource MainContentButtonStyle}" 
-                                Clicked="OnPlantsButtonClicked" />
-                    </Border>
-
-                    <Border Grid.Row="0" 
-                            Grid.Column="1" 
-                            BackgroundColor="#eb3b3b" 
-                            StrokeShape="RoundRectangle 20" 
-                            Padding="20" 
-                            Margin="0,10,0,0">
-                        <Button Text="Sport" 
-                                Style="{StaticResource MainContentButtonStyle}" 
-                                Clicked="OnSportButtonClicked" />
-                    </Border>
-
-                    <Border Grid.Row="1" 
-                            Grid.Column="0" 
-                            BackgroundColor="#9c3d02" 
-                            StrokeShape="RoundRectangle 20" 
-                            Padding="20" 
-                            Margin="0,10,0,0">
-                        <Button Text="Books" 
-                                Style="{StaticResource MainContentButtonStyle}" 
-                                Clicked="OnBooksButtonClicked" />
-                    </Border>
-                </Grid>
-            </StackLayout>
-        </ScrollView>
+        <ContentView Grid.Row="1"  x:Name="DynamicContent" />
 
         <!-- Footer -->
         <Border Grid.Row="2" 
@@ -80,53 +36,66 @@
                 <StackLayout Grid.Column="0" 
                              HorizontalOptions="Center" 
                              VerticalOptions="Center">
-                    <StackLayout.Shadow>
-                        <Shadow Brush="#7950F2"
-                                Radius="15" 
-                                Opacity="0.8" />
-                    </StackLayout.Shadow>
                     <Label Text="Map" 
-                           IsVisible="{Binding ActiveTab, Converter={StaticResource 
-                                      TabVisibilityConverter}, ConverterParameter='Map'}" 
                            FontSize="16" 
                            FontAttributes="Bold" 
-                           TextColor="#7950F2" 
-                           HorizontalOptions="Center" />
-                    <ImageButton Source="map.png" 
+                           IsVisible="{Binding ActiveTab, 
+                                        Converter={StaticResource TabVisibilityConverter}, 
+                                        ConverterParameter='Map'}"
+                           TextColor="#7950F2"
+                           HorizontalOptions="Center"/>
+                    <ImageButton Source="{Binding ActiveTab, 
+                                            Converter={StaticResource TabImageConverter}, 
+                                            ConverterParameter='Map'}"
                                  Style="{StaticResource FooterButtonStyle}" 
-                                 Clicked="OnTabClicked" 
-                                 CommandParameter="Map" />
+                                 Clicked="OnMapButtonClicked"/>
                 </StackLayout>
                 <StackLayout Grid.Column="1" 
                              HorizontalOptions="Center" 
                              VerticalOptions="Center">
-                    <ImageButton Source="avatar_unselect.png" 
+                    <Label Text="Profile" 
+                           FontSize="16" 
+                           FontAttributes="Bold" 
+                           IsVisible="{Binding ActiveTab, 
+                                        Converter={StaticResource TabVisibilityConverter}, 
+                                        ConverterParameter='Profile'}"
+                           TextColor="#7950F2"
+                           HorizontalOptions="Center" />
+                    <ImageButton Source="{Binding ActiveTab, 
+                                            Converter={StaticResource TabImageConverter}, 
+                                            ConverterParameter='Profile'}"
                                  Style="{StaticResource FooterButtonStyle}" 
-                                 Clicked="OnProfileButtonClicked" 
-                                 CommandParameter="Profile" />
+                                 Clicked="OnProfileButtonClicked" />
                 </StackLayout>
                 <StackLayout Grid.Column="2" 
                              HorizontalOptions="Center" 
                              VerticalOptions="Center">
                     <ImageButton Source="schedule_unselect.png" 
                                  Style="{StaticResource FooterButtonStyle}" 
-                                 Clicked="OnScheduleButtonClicked" 
-                                 CommandParameter="Schedule" />
+                                 Clicked="OnScheduleButtonClicked"/>
                 </StackLayout>
                 <StackLayout Grid.Column="3" 
                              HorizontalOptions="Center" 
                              VerticalOptions="Center">
                     <ImageButton Source="chest_unselect.png" 
-                                 Style="{StaticResource FooterButtonStyle}" 
-                                 CommandParameter="Chest" />
+                                 Style="{StaticResource FooterButtonStyle}"/>
                 </StackLayout>
                 <StackLayout Grid.Column="4" 
                              HorizontalOptions="Center" 
                              VerticalOptions="Center">
-                    <ImageButton Source="settings_unselect.png" 
+                    <Label Text="Settings" 
+                           FontSize="16" 
+                           FontAttributes="Bold" 
+                           IsVisible="{Binding ActiveTab, 
+                                        Converter={StaticResource TabVisibilityConverter}, 
+                                        ConverterParameter='Settings'}"
+                           TextColor="#7950F2"
+                           HorizontalOptions="Center" />
+                    <ImageButton Source="{Binding ActiveTab, 
+                                    Converter={StaticResource TabImageConverter}, 
+                                    ConverterParameter='Settings'}"
                                  Style="{StaticResource FooterButtonStyle}" 
-                                 Clicked="OnSettingsButtonClicked" 
-                                 CommandParameter="Settings" />
+                                 Clicked="OnSettingsButtonClicked"/>         
                 </StackLayout>
             </Grid>
         </Border>

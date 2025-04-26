@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Habitualize.View;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -10,6 +11,9 @@ namespace Habitualize.ViewModel
     public class MainPageViewModel : INotifyPropertyChanged
     {
         private string _activeTab;
+
+        public ContentView DynamicContent { get; set; }
+
         public string ActiveTab
         {
             get => _activeTab;
@@ -18,18 +22,14 @@ namespace Habitualize.ViewModel
                 if (_activeTab != value)
                 {
                     _activeTab = value;
-                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(ActiveTab));
                 }
             }
         }
 
-        public MainPageViewModel()
-        {
-            ActiveTab = "Map"; // Установите вкладку по умолчанию
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
+
+        protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

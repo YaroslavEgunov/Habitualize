@@ -14,7 +14,6 @@
 
     <Style x:Key="FooterButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="Transparent"/>
-
     </Style>
 
     <Style x:Key="LoginStyleSqr" TargetType="Border">  

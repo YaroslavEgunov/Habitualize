@@ -12,6 +12,30 @@ using System.Globalization;
 
 namespace Habitualize
 {
+    public class TabImageConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var activeTab = value?.ToString();
+            var tabName = parameter?.ToString();
+
+            if (activeTab == tabName)
+            {
+                return $"{tabName.ToLower()}_active.png";
+            }
+            else
+            {
+                return $"{tabName.ToLower()}_unselect.png";
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+
     public class TabVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -25,7 +49,6 @@ namespace Habitualize
         }
     }
 
-
     public partial class MainPage : ContentPage
     {
         public static SaveAndLoad SavingLoadingSystem = new SaveAndLoad();
@@ -36,6 +59,11 @@ namespace Habitualize
         {
             InitializeComponent();
             BindingContext = new MainPageViewModel();
+            DynamicContent.Content = new AppMap();
+            if (BindingContext is MainPageViewModel viewModel)
+            {
+                viewModel.ActiveTab = "Map";
+            }
             NavigationPage.SetHasNavigationBar(this, false);
             //if (Achievments.FirstTimeLoad)
             //{
@@ -43,6 +71,7 @@ namespace Habitualize
             //    Achievments.FirstTimeLoad = false;
             //}
         }
+
 
         private async void InitialData()
         {
@@ -67,17 +96,88 @@ namespace Habitualize
 },
                 UserRepository = new FileUserRepository("Habitualize")
             });
-            await Navigation.PushAsync(new AppSettings(new SignUpViewModel(authClient)));
+            var signUpViewModel = new SignUpViewModel(authClient);
+            if (BindingContext is MainPageViewModel viewModel)
+            {
+                if (sender is ImageButton button)
+                {
+                    await button.TranslateTo(0, -10, 150, Easing.CubicInOut);
+                    await button.TranslateTo(0, 0, 150, Easing.CubicInOut);
+                }
+                if (viewModel.ActiveTab != "Settings")
+                {
+                    viewModel.ActiveTab = "Settings";
+                    await ChangeContentWithAnimation(new AppSettings(signUpViewModel));
+                }
+            }
+        }
+        private async Task ChangeContentWithAnimation(Microsoft.Maui.Controls.View newContent)
+        {
+            if (DynamicContent.Content != null)
+            {
+                await DynamicContent.Content.FadeTo(0, 150, Easing.CubicInOut);
+            }
+
+            DynamicContent.Content = newContent;
+
+            if (DynamicContent.Content != null)
+            {
+                DynamicContent.Content.Opacity = 0;
+                await DynamicContent.Content.FadeTo(1, 150, Easing.CubicInOut);
+            }
+        }
+
+
+        private async void OnMapButtonClicked(object sender, EventArgs e)
+        {
+            if (BindingContext is MainPageViewModel viewModel)
+            {
+                if (sender is ImageButton button)
+                {
+                    await button.TranslateTo(0, -10, 150, Easing.CubicInOut);
+                    await button.TranslateTo(0, 0, 150, Easing.CubicInOut);
+                }
+                if (viewModel.ActiveTab != "Map")
+                {
+                    viewModel.ActiveTab = "Map";
+                    await ChangeContentWithAnimation(new AppMap());
+                }
+
+            }
         }
 
         private async void OnProfileButtonClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new AppProfile());
+            if (BindingContext is MainPageViewModel viewModel)
+            {
+                if (sender is ImageButton button)
+                {
+                    await button.TranslateTo(0, -10, 150, Easing.CubicInOut);
+                    await button.TranslateTo(0, 0, 150, Easing.CubicInOut);
+                }
+                if (viewModel.ActiveTab != "Profile")
+                {
+                    viewModel.ActiveTab = "Profile";
+                    await ChangeContentWithAnimation(new AppProfile());
+                }
+            }   
         }
 
         private async void OnScheduleButtonClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new AppSchedule());
+            if (BindingContext is MainPageViewModel viewModel)
+            {
+                if (sender is ImageButton button)
+                {
+                    await button.TranslateTo(0, -10, 150, Easing.CubicInOut);
+                    await button.TranslateTo(0, 0, 150, Easing.CubicInOut);
+                }
+                if (viewModel.ActiveTab != "Schedule")
+                {
+                    viewModel.ActiveTab = "Schedule";
+                    await ChangeContentWithAnimation(new AppSchedule());
+                }
+            }
         }
 
         private async void OnPlantsButtonClicked(object sender, EventArgs e)
@@ -99,23 +199,6 @@ namespace Habitualize
             var data = await SavingLoadingSystem.LoadHabits();
             var readingHabits = data.OfType<Reading>().ToList();
             await Navigation.PushAsync(new BooksPage(readingHabits));
-        }
-
-        private async void OnTabClicked(object sender, EventArgs e)
-        {
-            if (sender is ImageButton button && button.CommandParameter is string tabName)
-            {
-                // Установите активную вкладку
-                if (BindingContext is MainPageViewModel viewModel)
-                {
-                    viewModel.ActiveTab = tabName;
-                }
-
-                // Анимация смещения
-                await button.TranslateTo(0, -10, 100); // Смещение вверх
-                await button.TranslateTo(0, 0, 100);  // Возврат в исходное положение
-            }
-        }
-
+        } 
     }
 }
