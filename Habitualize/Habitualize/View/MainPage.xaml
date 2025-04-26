@@ -5,83 +5,131 @@
              x:Class="Habitualize.MainPage">
 
     <Grid RowDefinitions="Auto,*,Auto">
-        
+
         <!-- Header -->
-        <Border Grid.Row="0" BackgroundColor="Transparent" Padding="0" StrokeThickness="1" Stroke="Transparent" HorizontalOptions="End">
-            
+        <Border Grid.Row="0" 
+                Padding="0" 
+                StrokeThickness="1" 
+                Stroke="Transparent" 
+                HorizontalOptions="End">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <ImageButton Source="notif.png" Grid.Column="0" Style="{StaticResource ButtonStyle}" />
+                <ImageButton Source="notif_unselect.png" 
+                             BackgroundColor="Transparent" 
+                             Grid.Column="0"
+                             Style="{StaticResource ButtonStyle}" />
             </Grid>
-            
+
         </Border>
 
         <!-- Main Content -->
-        <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never">
-            <StackLayout Padding="20" Spacing="20">
-                <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="10" RowSpacing="10">
-                    
-                    <Border Grid.Row="0" Grid.Column="0" BackgroundColor="#04cc51" StrokeShape="RoundRectangle 20" Padding="20" Margin="0,10,0,0">
-                        <Border.Shadow>
-                            <Shadow Brush="Black" Offset="20,20" Radius="40" Opacity="0.8" />
-                        </Border.Shadow>
-                        <Button Text="Plants" Style="{StaticResource MainContentButtonStyle}" Clicked="OnPlantsButtonClicked" />
-                    </Border>
-                    
-                    <Border Grid.Row="0" Grid.Column="1" BackgroundColor="#eb3b3b" StrokeShape="RoundRectangle 20" Padding="20" Margin="0,10,0,0">
-                        <Border.Shadow>
-                            <Shadow Brush="Black" Offset="20,20" Radius="40" Opacity="0.8" />
-                        </Border.Shadow>
-                        <Button Text="Sport" Style="{StaticResource MainContentButtonStyle}" Clicked="OnSportButtonClicked" />
-                    </Border>
-                    
-                    <Border Grid.Row="1" Grid.Column="0" BackgroundColor="#9c3d02" StrokeShape="RoundRectangle 20" Padding="20" Margin="0,10,0,0">
-                        <Border.Shadow>
-                            <Shadow Brush="Black" Offset="20,20" Radius="40" Opacity="0.8" />
-                        </Border.Shadow>
-                        <Button Text="Books" Style="{StaticResource MainContentButtonStyle}" Clicked="OnBooksButtonClicked" />
-                    </Border>
-                    
-                    <!--<Border Grid.Row="1" Grid.Column="1" BackgroundColor="#1E88E5" StrokeShape="RoundRectangle 20" Padding="20" Margin="0,10,0,0">
-                        <Border.Shadow>
-                            <Shadow Brush="Black" Offset="20,20" Radius="40" Opacity="0.8" />
-                        </Border.Shadow>
-                        <Label Text="Chores" Style="{StaticResource MainContentLabelStyle}" />
-                    </Border>
-                    
-                    <Border Grid.Row="2" Grid.Column="0" BackgroundColor="Black" StrokeShape="RoundRectangle 20" Padding="20" Margin="0,10,0,0">
-                        <Border.Shadow>
-                            <Shadow Brush="Black" Offset="20,20" Radius="40" Opacity="0.8" />
-                        </Border.Shadow>
-                        <Label Text="AddSomeSh*t" Style="{StaticResource MainContentLabelStyle}" />
+        <ScrollView Grid.Row="1" 
+                    VerticalScrollBarVisibility="Never" 
+                    HorizontalScrollBarVisibility="Never">
+            <StackLayout Padding="20" 
+                         Spacing="20">
+                <Grid ColumnDefinitions="*,*" 
+                      RowDefinitions="Auto,Auto,Auto" 
+                      ColumnSpacing="10" 
+                      RowSpacing="10">
+
+                    <Border Grid.Row="0" 
+                            Grid.Column="0" 
+                            BackgroundColor="#04cc51" 
+                            StrokeShape="RoundRectangle 20" 
+                            Padding="20" 
+                            Margin="0,10,0,0">
+                        <Button Text="Plants" 
+                                Style="{StaticResource MainContentButtonStyle}" 
+                                Clicked="OnPlantsButtonClicked" />
                     </Border>
 
-                    <Border Grid.Row="2" Grid.Column="1" BackgroundColor="DarkGoldenrod" StrokeShape="RoundRectangle 20" Padding="20" Margin="0,10,0,0">
-                        <Border.Shadow>
-                            <Shadow Brush="Black" Offset="20,20" Radius="40" Opacity="0.8" />
-                        </Border.Shadow>
-                        <Label Text="𓆝 𓆟 𓆞 𓆝 𓆟" Style="{StaticResource MainContentLabelStyle}" />
-                    </Border>-->
+                    <Border Grid.Row="0" 
+                            Grid.Column="1" 
+                            BackgroundColor="#eb3b3b" 
+                            StrokeShape="RoundRectangle 20" 
+                            Padding="20" 
+                            Margin="0,10,0,0">
+                        <Button Text="Sport" 
+                                Style="{StaticResource MainContentButtonStyle}" 
+                                Clicked="OnSportButtonClicked" />
+                    </Border>
+
+                    <Border Grid.Row="1" 
+                            Grid.Column="0" 
+                            BackgroundColor="#9c3d02" 
+                            StrokeShape="RoundRectangle 20" 
+                            Padding="20" 
+                            Margin="0,10,0,0">
+                        <Button Text="Books" 
+                                Style="{StaticResource MainContentButtonStyle}" 
+                                Clicked="OnBooksButtonClicked" />
+                    </Border>
                 </Grid>
             </StackLayout>
         </ScrollView>
 
         <!-- Footer -->
-        <Border Grid.Row="2" BackgroundColor="Transparent" Padding="0" StrokeThickness="1" Stroke="Transparent">
-            <Border.Shadow>
-                <Shadow Brush="Black" Offset="20,20" Radius="40" Opacity="0.8" />
-            </Border.Shadow>
+        <Border Grid.Row="2" 
+                HeightRequest="100" 
+                Padding="0" 
+                Stroke="Transparent">
             <Grid ColumnDefinitions="*,*,*,*,*">
-                <ImageButton Source="map.png" Grid.Column="0" Style="{StaticResource ButtonStyle}" />
-                <ImageButton Source="avatar.png" Grid.Column="1" Style="{StaticResource ButtonStyle}"  Clicked="OnProfileButtonClicked" />
-                <ImageButton Source="schedule.png" Grid.Column="2" Style="{StaticResource ButtonStyle}" Clicked="OnScheduleButtonClicked"/>
-                <ImageButton Source="chest.png" Grid.Column="3" Style="{StaticResource ButtonStyle}" />
-                <ImageButton Source="settings.png" Grid.Column="4" Style="{StaticResource ButtonStyle}"  Clicked="OnSettingsButtonClicked"/>
+                <StackLayout Grid.Column="0" 
+                             HorizontalOptions="Center" 
+                             VerticalOptions="Center">
+                    <StackLayout.Shadow>
+                        <Shadow Brush="#7950F2"
+                                Radius="15" 
+                                Opacity="0.8" />
+                    </StackLayout.Shadow>
+                    <Label Text="Map" 
+                           IsVisible="{Binding ActiveTab, Converter={StaticResource 
+                                      TabVisibilityConverter}, ConverterParameter='Map'}" 
+                           FontSize="16" 
+                           FontAttributes="Bold" 
+                           TextColor="#7950F2" 
+                           HorizontalOptions="Center" />
+                    <ImageButton Source="map.png" 
+                                 Style="{StaticResource FooterButtonStyle}" 
+                                 Clicked="OnTabClicked" 
+                                 CommandParameter="Map" />
+                </StackLayout>
+                <StackLayout Grid.Column="1" 
+                             HorizontalOptions="Center" 
+                             VerticalOptions="Center">
+                    <ImageButton Source="avatar_unselect.png" 
+                                 Style="{StaticResource FooterButtonStyle}" 
+                                 Clicked="OnProfileButtonClicked" 
+                                 CommandParameter="Profile" />
+                </StackLayout>
+                <StackLayout Grid.Column="2" 
+                             HorizontalOptions="Center" 
+                             VerticalOptions="Center">
+                    <ImageButton Source="schedule_unselect.png" 
+                                 Style="{StaticResource FooterButtonStyle}" 
+                                 Clicked="OnScheduleButtonClicked" 
+                                 CommandParameter="Schedule" />
+                </StackLayout>
+                <StackLayout Grid.Column="3" 
+                             HorizontalOptions="Center" 
+                             VerticalOptions="Center">
+                    <ImageButton Source="chest_unselect.png" 
+                                 Style="{StaticResource FooterButtonStyle}" 
+                                 CommandParameter="Chest" />
+                </StackLayout>
+                <StackLayout Grid.Column="4" 
+                             HorizontalOptions="Center" 
+                             VerticalOptions="Center">
+                    <ImageButton Source="settings_unselect.png" 
+                                 Style="{StaticResource FooterButtonStyle}" 
+                                 Clicked="OnSettingsButtonClicked" 
+                                 CommandParameter="Settings" />
+                </StackLayout>
             </Grid>
         </Border>
     </Grid>
-
 </ContentPage>
 

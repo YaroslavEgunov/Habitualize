@@ -4,6 +4,7 @@ using Firebase.Auth.Providers;
 using Firebase.Auth.Repository;
 using Habitualize.SignPages;
 using Habitualize.View;
+using Habitualize.ViewModel;
 using Microsoft.Maui;
 using Microsoft.Maui.Media;
 using Microsoft.Maui.Storage;
@@ -108,6 +109,22 @@ public partial class AppProfile : ContentPage
     private async void OnMapButtonClicked(object sender, EventArgs e)
     {
         await Navigation.PushAsync(new MainPage());
+    }
+
+    private async void OnTabClicked(object sender, EventArgs e)
+    {
+        if (sender is ImageButton button && button.CommandParameter is string tabName)
+        {
+            // Установите активную вкладку
+            if (BindingContext is ProfileViewModel viewModel)
+            {
+                viewModel.ActiveTab = tabName;
+            }
+
+            // Анимация смещения
+            await button.TranslateTo(0, -10, 100); // Смещение вверх
+            await button.TranslateTo(0, 0, 100);  // Возврат в исходное положение
+        }
     }
 }
 public class Achievement

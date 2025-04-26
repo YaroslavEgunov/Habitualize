@@ -7,9 +7,25 @@ using FirebaseAdmin;
 using Habitualize.Services;
 using Habitualize.Model;
 using Habitualize.View;
+using Habitualize.ViewModel;
+using System.Globalization;
 
 namespace Habitualize
 {
+    public class TabVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value?.ToString() == parameter?.ToString();
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+
     public partial class MainPage : ContentPage
     {
         public static SaveAndLoad SavingLoadingSystem = new SaveAndLoad();
@@ -19,6 +35,7 @@ namespace Habitualize
         public MainPage()
         {
             InitializeComponent();
+            BindingContext = new MainPageViewModel();
             NavigationPage.SetHasNavigationBar(this, false);
             //if (Achievments.FirstTimeLoad)
             //{
@@ -83,5 +100,22 @@ namespace Habitualize
             var readingHabits = data.OfType<Reading>().ToList();
             await Navigation.PushAsync(new BooksPage(readingHabits));
         }
+
+        private async void OnTabClicked(object sender, EventArgs e)
+        {
+            if (sender is ImageButton button && button.CommandParameter is string tabName)
+            {
+                // Установите активную вкладку
+                if (BindingContext is MainPageViewModel viewModel)
+                {
+                    viewModel.ActiveTab = tabName;
+                }
+
+                // Анимация смещения
+                await button.TranslateTo(0, -10, 100); // Смещение вверх
+                await button.TranslateTo(0, 0, 100);  // Возврат в исходное положение
+            }
+        }
+
     }
 }

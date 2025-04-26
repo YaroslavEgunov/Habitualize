@@ -12,8 +12,39 @@
         <Setter Property="VerticalOptions" Value="Center" />
     </Style>
 
-    <Style TargetType="ContentPage">
-        <Setter Property="BackgroundColor" Value="{StaticResource BackgroundColor}" />
+    <Style x:Key="FooterButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+
+    </Style>
+
+    <Style x:Key="LoginStyleSqr" TargetType="Border">  
+        <Setter Property="StrokeShape" Value="RoundRectangle 20,20,20,0"/>  
+        <Setter Property="BackgroundColor" Value="#7950F2"/>  
+        <Setter Property="Padding" Value="20"/>
+        <Setter Property="Margin" Value="-20,-20,-20,0"/>
+        <Setter Property="HorizontalOptions" Value="Fill"/>
+        <Setter Property="HeightRequest" Value="100"/>
+    </Style>
+
+    <Style x:Key="LoginStylePlace" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="Transparent"/>
+        <Setter Property="Padding" Value="20"/>
+        <Setter Property="Margin" Value="0,10,0,0"/>
+        <Setter Property="StrokeShape" Value="{x:Null}"/>
+        <Setter Property="Stroke" Value="{x:Null}"/>
+        <Setter Property="StrokeThickness" Value="0"/>
+    </Style>
+
+    <Style x:Key="LoginStyleLabel" TargetType="Label">
+        <Setter Property="TextColor" Value="Black"/>
+        <Setter Property="FontSize" Value="16"/>
+
+    </Style>
+
+    <Style x:Key="LoginStyleEntry" TargetType="Entry">
+        <Setter Property="TextColor" Value="Black"/>   
+        <Setter Property="Background" Value="White"/>   
+        
     </Style>
 
     <Style x:Key="CalendarStyle" TargetType="cal:Calendar">
@@ -520,7 +551,7 @@
 
     <Style TargetType="Page" ApplyToDerivedTypes="True">
         <Setter Property="Padding" Value="0"/>
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource OffBlack}}" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource BackgroundColor}, Dark={StaticResource BackgroundColor}}" />
     </Style>
 
     <Style TargetType="NavigationPage">

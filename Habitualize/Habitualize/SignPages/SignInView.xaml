@@ -1,46 +1,76 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Habitualize.SignPages.SignInView"
-             BackgroundColor="#121212">
+             x:Class="Habitualize.SignPages.SignInView">
     <Grid RowDefinitions="Auto,*,Auto">
 
-        <!-- Header -->
-        <Border Grid.Row="0" BackgroundColor="Transparent" Padding="0" StrokeThickness="1" Stroke="Transparent" HorizontalOptions="End">
-        </Border>
-
         <!-- Main Content -->
-        <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never">
-            <StackLayout Padding="20" Spacing="20">
-                <Border Grid.Row="0" Grid.Column="0" BackgroundColor="#7950F2" StrokeShape="RoundRectangle 20" Padding="20" Margin="0,10,0,0">
-                    <Border.Shadow>
-                        <Shadow Brush="Black" Offset="20,20" Radius="40" Opacity="0.8" />
-                    </Border.Shadow>
-                    <StackLayout Spacing="20">
-                        <Label Margin="0,20,0,0" Text="Enter email" />
-                        <Entry Text="{Binding Email}" />
-                        <Label Margin="0,20,0,0" Text="Enter password" />
-                        <Entry IsPassword="True" Text="{Binding Password}" />
-                        <Button Command="{Binding SignInCommand}" Text="Sign In" />
-                        <Button Command="{Binding NavigateSignUpCommand}" Text="Need an account? Sign up" />
-                        <Label Margin="0,20,0,0" Text="{Binding HabitualizeMessage}" />
+        <ScrollView Grid.Row="1" 
+                    VerticalScrollBarVisibility="Never" 
+                    HorizontalScrollBarVisibility="Never">
+            
+            <StackLayout Padding="20" 
+                         Spacing="20">
+
+                <Border Style="{StaticResource LoginStyleSqr}">
+                    <Label 
+                        HorizontalOptions="Center" 
+                        VerticalOptions="Center" 
+                        LineHeight="3">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Login" 
+                                      TextColor="White" 
+                                      FontAttributes="Bold" 
+                                      FontSize="28"/>
+                                <Span Text="&#x0a;" />
+                                <Span Text=" Welcome!" 
+                                      TextColor="White" 
+                                      FontAttributes="Bold" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </Border>
+
+                <Border Style="{StaticResource LoginStylePlace}" 
+                        Grid.Row="0" 
+                        Grid.Column="0">
+                    <StackLayout  Spacing="20">
+                        <Label Style="{StaticResource LoginStyleLabel}" 
+                               Text="Enter email" />
+                        <Entry Style="{StaticResource LoginStyleEntry}" 
+                               Placeholder="Email" 
+                               Text="{Binding Email}" />
+                        <Label Style="{StaticResource LoginStyleLabel}" 
+                               Text="Enter password" />
+                        <Entry Style="{StaticResource LoginStyleEntry}" 
+                               Placeholder="Password" 
+                               IsPassword="True" 
+                               Text="{Binding Password}" />
+                        <Button Command="{Binding SignInCommand}" 
+                                Text="Sign In" 
+                                TextColor="White" 
+                                Background="#7950F2"
+                                CornerRadius="25"/>
+                        <Label HorizontalOptions="Center">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Need an account? " 
+                                          TextColor="Black" />
+                                    <Span Text="Sign up" 
+                                          TextColor="#7950F2" FontAttributes="Bold" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding NavigateSignUpCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <Label Style="{StaticResource LoginStyleLabel}" 
+                               Text="{Binding HabitualizeMessage}" />
                     </StackLayout>
                 </Border>
             </StackLayout>
         </ScrollView>
 
-        <!-- Footer --><!--
-        <Border Grid.Row="2" BackgroundColor="Transparent" Padding="0" StrokeThickness="1" Stroke="Transparent">
-            <Border.Shadow>
-                <Shadow Brush="Black" Offset="20,20" Radius="40" Opacity="0.8" />
-            </Border.Shadow>
-            <Grid ColumnDefinitions="*,*,*,*,*">
-                <ImageButton Source="Resources\Images\map.png" Grid.Column="0" Style="{StaticResource ButtonStyle}" />
-                <ImageButton Source="Resources\Images\avatar.png" Grid.Column="1" Style="{StaticResource ButtonStyle}" />
-                <ImageButton Source="Resources\Images\stat.png" Grid.Column="2" Style="{StaticResource ButtonStyle}" />
-                <ImageButton Source="Resources\Images\chest.png" Grid.Column="3" Style="{StaticResource ButtonStyle}" />
-                <ImageButton Source="Resources\Images\settings.png" Grid.Column="4" Style="{StaticResource ButtonStyle}" />
-            </Grid>
-        </Border>-->
     </Grid>
 </ContentPage>
