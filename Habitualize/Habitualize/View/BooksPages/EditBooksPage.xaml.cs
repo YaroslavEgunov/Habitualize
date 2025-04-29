@@ -42,6 +42,7 @@ public partial class EditBooksPage : ContentPage
         }
     }
 
+
     private async void OnConfirmButtonClicked(object sender, EventArgs e)
     {
         if (_editedBook == _existingBook)
