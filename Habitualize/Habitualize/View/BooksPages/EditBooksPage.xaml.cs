@@ -52,6 +52,7 @@ public partial class EditBooksPage : ContentPage
         else
         {
             var existingHabits = await MainPage.SavingLoadingSystem.LoadHabits();
+            MainPage.Achievements.CheckAchievements(existingHabits);
             var existingBooks = existingHabits.OfType<Reading>().ToList();
             if (_editedBook.PagesRead == _editedBook.PagesInBook && !_editedBook.BookComplete)
             {

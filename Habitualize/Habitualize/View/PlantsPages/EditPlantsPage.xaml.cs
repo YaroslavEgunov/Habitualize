@@ -47,6 +47,7 @@ public partial class EditPlantsPage : ContentPage
         else
         {
             var existingHabits = await MainPage.SavingLoadingSystem.LoadHabits();
+            MainPage.Achievements.CheckAchievements(existingHabits);
             var existingPlants = existingHabits.OfType<Gardening>().ToList();
             if (_editedPlant.PlantIsWatered && DatePick.Date == DateTime.Now.Date)
             {

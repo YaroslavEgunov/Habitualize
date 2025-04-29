@@ -40,6 +40,7 @@ public partial class EditSportPage : ContentPage
         else
         {
             var existingHabits = await MainPage.SavingLoadingSystem.LoadHabits();
+            MainPage.Achievements.CheckAchievements(existingHabits);
             var existingTainings = existingHabits.OfType<Training>().ToList();
             if (_editedTraining.CurrentWeight == _editedTraining.TargetWeight && !_editedTraining.TrainingComplete)
             {
