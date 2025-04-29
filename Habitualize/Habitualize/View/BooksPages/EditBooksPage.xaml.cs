@@ -28,6 +28,7 @@ public partial class EditBooksPage : ContentPage
         _existingBook = JsonConvert.DeserializeObject<Reading>(JsonConvert.SerializeObject(book));
         _editedBook = book;
         BindingContext = _editedBook;
+        NavigationPage.SetHasNavigationBar(this, false);
     }
 
     protected override void OnAppearing()

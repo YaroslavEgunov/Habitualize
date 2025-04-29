@@ -31,15 +31,42 @@ public partial class AppMap : ContentView
         }
         else
         {
-            // Список фраз для возвращающихся пользователей
             var phrases = new List<string>
         {
-            "С возвращением! Выберите категорию, чтобы продолжить!",
-            "Рады снова вас видеть! Что будем делать сегодня?",
-            "Приятно видеть вас снова! Выберите категорию.",
-            "Добро пожаловать обратно! Давайте продолжим!",
-            "Добро пожаловать обратно! Давайте продолжим!",
-            "Снова в деле! Выберите категорию для продолжения."
+            "Welcome back! Choose a category to continue!",
+            "Good to see you again! What shall we do today?",
+            "Nice to have you back! Pick a category.",
+            "Welcome back! Let’s get started!",
+            "Back in action! Choose a category to proceed.",
+            "It's dangerous to go alone! Take this.",
+            "War. War never changes. But habits can!",
+            "Welcome back, Commander!",
+            "Ready for a new quest?",
+            "Praise the sun! And pick a category.",
+            "Finish him! Or start something new.",
+            "You are our last hope, Commander.",
+            "Welcome back, Dragonborn!",
+            "Ready for the next level?",
+            "May the Force be with you!",
+            "I'll be back. And you are!",
+            "Why so serious? Pick a category.",
+            "Welcome back, Neo.",
+            "You shall not pass... without choosing a category!",
+            "With great power comes great responsibility.",
+            "You're back? This is the beginning of something great. ",
+            "Winter is coming, but habits await.",
+            "Welcome back, friend!",
+            "How about a legendary day? ",
+            "Welcome back to Hawkins! ",
+            "Just do it!",
+            "Welcome back, Mr. White.",
+            "You're back? This is no coincidence. ",
+            "Welcome back, Sheriff.",
+            "You're back! This is your day to shine.",
+            "Ready for new achievements? Pick a category.",
+            "Welcome back! Today is going to be great.",
+            "You're with us again! Time for new victories.",
+            "Good to see you again! Let’s move forward to success!"
         };
 
             // Генерация случайного индекса

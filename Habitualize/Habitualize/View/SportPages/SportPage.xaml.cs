@@ -10,6 +10,7 @@ public partial class SportPage : ContentPage
 	{
 		InitializeComponent();
         HabitListView.ItemsSource = data;
+        NavigationPage.SetHasNavigationBar(this, false);
     }
 
     private async void OnCreateTrainingHabitButtonClicked(object sender, EventArgs e)

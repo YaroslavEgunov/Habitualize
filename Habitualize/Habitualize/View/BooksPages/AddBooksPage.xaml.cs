@@ -10,6 +10,7 @@ public partial class AddBooksPage : ContentPage
     public AddBooksPage()
 	{
 		InitializeComponent();
+        NavigationPage.SetHasNavigationBar(this, false);
         BindingContext = CurrentBook;
         DatePick.MinimumDate = DateTime.Now;
     }

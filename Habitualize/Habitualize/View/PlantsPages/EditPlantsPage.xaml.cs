@@ -34,7 +34,8 @@ public partial class EditPlantsPage : ContentPage
         _existingPlant = JsonConvert.DeserializeObject<Gardening>(JsonConvert.SerializeObject(plant));
         _editedPlant = plant;
         BindingContext = _editedPlant;
-        
+        NavigationPage.SetHasNavigationBar(this, false);
+
     }
 
     private async void OnConfirmButtonClicked(object sender, EventArgs e)

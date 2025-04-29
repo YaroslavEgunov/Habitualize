@@ -8,6 +8,7 @@ public partial class BooksPage : ContentPage
 	{
 		InitializeComponent();
         HabitListView.ItemsSource = data;
+        NavigationPage.SetHasNavigationBar(this, false);
     }
 
     private async void OnBackButtonClicked(object sender, EventArgs e)

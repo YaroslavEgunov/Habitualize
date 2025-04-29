@@ -7,6 +7,7 @@ public partial class PlantsPage : ContentPage
     {
         InitializeComponent();
         HabitListView.ItemsSource = data;
+        NavigationPage.SetHasNavigationBar(this, false);
     }
 
     private async void OnBackButtonClicked(object sender, EventArgs e)

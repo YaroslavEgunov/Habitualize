@@ -2,28 +2,70 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Habitualize.Services"
-             x:Class="Habitualize.View.SportPage"
-             Title="">
+             x:Class="Habitualize.View.SportPage">
     <ContentPage.Resources>
         <ResourceDictionary>
             <local:BookCompleteToColorConverter x:Key="BookCompleteToColorConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <StackLayout Padding="20">
-        <Label Text="Your list of training!" Style="{StaticResource HabitsLabelStyle}"/>
-        <Label Text="Trainings List:" Style="{StaticResource HabitsLabelStyle}" />
-        <ListView x:Name="HabitListView" ItemTapped="OnItemTapped" Style="{StaticResource HabitsListViewStyle}" IsEnabled="True">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Border StrokeShape="RoundRectangle 20" Padding="0" BackgroundColor="{Binding TrainingComplete, Converter={StaticResource BookCompleteToColorConverter}}">
-                            <Label Text="{Binding HabitName}" Style="{StaticResource HabitsListViewLabelStyle}" Margin="10" />
-                        </Border>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <Button Text="Add Training" Clicked="OnCreateTrainingHabitButtonClicked" Style="{StaticResource HabitsButtonStyle}"/>
-        <Button Text="Back" Clicked="OnBackButtonClicked" Style="{StaticResource HabitsButtonStyle}" />
-    </StackLayout>
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!-- Основной контент -->
+        <ScrollView VerticalScrollBarVisibility="Never" 
+            HorizontalScrollBarVisibility="Never"
+            Grid.Row="1">
+
+            <StackLayout Padding="20" VerticalOptions="StartAndExpand">
+
+                <!-- Верхний Border -->
+                <Border Style="{StaticResource ProfileStyleSqr}">
+                    <Grid ColumnDefinitions="Auto,*" VerticalOptions="Center">
+                        <Button Text="←"
+                        Grid.Column="0"
+                        HeightRequest="30"
+                        WidthRequest="30"
+                        BackgroundColor="White"
+                        Clicked="OnBackButtonClicked" />
+                        <Label Text="Training"
+                       Grid.Column="1"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"
+                       FontSize="40"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       Margin="-42,0,0,0" />
+                    </Grid>
+                </Border>
+
+                <!-- Список занятий -->
+                <ListView x:Name="HabitListView" ItemTapped="OnItemTapped" Style="{StaticResource HabitsListViewStyle}" IsEnabled="True">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Border StrokeShape="RoundRectangle 20" Padding="0" BackgroundColor="{Binding TrainingComplete, Converter={StaticResource BookCompleteToColorConverter}}">
+                                    <Label Text="{Binding HabitName}" Style="{StaticResource HabitsListViewLabelStyle}" Margin="10" />
+                                </Border>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </ScrollView>
+
+        <!-- Нижний Border -->
+        <Border Grid.Row="2"
+        HeightRequest="100" 
+        Padding="0" 
+        Stroke="Transparent">
+            <Button Text="Add Training" 
+            Clicked="OnCreateTrainingHabitButtonClicked" 
+            Style="{StaticResource HabitsButtonStyle}" 
+            WidthRequest="150" 
+            BackgroundColor="#7950F2" 
+            TextColor="#FFFFFF" 
+            HorizontalOptions="Center"
+            Margin="0,0,0,20" />
+        </Border>
+    </Grid>
 </ContentPage>

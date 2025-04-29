@@ -11,6 +11,7 @@ public partial class AddPlantsPage : ContentPage
         InitializeComponent();
         BindingContext = CurrentPlant;
         DatePick.MinimumDate = DateTime.Now;
+        NavigationPage.SetHasNavigationBar(this, false);
     }
 
     private async void OnAddTaskButtonClicked(object sender, EventArgs e)

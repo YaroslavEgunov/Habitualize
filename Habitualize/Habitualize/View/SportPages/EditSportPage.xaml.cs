@@ -28,6 +28,7 @@ public partial class EditSportPage : ContentPage
         _existingTraining = JsonConvert.DeserializeObject<Training>(JsonConvert.SerializeObject(training));
         _editedTraining = training;
         BindingContext = _editedTraining;
+        NavigationPage.SetHasNavigationBar(this, false);
     }
 
     private async void OnConfirmButtonClicked(object sender, EventArgs e)

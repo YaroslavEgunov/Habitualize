@@ -1,34 +1,74 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Habitualize.View.EditSportPage"
-             Title="">
-    <StackLayout Margin="10" Padding="20">
-        <Label Text="View your training or edit it!" Style="{StaticResource HabitsLabelStyle}"/>
-        <Label Text="Training Name:" Style="{StaticResource HabitsLabelStyle}" />
-        <Entry Text="{Binding HabitName}" HeightRequest="60" />
-        <Label Text="Description:" Style="{StaticResource HabitsLabelStyle}" />
-        <Entry Text="{Binding HabitDescription}" HeightRequest="60" />
-        <Label Text="Desired Weight:" Style="{StaticResource HabitsLabelStyle}" />
-        <Label Text="{Binding TargetWeight}" Style="{StaticResource HabitsLabelStyle}" />
-        <Label Text="Your current weight:" Style="{StaticResource HabitsLabelStyle}" />
-        <Entry Text="{Binding CurrentWeight}" Keyboard="Numeric" />
-        <Label Text="Your exercises:" Style="{StaticResource HabitsLabelStyle}" />
-        <ListView ItemsSource="{Binding Tasks}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Label Text="{Binding .}" Style="{StaticResource HabitsListViewLabelStyle}"/>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <Label Text="Day you started your training:" Style="{StaticResource HabitsLabelStyle}"/>
-        <DatePicker x:Name="DatePick" Date="{Binding HabitStartTime}" IsEnabled="False" Format="d" />
-        <Label Text="Training deadline:" Style="{StaticResource HabitsLabelStyle}" />
-        <DatePicker x:Name="DateDeadline" Date="{Binding RepeatSchedule}" IsEnabled="False" Format="d" />
-        <Button Text="Confirm" Clicked="OnConfirmButtonClicked" Style="{StaticResource HabitsButtonStyle}" />
-        <Button Text="Delete" Clicked="OnDeleteButtonClicked" Style="{StaticResource HabitsButtonStyle}" BackgroundColor="Red" />
-        <Button Text="Cancel" Clicked="OnCancelButtonClicked" Style="{StaticResource HabitsButtonStyle}" />
-    </StackLayout>
+             x:Class="Habitualize.View.EditSportPage">
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <ScrollView VerticalScrollBarVisibility="Never" 
+                HorizontalScrollBarVisibility="Never"
+                Grid.Row="1">
+
+            <StackLayout Padding="20,20,20,0" VerticalOptions="StartAndExpand">
+
+                <!-- Верхний Border -->
+                <Border Grid.Row="0" Style="{StaticResource ProfileStyleSqr}">
+                    <Grid ColumnDefinitions="Auto,*" VerticalOptions="Center">
+                        <Button Text="←"
+                    Grid.Column="0"
+                    HeightRequest="30"
+                    WidthRequest="30"
+                    BackgroundColor="White"
+                    Clicked="OnCancelButtonClicked" />
+                        <Label Text="Edit Training"
+                   Grid.Column="1"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   FontSize="40"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   Margin="-42,0,0,0" />
+                    </Grid>
+                </Border>
+
+                <!-- Форма -->
+                <Label Text="Training Name:" Style="{StaticResource HabitsLabelStyle}"/>
+                <Entry Text="{Binding HabitName}" HeightRequest="60" Placeholder="Name"/>
+                <Label Text="Description:" Style="{StaticResource HabitsLabelStyle}" />
+                <Entry Text="{Binding HabitDescription}" HeightRequest="60" Placeholder="Descriptoin" />
+                <Label Text="Desired Weight:" Style="{StaticResource HabitsLabelStyle}" />
+                <Label Text="{Binding TargetWeight}" Style="{StaticResource HabitsLabelStyle}" />
+                <Label Text="Your current weight:" Style="{StaticResource HabitsLabelStyle}" />
+                <Entry Text="{Binding CurrentWeight}" Keyboard="Numeric" Placeholder="Weight" />
+                <Label Text="Your exercises:" Style="{StaticResource HabitsLabelStyle}" />
+                <ListView ItemsSource="{Binding Tasks}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Label Text="{Binding .}" Style="{StaticResource HabitsListViewLabelStyle}"/>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Label Text="Day you started your training:" Style="{StaticResource HabitsLabelStyle}"/>
+                <DatePicker x:Name="DatePick" Date="{Binding HabitStartTime}" TextColor="Black" IsEnabled="False" Format="d" />
+                <Label Text="Training deadline:" Style="{StaticResource HabitsLabelStyle}" />
+                <DatePicker x:Name="DateDeadline" Date="{Binding RepeatSchedule}" IsEnabled="False" TextColor="Black" Format="d" />
+            </StackLayout>
+        </ScrollView>
+
+        <!-- Нижний Border -->
+        <Border Grid.Row="2"
+             HeightRequest="100" 
+             Padding="0" 
+             Stroke="Transparent">
+            <Grid ColumnDefinitions="*,*">
+                <StackLayout Grid.Column="0">
+                    <Button Text="Confirm" Clicked="OnConfirmButtonClicked" Style="{StaticResource HabitsButtonStyle}" />
+                </StackLayout>
+                <StackLayout Grid.Column="1">
+                    <Button Text="Delete" Clicked="OnDeleteButtonClicked" Style="{StaticResource HabitsButtonStyle}" BackgroundColor="Red" />
+                </StackLayout>
+            </Grid>
+        </Border>
+    </Grid>
 </ContentPage>
