@@ -12,6 +12,7 @@ using System.Globalization;
 
 namespace Habitualize
 {
+    //Конвертер для фотографий в футере
     public class TabImageConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -35,7 +36,7 @@ namespace Habitualize
         }
     }
 
-
+    //Конвертер для подписей в футере
     public class TabVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -111,6 +112,8 @@ namespace Habitualize
                 }
             }
         }
+
+        //Анимация при смене контента
         private async Task ChangeContentWithAnimation(Microsoft.Maui.Controls.View newContent)
         {
             if (DynamicContent.Content != null)

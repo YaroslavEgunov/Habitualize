@@ -2,16 +2,23 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using Firebase.Auth;
 using Firebase.Auth.Providers;
 using Firebase.Auth.Repository;
+using Habitualize.Model;
 using Habitualize.SignPages;
 using Habitualize.ViewModel;
 using Microsoft.Maui;
 using Microsoft.Maui.Media;
 using Microsoft.Maui.Storage;
+using System.Collections.ObjectModel;
+
 
 namespace Habitualize.View;
 
 public partial class AppProfile : ContentView
 {
+    private string _avatarImageSource;
+
+    public ObservableCollection<Friend> Friends { get; set; }
+
     public string Username { get; }
 
     public string Bio { get; set; }
@@ -20,20 +27,31 @@ public partial class AppProfile : ContentView
 
     public string Gender { get; set; }
 
+    public string AvatarImageSource
+    {
+        get => _avatarImageSource;
+        set
+        {
+            _avatarImageSource = value;
+            Preferences.Set("UserAvatar", value);
+            OnPropertyChanged(nameof(AvatarImageSource));
+        }
+    }
+
     public AppProfile()
     {
         InitializeComponent();
 
         Username = Preferences.Get("Username", "Default Username");
         Bio = Preferences.Get("UserBio", "Enter a short biography...");
+        AvatarImageSource = Preferences.Get("UserAvatar", string.Empty);
 
-        var avatarPath = Preferences.Get("UserAvatar", string.Empty);
-        if (!string.IsNullOrEmpty(avatarPath))
+        Friends = new ObservableCollection<Friend>
         {
-            var imageSource = ImageSource.FromFile(avatarPath);
-            var avatarImage = this.FindByName<Image>("AvatarImage");
-            avatarImage.Source = imageSource;
-        }
+            new Friend { Name = "Alice", Avatar = "alice_avatar.png" },
+            new Friend { Name = "Bob", Avatar = "bob_avatar.png" },
+            new Friend { Name = "Charlie", Avatar = "charlie_avatar.png" }
+        };
 
         BindingContext = this;
     }
@@ -49,12 +67,12 @@ public partial class AppProfile : ContentView
 
             if (result != null)
             {
-                Preferences.Set("UserAvatar", result.FullPath);
+                AvatarImageSource = result.FullPath; // Обновляем источник изображения
 
                 var stream = await result.OpenReadAsync();
                 var imageSource = ImageSource.FromStream(() => stream);
-                var image = (Image)sender;
-                image.Source = imageSource;
+                var avatarImage = this.FindByName<Image>("AvatarImage");
+                avatarImage.Source = imageSource; // Обновляем отображение
             }
         }
         catch (Exception ex)
@@ -79,14 +97,8 @@ public partial class AppProfile : ContentView
         Preferences.Set("UserBio", BioEditor.Text);
     }
 
-    private async void OnAchievementTapped(object sender, EventArgs e)
-    {
-        var description = (string)((TappedEventArgs)e).Parameter;
-        await Application.Current.MainPage.DisplayAlert("Achivment: ", description, "OK");
-    }
-}
-public class Achievement
-{
-    public string Icon { get; set; }
-    public string Description { get; set; }
+
+
+
+
 }

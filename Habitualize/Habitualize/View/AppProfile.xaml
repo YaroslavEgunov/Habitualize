@@ -7,78 +7,121 @@
                 HorizontalScrollBarVisibility="Never">
         <StackLayout Padding="20">
 
-            <!-- Аватар пользователя с возможностью добавления фотографии -->
-            <Border BackgroundColor="Gray" StrokeShape="RoundRectangle 75" HeightRequest="150" WidthRequest="150" HorizontalOptions="Center">
-                <Image x:Name="AvatarImage" Source="profile_avatar.jpg" Aspect="AspectFill" HeightRequest="150" WidthRequest="150">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnAvatarTapped" />
-                    </Image.GestureRecognizers>
-                </Image>
-            </Border>
+            <Border Grid.Row="0" 
+                    Style="{StaticResource ProfileStyleSqr}">
+                <Grid ColumnDefinitions="*,Auto" 
+                      VerticalOptions="Center">
+                    <!-- Текст -->
+                    <Label Grid.Column="0"
+                           HorizontalOptions="Start" 
+                           VerticalOptions="Center" 
+                           LineHeight="1">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Hi, " 
+                                      TextColor="White" 
+                                      FontAttributes="Bold" 
+                                      FontSize="28"/>
+                                <Span Text="{Binding Username, 
+                                            StringFormat='{0}!'}" 
+                                      TextColor="White" 
+                                      FontAttributes="Bold"
+                                      FontSize="28"/>
+                                <Span Text="&#x0a;"/>
+                                <Span Text="&#x0a;"/>
+                                <Span Text="What are you doing next?" 
+                                      TextColor="White" 
+                                      FontAttributes="Bold"
+                                      FontSize="16"/>   
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
 
-            <!-- Имя пользователя -->
-            <Label 
-            Text="{Binding Username}"
-            FontSize="24"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center"
-            Margin="0,20,0,0"/>
-
-            <!-- Краткая биография -->
-            <Editor 
-            x:Name="BioEditor"
-            Text="{Binding Bio}"
-            FontSize="16"
-            VerticalOptions="Center" 
-            HorizontalOptions="FillAndExpand"
-            Placeholder="About me..."
-            PlaceholderColor="Gray"
-            Margin="0,10,0,0"
-            IsReadOnly="True"
-            MaxLength="100"
-            HeightRequest="150"
-            Focused="OnBioEditorFocused"
-            Unfocused="OnBioEditorUnfocused"
-            TextChanged="OnBioTextChanged"/>
-
-            <!-- Достижения -->
-            <Label 
-            Text="Achivments"
-            FontSize="18"
-            VerticalOptions="Start" 
-            HorizontalOptions="Start"
-            Margin="0,20,0,0" />
-            <Border BackgroundColor="Transparent" StrokeThickness="1" HeightRequest="150" HorizontalOptions="FillAndExpand">
-                <Border.Shadow>
-                    <Shadow Brush="Black" Offset="20,20" Radius="40" Opacity="0.8" />
-                </Border.Shadow>
-                <Grid ColumnDefinitions="*,*,*" >
-                    <Image Source="exp.png"  Grid.Column="0">
+                    <!-- Изображение -->
+                    <Image Grid.Column="1"
+                           x:Name="AvatarImage"
+                           Source="{Binding AvatarImageSource, 
+                                  FallbackValue='default_avatar.jpg'}" 
+                           Aspect="AspectFill"
+                           HeightRequest="100"
+                           WidthRequest="100"
+                           HorizontalOptions="End">
                         <Image.Clip>
-                            <EllipseGeometry Center="63,70" RadiusX="55" RadiusY="55" />
+                            <RoundRectangleGeometry CornerRadius="15"
+                                                    Rect="40,0,100,100" />
                         </Image.Clip>
                         <Image.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnAchievementTapped" CommandParameter="Complete the first task" />
-                        </Image.GestureRecognizers>
-                    </Image>
-                    <Image Source="closed_achiv.png" Grid.Column="1">
-                        <Image.Clip>
-                            <EllipseGeometry Center="75,75" RadiusX="75" RadiusY="75" />
-                        </Image.Clip>
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnAchievementTapped" CommandParameter="Achievement not yet received" />
-                        </Image.GestureRecognizers>
-                    </Image>
-                    <Image Source="closed_achiv.png" Grid.Column="2">
-                        <Image.Clip>
-                            <EllipseGeometry Center="75,75" RadiusX="75" RadiusY="75" />
-                        </Image.Clip>
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnAchievementTapped" CommandParameter="Achievement not yet received" />
+                            <TapGestureRecognizer Tapped="OnAvatarTapped" />
                         </Image.GestureRecognizers>
                     </Image>
                 </Grid>
             </Border>
+
+            <!-- Краткая биография -->
+            <Editor Style="{StaticResource ProfileEditorStyle}"
+            x:Name="BioEditor"
+            Text="{Binding Bio}"
+            Focused="OnBioEditorFocused"
+            Unfocused="OnBioEditorUnfocused"
+            TextChanged="OnBioTextChanged"/>
+
+            <Grid ColumnDefinitions="*,Auto" Margin="0,20,0,10">
+                <!-- Заголовок "Friends" -->
+                <Label Text="Friends"
+                       FontSize="18"
+                       TextColor="Black"
+                       FontAttributes="Bold"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Start" />
+
+                <!-- Ссылка "See All" -->
+                <Picker Grid.Column="1"
+                        Title="See All"
+                        ItemsSource="{Binding Friends}"
+                        ItemDisplayBinding="{Binding Name}"
+                        VerticalOptions="Center"
+                        HorizontalOptions="End"
+                        SelectedIndexChanged="OnFriendSelected" />
+            </Grid>
+
+            <!-- Список друзей -->
+            <CollectionView ItemsSource="{Binding Friends}"
+                            SelectionMode="None"
+                            VerticalOptions="FillAndExpand">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10" 
+                              ColumnDefinitions="Auto,*,Auto" 
+                              RowDefinitions="Auto">
+                            <!-- Аватар друга -->
+                            <Image Source="{Binding Avatar}"
+                                   HeightRequest="50"
+                                   WidthRequest="50"
+                                   Aspect="AspectFill"> 
+                                <Image.Clip>
+                                    <EllipseGeometry Center="25,25" RadiusX="25" RadiusY="25" />
+                                </Image.Clip>
+                            </Image>
+
+                            <!-- Имя друга -->
+                            <Label Grid.Column="1"
+                                   Text="{Binding Name}"
+                                   FontSize="16"
+                                   TextColor="black"
+                                   VerticalOptions="Center"
+                                   Margin="10,0,0,0" /> 
+
+                            <!-- Кнопка действия -->
+                            <Button Grid.Column="2"
+                                    Text="Message"
+                                    FontSize="14"
+                                    VerticalOptions="Center"
+                                    Command="{Binding MessageCommand}"
+                                    CommandParameter="{Binding .}" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </StackLayout>
     </ScrollView>
 </ContentView>
