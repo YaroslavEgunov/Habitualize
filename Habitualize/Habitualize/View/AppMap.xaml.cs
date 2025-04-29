@@ -18,22 +18,36 @@ public partial class AppMap : ContentView
     public AppMap()
 	{
 		InitializeComponent();
-        //if (Achievments.FirstTimeLoad)
-        //{
-        //    InitialData();
-        //    Achievments.FirstTimeLoad = false;
-        //}
+        UpdateAdditionalText();
     }
 
-    private async void InitialData()
+    private void UpdateAdditionalText()
     {
-        var habits = new List<HabitTemplate>
-            {
-                new Gardening { HabitName = "Уход за растениями", HabitDescription = "Поливать"},
-                new Reading { HabitName = "Чтение книг", HabitDescription = "Читать",},
-                new Training { HabitName = "Фитнес", HabitDescription = "Тренироваться"}
-            };
-        await SavingLoadingSystem.SaveHabits(habits);
+        bool isFirstLaunch = Preferences.Get("IsFirstLaunch", true);
+
+        if (isFirstLaunch)
+        {
+            AdditionalTextLabel.Text = "Добро пожаловать! Выберите категорию, чтобы начать!";
+        }
+        else
+        {
+            // Список фраз для возвращающихся пользователей
+            var phrases = new List<string>
+        {
+            "С возвращением! Выберите категорию, чтобы продолжить!",
+            "Рады снова вас видеть! Что будем делать сегодня?",
+            "Приятно видеть вас снова! Выберите категорию.",
+            "Добро пожаловать обратно! Давайте продолжим!",
+            "Снова в деле! Выберите категорию для продолжения."
+        };
+
+            // Генерация случайного индекса
+            var random = new Random();
+            int randomIndex = random.Next(phrases.Count);
+
+            // Установка случайной фразы
+            AdditionalTextLabel.Text = phrases[randomIndex];
+        }
     }
 
     private async void OnPlantsButtonClicked(object sender, EventArgs e)

@@ -6,38 +6,110 @@
 
     <ScrollView VerticalScrollBarVisibility="Never" 
                 HorizontalScrollBarVisibility="Never">
-        <StackLayout Padding="20" Spacing="20">
-            <StackLayout Padding="10" Spacing="10">
-                <Label Text="Account" Style="{StaticResource MainSettingsLabelStyle}" />
+        <StackLayout Padding="20" 
+                     Spacing="20">
+            <!-- Заголовок -->
+            <Label Text="Настройки" 
+                   FontSize="24" 
+                   FontAttributes="Bold" 
+                   TextColor="#7950F2" 
+                   HorizontalOptions="Center" />
 
-                <StackLayout Orientation="Horizontal" Spacing="10">
-                    <Label Text="Logout" VerticalOptions="Center" TextColor="White" />
-                    <Button Text="Logout" TextColor="White" BackgroundColor="#FF0000" Command="{Binding LogoutCommand}" />
-                </StackLayout>
+            <Grid ColumnSpacing="10" RowSpacing="20">
+                <!-- Определение строк -->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
 
-                <StackLayout Orientation="Horizontal" Spacing="10">
-                    <Label Text="Token FMC" VerticalOptions="Center" TextColor="White" />
-                    <Button Text="Get" TextColor="White" BackgroundColor="#1E88E5"  Clicked="OnCounterClicked" />
-                </StackLayout>
+                <!-- Определение столбцов -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
 
-                <Label Text="About" Style="{StaticResource MainSettingsLabelStyle}" />
+                <!-- Уведомления -->
+                <Label Grid.Row="0" Grid.Column="0" 
+                       Text="Уведомления" 
+                       VerticalOptions="Center" 
+                       TextColor="Black" />
+                <Switch Grid.Row="0" Grid.Column="1" />
 
-                <StackLayout Orientation="Horizontal" Spacing="10">
-                    <Label Text="App Version" VerticalOptions="Center" TextColor="White" />
-                    <Label Text="a0.0.4" VerticalOptions="Center" TextColor="White" />
-                </StackLayout>
+                <!-- Смена темы -->
+                <Label Grid.Row="1" Grid.Column="0" 
+                       Text="Тема" 
+                       VerticalOptions="Center" 
+                       TextColor="Black" />
+                <Button Grid.Row="1" Grid.Column="1" 
+                        Text="Сменить тему" 
+                        TextColor="White" 
+                        BackgroundColor="#7950F2" 
+                        CornerRadius="10"  />
 
-                <StackLayout Orientation="Horizontal" Spacing="10">
-                    <Label Text="Privacy Policy" VerticalOptions="Center" TextColor="White" />
-                    <Button Text="View" TextColor="White" BackgroundColor="#1E88E5" Clicked="OnPrivacyPolicyClicked" />
-                </StackLayout>
+                <!-- Версия приложения -->
+                <Label Grid.Row="2" Grid.Column="0" 
+                       Text="Версия приложения" 
+                       VerticalOptions="Center" 
+                       TextColor="Black" />
+                <Label Grid.Row="2" Grid.Column="1" 
+                       Text="a0.0.4" 
+                       VerticalOptions="Center" 
+                       TextColor="Black" />
 
-                <StackLayout Orientation="Horizontal" Spacing="10">
-                    <Label Text="Terms and Conditions" VerticalOptions="Center" TextColor="White" />
-                    <Button Text="View" TextColor="White" BackgroundColor="#1E88E5" Clicked="OnTermsAndConditionsClicked" />
-                </StackLayout>
-            </StackLayout>
+                <!-- Политика конфиденциальности -->
+                <Label Grid.Row="3" Grid.Column="0" 
+                       Text="Политика конфиденциальности" 
+                       VerticalOptions="Center" 
+                       TextColor="Black" />
+                <Button Grid.Row="3" Grid.Column="1" 
+                        Text="Просмотр" 
+                        TextColor="White" 
+                        BackgroundColor="#7950F2" 
+                        CornerRadius="10" 
+                        Clicked="OnPrivacyPolicyClicked" />
+
+                <!-- Условия использования -->
+                <Label Grid.Row="4" Grid.Column="0" 
+                       Text="Условия использования" 
+                       VerticalOptions="Center" 
+                       TextColor="Black" />
+                <Button Grid.Row="4" Grid.Column="1" 
+                        Text="Просмотр" 
+                        TextColor="White" 
+                        BackgroundColor="#7950F2" 
+                        CornerRadius="10" 
+                        Clicked="OnTermsAndConditionsClicked" />
+
+                <!-- Аккаунт -->
+                <Label Grid.Row="5" Grid.Column="0" 
+                       Text="Аккаунт" 
+                       VerticalOptions="Center" 
+                       TextColor="Black" />
+                <Button Grid.Row="5" Grid.Column="1" 
+                        Text="Выйти" 
+                        TextColor="White" 
+                        BackgroundColor="Red" 
+                        CornerRadius="10" 
+                        Command="{Binding LogoutCommand}" /> 
+                
+                <!-- FMC -->
+                <Label Grid.Row="6" Grid.Column="0" 
+                       Text="FMC токкен" 
+                       VerticalOptions="Center" 
+                       TextColor="Black" />
+                <Button Grid.Row="6" Grid.Column="1" 
+                        Text="Получить" 
+                        TextColor="White" 
+                        BackgroundColor="#7950F2" 
+                        CornerRadius="10" 
+                        Clicked="OnCounterClicked" />
+            </Grid>
         </StackLayout>
     </ScrollView>
-    
+
 </ContentView>

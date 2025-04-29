@@ -70,16 +70,39 @@
                 <StackLayout Grid.Column="2" 
                              HorizontalOptions="Center" 
                              VerticalOptions="Center">
-                    <ImageButton Source="schedule_unselect.png" 
+                    <Label Text="Schedule" 
+                           FontSize="16" 
+                           FontAttributes="Bold" 
+                           IsVisible="{Binding ActiveTab, 
+                                        Converter={StaticResource TabVisibilityConverter}, 
+                                        ConverterParameter='Schedule'}"
+                           TextColor="#7950F2"
+                           HorizontalOptions="Center" />
+                    <ImageButton Source="{Binding ActiveTab, 
+                                            Converter={StaticResource TabImageConverter}, 
+                                            ConverterParameter='Schedule'}"
                                  Style="{StaticResource FooterButtonStyle}" 
-                                 Clicked="OnScheduleButtonClicked"/>
+                                 Clicked="OnScheduleButtonClicked" />
                 </StackLayout>
+
                 <StackLayout Grid.Column="3" 
                              HorizontalOptions="Center" 
                              VerticalOptions="Center">
-                    <ImageButton Source="chest_unselect.png" 
-                                 Style="{StaticResource FooterButtonStyle}"/>
+                    <Label Text="Chest" 
+                           FontSize="16" 
+                           FontAttributes="Bold" 
+                           IsVisible="{Binding ActiveTab, 
+                                        Converter={StaticResource TabVisibilityConverter}, 
+                                        ConverterParameter='Chest'}"
+                           TextColor="#7950F2"
+                           HorizontalOptions="Center" />
+                    <ImageButton Source="{Binding ActiveTab, 
+                                            Converter={StaticResource TabImageConverter}, 
+                                            ConverterParameter='Chest'}"
+                                 Style="{StaticResource FooterButtonStyle}" 
+                                 Clicked="OnChestButtonClicked" />
                 </StackLayout>
+
                 <StackLayout Grid.Column="4" 
                              HorizontalOptions="Center" 
                              VerticalOptions="Center">

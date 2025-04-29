@@ -9,6 +9,7 @@ using Microsoft.Maui;
 using Microsoft.Maui.Media;
 using Microsoft.Maui.Storage;
 using System.Collections.ObjectModel;
+using CommunityToolkit.Maui.Views;
 
 
 namespace Habitualize.View;
@@ -97,8 +98,23 @@ public partial class AppProfile : ContentView
         Preferences.Set("UserBio", BioEditor.Text);
     }
 
-
-
-
-
+    private void OnSeeAllTapped(object sender, EventArgs e)
+    {
+        if (BindingContext is AppProfile viewModel && viewModel.Friends != null)
+        {
+            var friendsPopup = new AppFriendsPopup(viewModel.Friends);
+            if (Application.Current.MainPage is Microsoft.Maui.Controls.Page currentPage)
+            {
+                currentPage.ShowPopup(friendsPopup);
+            }
+            else
+            {
+                Application.Current.MainPage.DisplayAlert("Error", "Unable to display the popup.", "OK");
+            }
+        }
+        else
+        {
+            Application.Current.MainPage.DisplayAlert("Error", "Friends list is not available.", "OK");
+        }
+    }
 }

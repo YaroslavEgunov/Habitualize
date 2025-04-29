@@ -71,12 +71,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Maui" Version="11.2.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 		<PackageReference Include="FirebaseAdmin" Version="3.1.0" />
 		<PackageReference Include="FirebaseAuthentication.net" Version="4.1.0" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.50" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
-		<PackageReference Include="Microsoft.Maui.Essentials" Version="9.0.50" />
+		<PackageReference Include="Microsoft.Maui.Essentials" Version="9.0.60" />
 		<PackageReference Include="Plugin.Firebase.CloudMessaging" Version="3.1.2" />
 		<PackageReference Include="Plugin.Maui.Calendar" Version="1.2.6" />
 		<PackageReference Include="Refit" Version="8.0.0" />
@@ -107,6 +108,12 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="SignPages\SignUpView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\AppChest.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\AppFriendsPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\AppProfile.xaml">

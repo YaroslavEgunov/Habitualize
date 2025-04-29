@@ -8,7 +8,7 @@ namespace Habitualize
         public App()
         {
             InitializeComponent();
-
+            CheckFirstLaunch();
             //Можешь менять начальную страницу, чтобы проверить что-то
             //MainPage = new NavigationPage(new MainPage());
 
@@ -19,6 +19,16 @@ namespace Habitualize
             else
             {
                 MainPage = new AppShell();
+            }
+        }
+        private void CheckFirstLaunch()
+        {
+            bool isFirstLaunch = Preferences.Get("IsFirstLaunch", true);
+
+            if (isFirstLaunch)
+            {
+                // Логика для первого входа
+                Preferences.Set("IsFirstLaunch", false);
             }
         }
     }

@@ -32,6 +32,17 @@ public partial class AppSettings : ContentView
     {
         await CrossFirebaseCloudMessaging.Current.CheckIfValidAsync();
         var token = await CrossFirebaseCloudMessaging.Current.GetTokenAsync();
-        Console.WriteLine($"FCM token: {token}");
+
+        if (!string.IsNullOrEmpty(token))
+        {
+            await Clipboard.SetTextAsync(token); // Копируем токен в буфер обмена
+            Console.WriteLine($"FCM token: {token}");
+            await Application.Current.MainPage.DisplayAlert("Успех", "FCM токен скопирован в буфер обмена.", "OK");
+        }
+        else
+        {
+            await Application.Current.MainPage.DisplayAlert("Ошибка", "Не удалось получить FCM токен.", "OK");
+        }
     }
+
 }

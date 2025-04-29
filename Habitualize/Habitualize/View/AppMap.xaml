@@ -3,49 +3,99 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Habitualize.View.AppMap">
 
-    <ScrollView 
-            VerticalScrollBarVisibility="Never" 
-            HorizontalScrollBarVisibility="Never">
-        <StackLayout Padding="20" 
-                 Spacing="20">
+    <ScrollView VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never">
+        <StackLayout Padding="20" Spacing="20" >
+
+            <!-- Сетка с кнопками -->
             <Grid ColumnDefinitions="*,*" 
-              RowDefinitions="Auto,Auto,Auto" 
-              ColumnSpacing="10" 
-              RowSpacing="10">
+                  RowDefinitions="Auto,Auto,Auto" 
+                  ColumnSpacing="15" 
+                  RowSpacing="15">
 
-                <Border Grid.Row="0" 
-                    Grid.Column="0" 
-                    BackgroundColor="#04cc51" 
-                    StrokeShape="RoundRectangle 20" 
-                    Padding="20" 
-                    Margin="0,10,0,0">
-                    <Button Text="Plants" 
-                        Style="{StaticResource MainContentButtonStyle}" 
-                        Clicked="OnPlantsButtonClicked" />
+                <!-- Кнопка "Растения" -->
+                <Border Grid.Row="0" Grid.Column="0" 
+                        BackgroundColor="#7950F2" 
+                        StrokeShape="RoundRectangle 20" 
+                        Padding="15">
+                    <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                        <Label Text="🌱" 
+                               FontSize="30" 
+                               HorizontalOptions="Center" 
+                               Margin="0,0,0,5" />
+                        <Button Text="Plants" 
+                                TextColor="White"
+                                BackgroundColor="Transparent"
+                                FontAttributes="Bold"
+                                FontSize="20"
+                                Clicked="OnPlantsButtonClicked" />
+                    </StackLayout>
                 </Border>
 
-                <Border Grid.Row="0" 
-                    Grid.Column="1" 
-                    BackgroundColor="#eb3b3b" 
-                    StrokeShape="RoundRectangle 20" 
-                    Padding="20" 
-                    Margin="0,10,0,0">
-                    <Button Text="Sport" 
-                        Style="{StaticResource MainContentButtonStyle}" 
-                        Clicked="OnSportButtonClicked" />
+                <!-- Кнопка "Спорт" -->
+                <Border Grid.Row="0" Grid.Column="1" 
+                        BackgroundColor="#7950F2" 
+                        StrokeShape="RoundRectangle 20" 
+                        Padding="15">
+                    <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                        <Label Text="🏋️" 
+                               FontSize="30" 
+                               HorizontalOptions="Center" 
+                               Margin="0,0,0,5" />
+                        <Button Text="Sport" 
+                                TextColor="White"
+                                BackgroundColor="Transparent"
+                                FontAttributes="Bold"
+                                FontSize="20"
+                                Clicked="OnSportButtonClicked" />
+                    </StackLayout>
                 </Border>
 
-                <Border Grid.Row="1" 
-                    Grid.Column="0" 
-                    BackgroundColor="#9c3d02" 
-                    StrokeShape="RoundRectangle 20" 
-                    Padding="20" 
-                    Margin="0,10,0,0">
-                    <Button Text="Books" 
-                        Style="{StaticResource MainContentButtonStyle}" 
-                        Clicked="OnBooksButtonClicked" />
+                <!-- Кнопка "Книги" -->
+                <Border Grid.Row="1" Grid.Column="0" 
+                        BackgroundColor="#7950F2" 
+                        StrokeShape="RoundRectangle 20" 
+                        Padding="15">
+                    <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                        <Label Text="📚" 
+                               FontSize="30" 
+                               HorizontalOptions="Center" 
+                               Margin="0,0,0,5" />
+                        <Button Text="Books" 
+                                TextColor="White"
+                                BackgroundColor="Transparent"
+                                FontAttributes="Bold"
+                                FontSize="20"
+                                Clicked="OnBooksButtonClicked" />
+                    </StackLayout>
+                </Border>
+
+                <!-- Кнопка "Музыка" -->
+                <Border Grid.Row="1" Grid.Column="1" 
+                        BackgroundColor="#7950F2" 
+                        StrokeShape="RoundRectangle 20" 
+                        Padding="15">
+                    <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                        <Label Text="📝" 
+                               FontSize="30" 
+                               HorizontalOptions="Center" 
+                               Margin="0,0,0,5" />
+                        <Button Text="Mine" 
+                                TextColor="White"
+                                BackgroundColor="Transparent"
+                                FontSize="20"
+                                FontAttributes="Bold" />
+                    </StackLayout>
                 </Border>
             </Grid>
+
+            <!-- Дополнительный текст -->
+            <Label x:Name="AdditionalTextLabel"
+                   Text="Выберите категорию, чтобы начать!" 
+                   FontSize="16" 
+                   HorizontalOptions="Center" 
+                   TextColor="#666666" 
+                   Margin="0,20,0,0" />
+
         </StackLayout>
     </ScrollView>
 </ContentView>

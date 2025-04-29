@@ -1,0 +1,55 @@
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+                  x:Class="Habitualize.View.AppFriendsPopup">
+    <Border BackgroundColor="White"
+               Padding="20"
+               Stroke="LightGray"
+               StrokeThickness="2"
+               WidthRequest="400"
+               HeightRequest="700">
+        <StackLayout>
+            <Label Text="Friends"
+                   FontSize="20"
+                   TextColor="Black"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
+            <CollectionView ItemsSource="{Binding Friends}"
+                            SelectionMode="None"
+                            VerticalOptions="FillAndExpand">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10" 
+                              ColumnDefinitions="Auto,*,Auto" 
+                              RowDefinitions="Auto">
+                            <Image Source="{Binding Avatar}"
+                                   HeightRequest="50"
+                                   WidthRequest="50"
+                                   Aspect="AspectFill">
+                                <Image.Clip>
+                                    <EllipseGeometry Center="25,25" 
+                                                     RadiusX="25" 
+                                                     RadiusY="25" />
+                                </Image.Clip>
+                            </Image>
+                            <Label Grid.Column="1"
+                                   Text="{Binding Name}"
+                                   FontSize="16"
+                                   TextColor="black"
+                                   VerticalOptions="Center"
+                                   Margin="10,0,0,0" />
+                            <Button Grid.Column="2"
+                                    Text="Message"
+                                    BackgroundColor="#7950F2"
+                                    Command="{Binding MessageCommand}"
+                                    CommandParameter="{Binding .}"
+                                    VerticalOptions="Center"
+                                    TextColor="White"
+                                    Padding="10,5" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </Border>
+</toolkit:Popup>
