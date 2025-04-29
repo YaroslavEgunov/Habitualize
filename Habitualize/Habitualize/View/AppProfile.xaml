@@ -74,14 +74,14 @@
                        VerticalOptions="Center"
                        HorizontalOptions="Start" />
 
-                <!-- Ссылка "See All" -->
+                <!-- Ссылка "See All" --><!--
                 <Picker Grid.Column="1"
                         Title="See All"
                         ItemsSource="{Binding Friends}"
                         ItemDisplayBinding="{Binding Name}"
                         VerticalOptions="Center"
                         HorizontalOptions="End"
-                        SelectedIndexChanged="OnFriendSelected" />
+                        SelectedIndexChanged="OnFriendSelected" />-->
             </Grid>
 
             <!-- Список друзей -->

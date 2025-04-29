@@ -8,7 +8,7 @@ namespace Habitualize.Model
 {
     public class Achievements
     {
-        public static List<AchievementsTemplate> AchievementsList = new List<AchievementsTemplate>
+        public List<AchievementsTemplate> AchievementsList = new List<AchievementsTemplate>
         {
             new AchievementsTemplate
             {

@@ -16,7 +16,7 @@ namespace Habitualize.Model
 
         public Func<List<HabitTemplate>, bool> CompletionCondition { get; set; }
 
-        private bool Unlocked = false;
+        public bool Unlocked = false;
 
         public async void IsAchievementComplete(List<HabitTemplate> habits)
         {

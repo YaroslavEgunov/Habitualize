@@ -15,8 +15,6 @@ public partial class AppMap : ContentView
 {
     public static SaveAndLoad SavingLoadingSystem = new SaveAndLoad();
 
-    public static Achievements Achievements = new Achievements();
-
     public AppMap()
 	{
 		InitializeComponent();
