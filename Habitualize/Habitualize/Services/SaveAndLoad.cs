@@ -11,6 +11,11 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Net.Http.Json;
 using System.Management;
+using FirebaseAdmin.Auth;
+using Firebase.Database;
+using Firebase.Database.Query;
+using Firebase.Auth;
+using FirebaseAdmin;
 
 namespace Habitualize.Services
 {
@@ -19,6 +24,8 @@ namespace Habitualize.Services
         private string _filePath = Path.Combine(FileSystem.AppDataDirectory, "Habitualize.json");
 
         private string _achievementsPath = Path.Combine(FileSystem.AppDataDirectory, "Achievements.json");
+
+        private readonly FirebaseAuthClient _authClient;
 
         private async Task SaveToFile(string filePath,string jsonContent)
         {
@@ -99,6 +106,65 @@ namespace Habitualize.Services
             {
                 TypeNameHandling = TypeNameHandling.Auto
             });
+        }
+
+        public async Task SaveInFirebase(List<HabitTemplate> habits, List<AchievementsTemplate> achievements)
+        {
+            var firebase = new FirebaseClient("https://habitualize-249ef-default-rtdb.europe-west1.firebasedatabase.app/");
+            // Получите текущего пользователя
+            var uid = _authClient.User.Uid;
+            if (uid != null)
+            {
+                // Сохраняем список привычек
+                await firebase
+                    .Child("user")
+                    .Child(uid)
+                    .Child("habits")
+                    .PutAsync(habits);
+
+                // Сохраняем список достижений
+                await firebase
+                    .Child("user")
+                    .Child(uid)
+                    .Child("achievements")
+                    .PutAsync(achievements);
+            }
+        }
+
+        public async Task<List<HabitTemplate>> LoadHabitsFromFirebase()
+        {
+            var firebase = new FirebaseClient("https://habitualize-249ef-default-rtdb.europe-west1.firebasedatabase.app/");
+            var uid = _authClient.User.Uid;
+            if (uid != null)
+            {
+                // Загружаем список привычек
+                var habits = await firebase
+                    .Child("users")
+                    .Child(uid)
+                    .Child("habits")
+                    .OnceAsync<HabitTemplate>();
+
+                return habits.Select(h => h.Object).ToList();
+            }
+            return null;
+        }
+
+        public async Task<List<AchievementsTemplate>> LoadAchievementsFromFirebase()
+        {
+            var firebase = new FirebaseClient("https://habitualize-249ef-default-rtdb.europe-west1.firebasedatabase.app/");
+            var uid = _authClient.User.Uid;
+            if (uid != null)
+            {
+                // Загружаем список достижений
+                var achievements = await firebase
+                    .Child("users")
+                    .Child(uid)
+                    .Child("achievements")
+                    .OnceAsync<AchievementsTemplate>();
+
+                return achievements.Select(a => a.Object).ToList();
+            }
+            return null;
         }
     }
 }
