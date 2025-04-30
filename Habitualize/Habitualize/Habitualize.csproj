@@ -63,10 +63,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiImage Remove="Resources\Images\settingsPurp.png" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <None Remove="Platforms\Android\Resources\values\strings.xml" />
 	</ItemGroup>
 
@@ -109,6 +105,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="SignPages\SignUpView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\AppChat.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\AppChest.xaml">
@@ -166,6 +165,12 @@
 	
 	<ItemGroup>
 	  <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <None Update="View\AppChat.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </None>
 	</ItemGroup>
 
 </Project>
