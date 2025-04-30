@@ -23,8 +23,8 @@ public partial class AddBooksPage : ContentPage
             return;
         }
         var existingHabits = await MainPage.SavingLoadingSystem.LoadHabits();
-        MainPage.Achievements.CheckAchievements(existingHabits);
         existingHabits.Add(CurrentBook);
+        await MainPage.CheckAchievements(existingHabits, this);
         await MainPage.SavingLoadingSystem.SaveHabits(existingHabits);
         var allBooks = existingHabits.OfType<Reading>().ToList();
         await Navigation.PushAsync(new BooksPage(allBooks));

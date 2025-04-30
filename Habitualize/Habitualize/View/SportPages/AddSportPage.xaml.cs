@@ -33,8 +33,8 @@ public partial class AddSportPage : ContentPage
             return;
         }
         var existingHabits = await MainPage.SavingLoadingSystem.LoadHabits();
-        MainPage.Achievements.CheckAchievements(existingHabits);
         existingHabits.Add(CurrentTraining);
+        await MainPage.CheckAchievements(existingHabits, this);
         await MainPage.SavingLoadingSystem.SaveHabits(existingHabits);
         var allTraining = existingHabits.OfType<Training>().ToList();
         await Navigation.PushAsync(new SportPage(allTraining));

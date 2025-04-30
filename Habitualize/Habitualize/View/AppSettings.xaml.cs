@@ -1,6 +1,7 @@
 using Habitualize.SignPages;
 using Habitualize.View;
 using Plugin.Firebase.CloudMessaging;
+using Habitualize.Model;
 
 namespace Habitualize;
 
@@ -45,4 +46,15 @@ public partial class AppSettings : ContentView
         }
     }
 
+    private async void OnSaveFirebaseClicked(object sender, EventArgs e)
+    {
+        List<HabitTemplate> habits = await MainPage.SavingLoadingSystem.LoadHabits();
+        var achievements = MainPage.Achievements;
+        await MainPage.SavingLoadingSystem.SaveInFirebase(habits, achievements.AchievementsList);
+    }
+
+    private async void OnLoadFirebaseClicked(object sender, EventArgs e)
+    {
+
+    }
 }

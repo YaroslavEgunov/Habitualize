@@ -14,6 +14,7 @@ namespace Habitualize.SignPages
     public partial class SignInViewModel : ObservableObject
     {
         private readonly FirebaseAuthClient _authClient;
+
         private readonly IGetHabitualizeQuery _getHabitualizeQuery;
 
         [ObservableProperty]
@@ -34,7 +35,6 @@ namespace Habitualize.SignPages
         {
             _authClient = authClient;
             _getHabitualizeQuery = getHabitualizeQuery;
-
             _getHabitualizeQuery.Execute().ContinueWith(response =>
             {
                 //HabitualizeMessage = response?.Result?.Message ?? "";

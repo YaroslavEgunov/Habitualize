@@ -9,6 +9,7 @@ using Habitualize.Model;
 using Habitualize.View;
 using Habitualize.ViewModel;
 using System.Globalization;
+using System.Threading.Tasks;
 
 namespace Habitualize
 {
@@ -17,6 +18,19 @@ namespace Habitualize
         public static SaveAndLoad SavingLoadingSystem = new SaveAndLoad();
 
         public static Achievements Achievements = new Achievements();
+
+        public static async Task CheckAchievements(List<HabitTemplate> habits, Page currentPage)
+        {
+            foreach (var achievement in Achievements.AchievementsList)
+            {
+                bool isCompleted = achievement.IsAchievementComplete(achievement, habits);
+                if (isCompleted)
+                {
+                    achievement.Unlocked = true;
+                    await currentPage.DisplayAlert("Achievement complete!", $"You completed achievement {achievement.Name}!", "Awesome");
+                }
+            }
+        }
 
         public MainPage()
         {

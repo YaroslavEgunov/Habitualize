@@ -33,7 +33,7 @@ public partial class AddPlantsPage : ContentPage
         }
         var existingHabits = await MainPage.SavingLoadingSystem.LoadHabits();
         existingHabits.Add(CurrentPlant);
-        MainPage.Achievements.CheckAchievements(existingHabits);
+        await MainPage.CheckAchievements(existingHabits, this);
         await MainPage.SavingLoadingSystem.SaveHabits(existingHabits);
         var allPlants = existingHabits.OfType<Gardening>().ToList();
         await Navigation.PushAsync(new PlantsPage(allPlants));

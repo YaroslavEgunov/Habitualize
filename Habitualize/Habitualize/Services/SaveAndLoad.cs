@@ -16,6 +16,9 @@ using Firebase.Database;
 using Firebase.Database.Query;
 using Firebase.Auth;
 using FirebaseAdmin;
+using Habitualize.SignPages;
+using Firebase.Auth.Providers;
+using Firebase.Auth.Repository;
 
 namespace Habitualize.Services
 {
@@ -25,7 +28,16 @@ namespace Habitualize.Services
 
         private string _achievementsPath = Path.Combine(FileSystem.AppDataDirectory, "Achievements.json");
 
-        private readonly FirebaseAuthClient _authClient;
+        private readonly FirebaseAuthClient _authClient = new FirebaseAuthClient(new FirebaseAuthConfig()
+        {
+            ApiKey = "AIzaSyAO6SGqXASw8zw_YD2xqCjBBP7ZOHDDcf0",
+            AuthDomain = "habitualize-249ef.firebaseapp.com",
+            Providers = new FirebaseAuthProvider[]
+                {
+                    new EmailProvider()
+                },
+            UserRepository = new FileUserRepository("Habitualize")
+        });
 
         private async Task SaveToFile(string filePath,string jsonContent)
         {
@@ -113,6 +125,7 @@ namespace Habitualize.Services
             var firebase = new FirebaseClient("https://habitualize-249ef-default-rtdb.europe-west1.firebasedatabase.app/");
             // Получите текущего пользователя
             var uid = _authClient.User.Uid;
+
             if (uid != null)
             {
                 // Сохраняем список привычек
@@ -121,7 +134,6 @@ namespace Habitualize.Services
                     .Child(uid)
                     .Child("habits")
                     .PutAsync(habits);
-
                 // Сохраняем список достижений
                 await firebase
                     .Child("user")

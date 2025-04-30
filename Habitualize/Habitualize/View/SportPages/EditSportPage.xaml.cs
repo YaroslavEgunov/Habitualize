@@ -41,7 +41,6 @@ public partial class EditSportPage : ContentPage
         else
         {
             var existingHabits = await MainPage.SavingLoadingSystem.LoadHabits();
-            MainPage.Achievements.CheckAchievements(existingHabits);
             var existingTainings = existingHabits.OfType<Training>().ToList();
             if (_editedTraining.CurrentWeight == _editedTraining.TargetWeight && !_editedTraining.TrainingComplete)
             {
@@ -52,12 +51,13 @@ public partial class EditSportPage : ContentPage
             int j = 0;
             for (int i = 0; i < existingHabits.Count; i++)
             {
-                if (existingHabits[i] is Reading)
+                if (existingHabits[i] is Training)
                 {
                     existingHabits[i] = existingTainings[j];
                     j++;
                 }
             }
+            await MainPage.CheckAchievements(existingHabits, this);
             await MainPage.SavingLoadingSystem.SaveHabits(existingHabits);
             await Navigation.PushAsync(new SportPage(existingTainings));
         }

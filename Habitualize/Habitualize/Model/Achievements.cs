@@ -13,80 +13,67 @@ namespace Habitualize.Model
             new AchievementsTemplate
             {
                 Name = "Beginner Reader",
-                Description = "Read 1 book",
-                CompletionCondition = habits => habits.OfType<Reading>().Any(b => b.BookComplete)
+                Description = "Read 1 book"
             },
             new AchievementsTemplate
             {
                 Name = "Reading Lover",
-                Description = "Read 10 books",
-                CompletionCondition = habits => habits.OfType<Reading>().Count(b => b.BookComplete ) >= 10
+                Description = "Read 10 books"
             },
             new AchievementsTemplate
             {
                 Name = "Book Worm",
-                Description = "Read 100 books",
-                CompletionCondition = habits => habits.OfType<Reading>().Count(b => b.BookComplete ) >= 100
+                Description = "Read 100 books"
             },
             new AchievementsTemplate
             {
                 Name = "Dipping Toes In",
-                Description = "Read 100 pages",
-                CompletionCondition = habits => habits.OfType<Reading>().Sum(b => b.PagesRead ) >= 100
+                Description = "Read 100 pages"
             },
             new AchievementsTemplate
             {
                 Name = "Time Well Spent",
-                Description = "Read 1000 pages",
-                CompletionCondition = habits => habits.OfType<Reading>().Sum(b => b.PagesRead ) >= 1000
+                Description = "Read 1000 pages"
             },
             new AchievementsTemplate
             {
                 Name = "War And Peace Enjoyer",
-                Description = "Read 5202 pages",
-                CompletionCondition = habits => habits.OfType<Reading>().Sum(b => b.PagesRead ) >= 5202
+                Description = "Read 5202 pages"
             },
             new AchievementsTemplate
             {
                 Name = "Reading A Whole Tree",
-                Description = "Read 8500 pages",
-                CompletionCondition = habits => habits.OfType<Reading>().Sum(b => b.PagesRead ) >= 8500
+                Description = "Read 8500 pages"
             },
             new AchievementsTemplate
             {
                 Name = "Staying Healthy",
-                Description = "Complete 1 training",
-                CompletionCondition = habits => habits.OfType<Training>().Any(t => t.CurrentWeight == t.TargetWeight)
+                Description = "Complete 1 training"
             },
             new AchievementsTemplate
             {
                 Name = "Health Chaser",
-                Description = "Complete 30 trainings",
-                CompletionCondition = habits => habits.OfType<Training>().Count(t => t.CurrentWeight == t.TargetWeight) >= 30
+                Description = "Complete 30 trainings"
             },
             new AchievementsTemplate
             {
                 Name = "Bodybuilder",
-                Description = "Complete 365 trainings",
-                CompletionCondition = habits => habits.OfType<Training>().Count(t => t.CurrentWeight == t.TargetWeight) >= 365
+                Description = "Complete 365 trainings"
             },
             new AchievementsTemplate
             {
                 Name = "Green Thumb",
-                Description = "Take care of 1 plant",
-                CompletionCondition = habits => habits.OfType<Gardening>().Count() >= 1
+                Description = "Take care of 1 plant"
             },
             new AchievementsTemplate
             {
                 Name = "Home Garden",
-                Description = "Take care of 10 plants",
-                CompletionCondition = habits => habits.OfType<Gardening>().Count() >= 10
+                Description = "Take care of 10 plants"
             },
             new AchievementsTemplate
             {
                 Name = "Not Thirsty Anymore",
-                Description = "Water your plant",
-                CompletionCondition = habits => habits.OfType<Gardening>().Any(p => p.PlantIsWatered)
+                Description = "Water your plant"
             },
             //new AchievementsTemplate
             //{
@@ -114,13 +101,5 @@ namespace Habitualize.Model
             //    Description = "Be registered for 2 years"
             //}
         };
-
-        public void CheckAchievements(List<HabitTemplate> habits)
-        {
-            foreach(var achievement in AchievementsList)
-            {
-                achievement.IsAchievementComplete(habits);
-            }
-        }
     }
 }

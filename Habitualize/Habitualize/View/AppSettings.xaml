@@ -25,6 +25,8 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <!-- Определение столбцов -->
@@ -108,6 +110,30 @@
                         BackgroundColor="#7950F2" 
                         CornerRadius="10" 
                         Clicked="OnCounterClicked" />
+                
+                <!-- Firebase Save-->
+                <Label Grid.Row="7" Grid.Column="0" 
+                        Text="Save" 
+                        VerticalOptions="Center" 
+                        TextColor="Black" />
+                <Button Grid.Row="7" Grid.Column="1" 
+                        Text="Получить" 
+                        TextColor="White" 
+                        BackgroundColor="#7950F2" 
+                        CornerRadius="10" 
+                        Clicked="OnSaveFirebaseClicked" />
+
+                <!-- Firebase load -->
+                <Label Grid.Row="8" Grid.Column="0" 
+                        Text="Load" 
+                        VerticalOptions="Center" 
+                        TextColor="Black" />
+                <Button Grid.Row="8" Grid.Column="1" 
+                        Text="Получить" 
+                        TextColor="White" 
+                        BackgroundColor="#7950F2" 
+                        CornerRadius="10" 
+                        Clicked="OnLoadFirebaseClicked" />
             </Grid>
         </StackLayout>
     </ScrollView>
