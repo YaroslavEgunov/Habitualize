@@ -79,11 +79,12 @@
                                FontSize="30" 
                                HorizontalOptions="Center" 
                                Margin="0,0,0,5" />
-                        <Button Text="Mine" 
+                        <Button Text="Custom Habits" 
                                 TextColor="White"
                                 BackgroundColor="Transparent"
                                 FontSize="20"
-                                FontAttributes="Bold" />
+                                FontAttributes="Bold"
+                                Clicked="OnCustomHabitsButtonClicked" />
                     </StackLayout>
                 </Border>
             </Grid>

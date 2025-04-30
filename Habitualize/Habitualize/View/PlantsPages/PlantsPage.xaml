@@ -40,12 +40,20 @@
                 </Border>
 
                 <!-- Список растений -->
-                <ListView VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never" x:Name="HabitListView" ItemTapped="OnItemTapped" Style="{StaticResource HabitsListViewStyle}" IsEnabled="True">
+                <ListView VerticalScrollBarVisibility="Never" 
+                          HorizontalScrollBarVisibility="Never" 
+                          x:Name="HabitListView" 
+                          ItemTapped="OnItemTapped" 
+                          Style="{StaticResource HabitsListViewStyle}" IsEnabled="True">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Border StrokeShape="RoundRectangle 20" Padding="0" BackgroundColor="{Binding PlantIsWatered, Converter={StaticResource BookCompleteToColorConverter}}">
-                                    <Label Text="{Binding HabitName}" Style="{StaticResource HabitsListViewLabelStyle}" Margin="10"/>
+                                <Border StrokeShape="RoundRectangle 20" 
+                                        Padding="0" 
+                                        BackgroundColor="{Binding PlantIsWatered, Converter={StaticResource BookCompleteToColorConverter}}">
+                                    <Label Text="{Binding HabitName}" 
+                                           Style="{StaticResource HabitsListViewLabelStyle}" 
+                                           Margin="10"/>
                                 </Border>
                             </ViewCell>
                         </DataTemplate>

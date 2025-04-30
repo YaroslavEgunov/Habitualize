@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Habitualize.View.CustomHabitsPages.AddCustomHabitPage">
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <ScrollView VerticalScrollBarVisibility="Never" 
+                    HorizontalScrollBarVisibility="Never"
+                    Grid.Row="1">
+
+            <StackLayout Padding="20,20,20,0" VerticalOptions="StartAndExpand">
+
+                <!-- Top Border -->
+                <Border Grid.Row="0" Style="{StaticResource ProfileStyleSqr}">
+                    <Grid ColumnDefinitions="Auto,*" VerticalOptions="Center">
+                        <Button Text="←"
+                                Grid.Column="0"
+                                HeightRequest="30"
+                                WidthRequest="30"
+                                BackgroundColor="White"
+                                Clicked="OnCancelButtonClicked" />
+                        <Label Text="Add Plants"
+                               Grid.Column="1"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"
+                               FontSize="40"
+                               FontAttributes="Bold"
+                               TextColor="White"
+                               Margin="-42,0,0,0" />
+                    </Grid>
+                </Border>
+
+                <!-- Add habit form -->
+                <Label Text="Habit Name:" Style="{StaticResource HabitsLabelStyle}" />
+                <Entry x:Name="HabitNameEntry" Text="{Binding HabitName}" HeightRequest="60" Placeholder="Name"/>
+                <Label Text="Description:" Style="{StaticResource HabitsLabelStyle}" />
+                <Entry x:Name="HabitDescriptionEntry" Text="{Binding HabitDescription}" HeightRequest="60" Placeholder="Descriptoin"/>
+                <Label Text="Additional Tasks:" Style="{StaticResource HabitsLabelStyle}" />
+                <ListView ItemsSource="{Binding Tasks}" Style="{StaticResource HabitsListViewStyle}" Background="LightGray">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Label Text="{Binding .}" Style="{StaticResource HabitsListViewLabelStyle}"/>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <Button Text="Add Task" Clicked="OnAddTaskButtonClicked"  Style="{StaticResource HabitsButtonStyle}" />
+                <Label Text="Repeat Schedule:" Style="{StaticResource HabitsLabelStyle}" />
+                <DatePicker x:Name="DatePick" TextColor="Black" Date="{Binding RepeatSchedule}" />
+            </StackLayout>
+        </ScrollView>
+
+        <!-- Bottom Border -->
+        <Border Grid.Row="2"
+                 HeightRequest="100" 
+                 Padding="0" 
+                 Stroke="Transparent">
+            <Button Text="Add" 
+                    Grid.Row="2"
+                    Clicked="OnAddButtonClicked" 
+                    Style="{StaticResource HabitsButtonStyle}" 
+                    WidthRequest="150" 
+                    BackgroundColor="#7950F2" 
+                    TextColor="#FFFFFF" 
+                    VerticalOptions="End" 
+                    HorizontalOptions="Center" />
+        </Border>
+    </Grid>
+</ContentPage>

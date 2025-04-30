@@ -8,6 +8,7 @@ using FirebaseAdmin;
 using Habitualize.Services;
 using Habitualize.ViewModel;
 using System.Globalization;
+using Habitualize.View.CustomHabitsPages;
 
 namespace Habitualize.View;
 
@@ -99,4 +100,10 @@ public partial class AppMap : ContentView
         await Navigation.PushAsync(new BooksPage(readingHabits));
     }
 
+    private async void OnCustomHabitsButtonClicked(object sender, EventArgs e)
+    {
+        var data = await SavingLoadingSystem.LoadHabits();
+        var customHabits = data.OfType<HabitTemplate>().ToList();
+        await Navigation.PushAsync(new CustomHabitPage(customHabits));
+    }
 }

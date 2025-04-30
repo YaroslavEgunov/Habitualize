@@ -52,9 +52,8 @@
                                            BackgroundColor="{Binding BookComplete, Converter={StaticResource BookCompleteToColorConverter}}" 
                                            HasShadow="True">
                                     <Label Text="{Binding HabitName}" 
-                                           TextColor="Black"
                                            Style="{StaticResource HabitsListViewLabelStyle}" 
-                                           VerticalOptions="Center" />
+                                           Margin="0"/>
                                 </Frame>
                             </ViewCell>
                         </DataTemplate>

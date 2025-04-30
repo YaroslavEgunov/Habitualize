@@ -26,8 +26,11 @@ namespace Habitualize
                 bool isCompleted = achievement.IsAchievementComplete(achievement, habits);
                 if (isCompleted)
                 {
-                    achievement.Unlocked = true;
-                    await currentPage.DisplayAlert("Achievement complete!", $"You completed achievement {achievement.Name}!", "Awesome");
+                    if (!achievement.Unlocked)
+                    {
+                        achievement.Unlocked = true;
+                        await currentPage.DisplayAlert("Achievement complete!", $"You completed achievement {achievement.Name}!", "Awesome");
+                    }
                 }
             }
         }
