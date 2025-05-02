@@ -40,16 +40,11 @@
                     <!-- Изображение -->
                     <Image Grid.Column="1"
                            x:Name="AvatarImage"
-                           Source="{Binding AvatarImageSource, 
-                                  FallbackValue='bob_avatar.png'}" 
+                           Source="{Binding AvatarImageSource}" 
                            Aspect="AspectFill"
                            HeightRequest="100"
                            WidthRequest="100"
                            HorizontalOptions="End">
-                        <Image.Clip>
-                            <RoundRectangleGeometry CornerRadius="15"
-                                                    Rect="40,0,100,100" />
-                        </Image.Clip>
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnAvatarTapped" />
                         </Image.GestureRecognizers>

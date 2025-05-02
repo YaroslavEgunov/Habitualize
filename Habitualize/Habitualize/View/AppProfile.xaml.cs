@@ -45,7 +45,9 @@ public partial class AppProfile : ContentView
 
         Username = Preferences.Get("Username", "Default Username");
         Bio = Preferences.Get("UserBio", "Enter a short biography...");
-        AvatarImageSource = Preferences.Get("UserAvatar", string.Empty);
+        var savedAvatar = Preferences.Get("UserAvatar", string.Empty);
+        AvatarImageSource = string.IsNullOrEmpty(savedAvatar) ? "bob_avatar.png" : savedAvatar;
+
 
         Friends = new ObservableCollection<Friend>
         {
