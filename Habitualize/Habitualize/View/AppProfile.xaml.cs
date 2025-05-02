@@ -10,13 +10,64 @@ using Microsoft.Maui.Media;
 using Microsoft.Maui.Storage;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Maui.Views;
+using Habitualize.Services;
 
 
 namespace Habitualize.View;
 
 public partial class AppProfile : ContentView
 {
-    private string _avatarImageSource;
+    private ImageSource _avatarImageSource;
+
+    private bool IsBase64String(string base64)
+    {
+        if (string.IsNullOrEmpty(base64))
+            return false;
+        base64 = base64.Trim();
+        if (base64.Length % 4 != 0)
+            return false;
+        return System.Text.RegularExpressions.Regex.IsMatch(base64, @"^[a-zA-Z0-9\+/]*={0,2}$", System.Text.RegularExpressions.RegexOptions.None);
+    }
+
+
+    private async void LoadAvatarFromFirebase()
+    {
+        try
+        {
+            var saveAndLoadService = new SaveAndLoad();
+            var userId = saveAndLoadService.UserId;
+
+            if (!string.IsNullOrEmpty(userId))
+            {
+                // Загружаем строку Base64 из Firebase
+                var base64Image = await saveAndLoadService.LoadUserPhotoFromFirebase(userId);
+
+                if (!string.IsNullOrEmpty(base64Image))
+                {
+                    // Очистка строки Base64
+                    base64Image = base64Image.Replace("\r", "").Replace("\n", "").Trim();
+
+                    // Проверка строки Base64
+                    if (IsBase64String(base64Image))
+                    {
+                        byte[] imageBytes = Convert.FromBase64String(base64Image);
+                        AvatarImageSource = ImageSource.FromStream(() => new MemoryStream(imageBytes));
+
+                        // Сохраняем локально для последующего использования
+                        Preferences.Set("UserAvatar", base64Image);
+                    }
+                    else
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Error", "The image data is not a valid Base64 string.", "OK");
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await Application.Current.MainPage.DisplayAlert("Error", $"Failed to load photo: {ex.Message}", "OK");
+        }
+    }
 
     public ObservableCollection<Friend> Friends { get; set; }
 
@@ -28,16 +79,18 @@ public partial class AppProfile : ContentView
 
     public string Gender { get; set; }
 
-    public string AvatarImageSource
+    public ImageSource AvatarImageSource
     {
         get => _avatarImageSource;
         set
         {
             _avatarImageSource = value;
-            Preferences.Set("UserAvatar", value);
             OnPropertyChanged(nameof(AvatarImageSource));
         }
     }
+
+
+
 
     public AppProfile()
     {
@@ -46,7 +99,25 @@ public partial class AppProfile : ContentView
         Username = Preferences.Get("Username", "Default Username");
         Bio = Preferences.Get("UserBio", "Enter a short biography...");
         var savedAvatar = Preferences.Get("UserAvatar", string.Empty);
-        AvatarImageSource = string.IsNullOrEmpty(savedAvatar) ? "bob_avatar.png" : savedAvatar;
+        if (string.IsNullOrEmpty(savedAvatar) || !IsBase64String(savedAvatar))
+        {
+            // Если строка пустая или некорректная, загружаем из Firebase
+            LoadAvatarFromFirebase();
+        }
+        else
+        {
+            try
+            {
+                // Конвертируем сохранённую строку Base64 в ImageSource
+                byte[] imageBytes = Convert.FromBase64String(savedAvatar);
+                AvatarImageSource = ImageSource.FromStream(() => new MemoryStream(imageBytes));
+            }
+            catch (FormatException)
+            {
+                // Если произошла ошибка, загружаем изображение из Firebase
+                LoadAvatarFromFirebase();
+            }
+        }
 
 
         Friends = new ObservableCollection<Friend>
@@ -76,6 +147,22 @@ public partial class AppProfile : ContentView
                 var imageSource = ImageSource.FromStream(() => stream);
                 var avatarImage = this.FindByName<Image>("AvatarImage");
                 avatarImage.Source = imageSource; // Обновляем отображение
+
+                var saveAndLoadService = new SaveAndLoad();
+
+                // Получение userId из FirebaseAuthClient
+                var userId = saveAndLoadService.UserId; // Предполагается, что UserId доступен через свойство
+
+                if (!string.IsNullOrEmpty(userId))
+                {
+                    // Сохранение изображения в Firebase Realtime Database
+                    await saveAndLoadService.SaveUserPhotoToFirebase(userId, result.FullPath);
+                    await Application.Current.MainPage.DisplayAlert("Success", "Photo saved to Firebase successfully.", "OK");
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error", "User ID is not available.", "OK");
+                }
             }
         }
         catch (Exception ex)

@@ -97,6 +97,8 @@ namespace Habitualize.Services
             }
         }
 
+        public string UserId => _authClient.User?.Uid;
+
         public async Task SaveHabits(List<HabitTemplate> habits)
         {
             SaveAchievements(habits);
@@ -185,7 +187,7 @@ namespace Habitualize.Services
             {
                 // Загружаем список достижений
                 var achievements = await firebase
-                    .Child("users")
+                    .Child("user")
                     .Child(uid)
                     .Child("achievements")
                     .OnceAsync<AchievementsTemplate>();
@@ -194,5 +196,45 @@ namespace Habitualize.Services
             }
             return null;
         }
+
+        public async Task SaveUserPhotoToFirebase(string userId, string imagePath)
+        {
+            var firebase = new FirebaseClient("https://habitualize-249ef-default-rtdb.europe-west1.firebasedatabase.app/");
+            byte[] imageBytes = await File.ReadAllBytesAsync(imagePath);
+            string base64Image = Convert.ToBase64String(imageBytes);
+
+            if (!string.IsNullOrEmpty(userId))
+            {
+                var jsonObject = new { ImageData = base64Image };
+                await firebase
+                    .Child("user")
+                    .Child(userId)
+                    .Child("profilePhoto")
+                    .PutAsync(jsonObject);
+            }
+        }
+
+        public async Task<string> LoadUserPhotoFromFirebase(string userId)
+        {
+            var firebase = new FirebaseClient("https://habitualize-249ef-default-rtdb.europe-west1.firebasedatabase.app/");
+            if (!string.IsNullOrEmpty(userId))
+            {
+                // Получаем объект JSON из Firebase
+                var jsonObject = await firebase
+                    .Child("user")
+                    .Child(userId)
+                    .Child("profilePhoto")
+                    .OnceSingleAsync<Dictionary<string, string>>();
+
+                // Проверяем, содержит ли объект поле "ImageData"
+                if (jsonObject != null && jsonObject.ContainsKey("ImageData"))
+                {
+                    return jsonObject["ImageData"];
+                }
+            }
+            return null;
+        }
+
+
     }
 }
