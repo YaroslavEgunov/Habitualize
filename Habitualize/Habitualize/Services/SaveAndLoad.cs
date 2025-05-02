@@ -20,6 +20,7 @@ using Habitualize.SignPages;
 using Firebase.Auth.Providers;
 using Firebase.Auth.Repository;
 using Google.Apis.Util;
+using System.Diagnostics;
 
 namespace Habitualize.Services
 {
@@ -153,7 +154,7 @@ namespace Habitualize.Services
                 //List<HabitTemplate> habits = new List<HabitTemplate>();
                 // Загружаем список привычек
                 var habits = await firebase
-                    .Child("users")
+                    .Child("user")
                     .Child(uid)
                     .Child("habits")
                     .OnceAsListAsync<HabitTemplate>();

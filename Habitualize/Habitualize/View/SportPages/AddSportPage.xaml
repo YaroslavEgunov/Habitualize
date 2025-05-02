@@ -19,7 +19,7 @@
                         WidthRequest="30"
                         BackgroundColor="White"
                         Clicked="OnCancelButtonClicked" />
-                        <Label Text="Add Plants"
+                        <Label Text="Add Training"
                        Grid.Column="1"
                        VerticalOptions="Center"
                        HorizontalOptions="Center"
@@ -31,7 +31,6 @@
                 </Border>
 
                 <!-- Форма добавления тренировки -->
-                <Label Text="Add new training!" Style="{StaticResource HabitsLabelStyle}" FontSize="36" HorizontalTextAlignment="Center"/>
                 <Label Text="Training Name:" Style="{StaticResource HabitsLabelStyle}" />
                 <Entry x:Name="TainingNameEntry" Text="{Binding HabitName}" HeightRequest="60" Placeholder="Name"/>
                 <Label Text="Training description:" Style="{StaticResource HabitsLabelStyle}" />
