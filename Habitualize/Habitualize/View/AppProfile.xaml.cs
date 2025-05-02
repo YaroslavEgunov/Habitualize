@@ -39,21 +39,17 @@ public partial class AppProfile : ContentView
 
             if (!string.IsNullOrEmpty(userId))
             {
-                // Загружаем строку Base64 из Firebase
                 var base64Image = await saveAndLoadService.LoadUserPhotoFromFirebase(userId);
 
                 if (!string.IsNullOrEmpty(base64Image))
                 {
-                    // Очистка строки Base64
                     base64Image = base64Image.Replace("\r", "").Replace("\n", "").Trim();
 
-                    // Проверка строки Base64
                     if (IsBase64String(base64Image))
                     {
                         byte[] imageBytes = Convert.FromBase64String(base64Image);
                         AvatarImageSource = ImageSource.FromStream(() => new MemoryStream(imageBytes));
 
-                        // Сохраняем локально для последующего использования
                         Preferences.Set("UserAvatar", base64Image);
                     }
                     else
@@ -68,6 +64,9 @@ public partial class AppProfile : ContentView
             await Application.Current.MainPage.DisplayAlert("Error", $"Failed to load photo: {ex.Message}", "OK");
         }
     }
+
+
+
 
     public ObservableCollection<Friend> Friends { get; set; }
 
@@ -89,34 +88,22 @@ public partial class AppProfile : ContentView
         }
     }
 
-
-
-
     public AppProfile()
     {
         InitializeComponent();
 
         Username = Preferences.Get("Username", "Default Username");
         Bio = Preferences.Get("UserBio", "Enter a short biography...");
+        AvatarImageSource = "bob_avatar.png";
         var savedAvatar = Preferences.Get("UserAvatar", string.Empty);
-        if (string.IsNullOrEmpty(savedAvatar) || !IsBase64String(savedAvatar))
+        if (!string.IsNullOrEmpty(savedAvatar) && IsBase64String(savedAvatar))
         {
-            // Если строка пустая или некорректная, загружаем из Firebase
-            LoadAvatarFromFirebase();
+            byte[] imageBytes = Convert.FromBase64String(savedAvatar);
+            AvatarImageSource = ImageSource.FromStream(() => new MemoryStream(imageBytes));
         }
         else
         {
-            try
-            {
-                // Конвертируем сохранённую строку Base64 в ImageSource
-                byte[] imageBytes = Convert.FromBase64String(savedAvatar);
-                AvatarImageSource = ImageSource.FromStream(() => new MemoryStream(imageBytes));
-            }
-            catch (FormatException)
-            {
-                // Если произошла ошибка, загружаем изображение из Firebase
-                LoadAvatarFromFirebase();
-            }
+            LoadAvatarFromFirebase();
         }
 
 
@@ -141,22 +128,24 @@ public partial class AppProfile : ContentView
 
             if (result != null)
             {
-                AvatarImageSource = result.FullPath; // Обновляем источник изображения
+                AvatarImageSource = result.FullPath; 
 
                 var stream = await result.OpenReadAsync();
                 var imageSource = ImageSource.FromStream(() => stream);
                 var avatarImage = this.FindByName<Image>("AvatarImage");
-                avatarImage.Source = imageSource; // Обновляем отображение
+                avatarImage.Source = imageSource; 
 
                 var saveAndLoadService = new SaveAndLoad();
 
-                // Получение userId из FirebaseAuthClient
-                var userId = saveAndLoadService.UserId; // Предполагается, что UserId доступен через свойство
+                var userId = saveAndLoadService.UserId; 
 
                 if (!string.IsNullOrEmpty(userId))
                 {
-                    // Сохранение изображения в Firebase Realtime Database
                     await saveAndLoadService.SaveUserPhotoToFirebase(userId, result.FullPath);
+                    byte[] imageBytes = File.ReadAllBytes(result.FullPath);
+                    string base64Image = Convert.ToBase64String(imageBytes);
+                    Preferences.Set("UserAvatar", base64Image);
+
                     await Application.Current.MainPage.DisplayAlert("Success", "Photo saved to Firebase successfully.", "OK");
                 }
                 else
@@ -170,6 +159,7 @@ public partial class AppProfile : ContentView
             await Application.Current.MainPage.DisplayAlert("Error", $"Failed to select photo: {ex.Message}", "OK");
         }
     }
+
 
     private void OnBioTextChanged(object sender, TextChangedEventArgs e)
     {
