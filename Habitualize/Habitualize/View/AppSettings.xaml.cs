@@ -55,6 +55,14 @@ public partial class AppSettings : ContentView
 
     private async void OnLoadFirebaseClicked(object sender, EventArgs e)
     {
-
+        List<HabitTemplate> habits = await MainPage.SavingLoadingSystem.LoadHabitsFromFirebase();
+        var achievementsData = await MainPage.SavingLoadingSystem.LoadAchievementsFromFirebase();
+        MainPage.Achievements.AchievementsList = achievementsData;
+        var text = "";
+        foreach(var habit in habits)
+        {
+            text += $"\n{habit.HabitName},";
+        }
+        await Application.Current.MainPage.DisplayAlert("Success", $"Loaded this: {text}", "Yuppie");
     }
 }
