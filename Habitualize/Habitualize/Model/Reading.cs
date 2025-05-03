@@ -34,5 +34,7 @@ namespace Habitualize.Model
         }
 
         public int PagesRead { get; set; }
+
+        public string Type = "Reading";
     }
 }

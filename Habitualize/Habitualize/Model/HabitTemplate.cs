@@ -50,6 +50,8 @@ namespace Habitualize.Model
 
         public bool IsComplete { get; set; }
 
+        public string Type = "HabitTemplate";
+
         //public DateTime TotalTimeSpentOnHabit { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;

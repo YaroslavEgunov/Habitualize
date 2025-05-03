@@ -25,5 +25,7 @@ namespace Habitualize.Model
             }
         }
 
+        public string Type = "Gardening";
+
     }
 }

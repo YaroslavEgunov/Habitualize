@@ -34,7 +34,7 @@
                 <Label Text="Training Name:" Style="{StaticResource HabitsLabelStyle}" />
                 <Entry x:Name="TainingNameEntry" Text="{Binding HabitName}" HeightRequest="60" Placeholder="Name"/>
                 <Label Text="Training description:" Style="{StaticResource HabitsLabelStyle}" />
-                <Entry x:Name="TrainingDescriptionEntry" Text="{Binding HabitDescription}" HeightRequest="60" Placeholder="Desvription" />
+                <Entry x:Name="TrainingDescriptionEntry" Text="{Binding HabitDescription}" HeightRequest="60" Placeholder="Description" />
                 <Label Text="Write down exercises:" Style="{StaticResource HabitsLabelStyle}" />
                 <ListView ItemsSource="{Binding Tasks}" Style="{StaticResource HabitsListViewStyle}">
                     <ListView.ItemTemplate>

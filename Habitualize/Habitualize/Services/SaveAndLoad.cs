@@ -153,28 +153,36 @@ namespace Habitualize.Services
             var uid = _authClient.User.Uid;
             if (uid != null)
             {
-                //List<HabitTemplate> habits = new List<HabitTemplate>();
-                // Загружаем список привычек
-                var habits = await firebase
+                var customHabits = await firebase
                     .Child("user")
                     .Child(uid)
                     .Child("habits")
                     .OnceAsListAsync<HabitTemplate>();
-
-                return habits.Select(h => h.Object).ToList();
-                //firebase
-                //    .Child("users")
-                //    .Child(uid)
-                //    .Child("habits")
-                //    .AsObservable<HabitTemplate>()  
-                //    .Subscribe((item) =>
-                //    {
-                //        if (item.Object != null)
-                //        {
-                //            habits.Add(item.Object);
-                //        }
-                //    });
-                //return habits;
+                customHabits = customHabits.Where(habit => habit.Object.Type == "HabitTemplate").ToList();
+                var gardeningHabits = await firebase
+                    .Child("user")
+                    .Child(uid)
+                    .Child("habits")
+                    .OnceAsListAsync<Gardening>();
+                gardeningHabits = gardeningHabits.Where(habit => habit.Object.Type == "Gardening").ToList();
+                var readingHabits = await firebase
+                    .Child("user")
+                    .Child(uid)
+                    .Child("habits")
+                    .OnceAsListAsync<Reading>();
+                readingHabits = readingHabits.Where(habit => habit.Object.Type == "Reading").ToList();
+                var trainingHabits = await firebase
+                    .Child("user")
+                    .Child(uid)
+                    .Child("habits")
+                    .OnceAsListAsync<Training>();
+                trainingHabits = trainingHabits.Where(habit => habit.Object.Type == "Training").ToList();
+                List<HabitTemplate> allHabits = new List<HabitTemplate>();
+                allHabits.AddRange(customHabits.Select(habit => habit.Object));
+                allHabits.AddRange(gardeningHabits.Select(habit => habit.Object));
+                allHabits.AddRange(readingHabits.Select(habit => habit.Object));
+                allHabits.AddRange(trainingHabits.Select(habit => habit.Object));
+                return allHabits;
             }
             return null;
         }
@@ -185,12 +193,11 @@ namespace Habitualize.Services
             var uid = _authClient.User.Uid;
             if (uid != null)
             {
-                // Загружаем список достижений
                 var achievements = await firebase
                     .Child("user")
                     .Child(uid)
                     .Child("achievements")
-                    .OnceAsync<AchievementsTemplate>();
+                    .OnceAsListAsync<AchievementsTemplate>();
 
                 return achievements.Select(a => a.Object).ToList();
             }

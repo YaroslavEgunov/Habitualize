@@ -17,18 +17,12 @@
                         BackgroundColor="#7950F2" 
                         StrokeShape="RoundRectangle 20" 
                         Padding="15">
-                    <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-                        <Label Text="🌱" 
-                               FontSize="30" 
-                               HorizontalOptions="Center" 
-                               Margin="0,0,0,5" />
-                        <Button Text="Plants" 
-                                TextColor="White"
-                                BackgroundColor="Transparent"
-                                FontAttributes="Bold"
-                                FontSize="20"
-                                Clicked="OnPlantsButtonClicked" />
-                    </StackLayout>
+                    <Button Text="🌱 Plants" 
+                            TextColor="White"
+                            BackgroundColor="Transparent"
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            Clicked="OnPlantsButtonClicked" />
                 </Border>
 
                 <!-- Кнопка "Спорт" -->

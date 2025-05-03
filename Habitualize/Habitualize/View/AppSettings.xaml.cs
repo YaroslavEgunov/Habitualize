@@ -38,11 +38,11 @@ public partial class AppSettings : ContentView
         {
             await Clipboard.SetTextAsync(token); // Копируем токен в буфер обмена
             Console.WriteLine($"FCM token: {token}");
-            await Application.Current.MainPage.DisplayAlert("Успех", "FCM токен скопирован в буфер обмена.", "OK");
+            await Application.Current.MainPage.DisplayAlert("Success", "FCM added to clipboard.", "OK");
         }
         else
         {
-            await Application.Current.MainPage.DisplayAlert("Ошибка", "Не удалось получить FCM токен.", "OK");
+            await Application.Current.MainPage.DisplayAlert("Error", "FCM token wasn't recieved.", "OK");
         }
     }
 
@@ -51,6 +51,7 @@ public partial class AppSettings : ContentView
         List<HabitTemplate> habits = await MainPage.SavingLoadingSystem.LoadHabits();
         var achievements = MainPage.Achievements;
         await MainPage.SavingLoadingSystem.SaveInFirebase(habits, achievements.AchievementsList);
+        await Application.Current.MainPage.DisplayAlert("Success", "Data saved!", "Yuppie");
     }
 
     private async void OnLoadFirebaseClicked(object sender, EventArgs e)
@@ -63,6 +64,7 @@ public partial class AppSettings : ContentView
         {
             text += $"\n{habit.HabitName},";
         }
+        await MainPage.SavingLoadingSystem.SaveHabits(habits);
         await Application.Current.MainPage.DisplayAlert("Success", $"Loaded this: {text}", "Yuppie");
     }
 }

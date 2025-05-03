@@ -36,7 +36,7 @@
                 <Entry x:Name="BookNameEntry" Text="{Binding HabitName}" HeightRequest="60" Placeholder="Book Name" />
 
                 <Label Text="Book Author:" Style="{StaticResource HabitsLabelStyle}" />
-                <Entry x:Name="BookAuthorEntry" Text="{Binding HabitDescription}" HeightRequest="60" Placeholder="Book Autor" />
+                <Entry x:Name="BookAuthorEntry" Text="{Binding HabitDescription}" HeightRequest="60" Placeholder="Book Author" />
 
                 <Label Text="How many pages in this book:" Style="{StaticResource HabitsLabelStyle}" />
                 <Entry x:Name="BookPagesEntry" Keyboard="Numeric" Text="{Binding PagesInBook}" Placeholder="Book Pages"/>

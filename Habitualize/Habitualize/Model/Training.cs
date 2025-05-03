@@ -43,5 +43,7 @@ namespace Habitualize.Model
                 _trainingComplete = value;
             }
         }
+
+        public string Type = "Training";
     }
 }
