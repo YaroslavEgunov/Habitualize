@@ -11,6 +11,9 @@ using Microsoft.Maui.Storage;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Maui.Views;
 using Habitualize.Services;
+using System.Windows.Input;
+using Firebase.Database;
+using Firebase.Database.Query;
 
 
 namespace Habitualize.View;
@@ -28,7 +31,6 @@ public partial class AppProfile : ContentView
             return false;
         return System.Text.RegularExpressions.Regex.IsMatch(base64, @"^[a-zA-Z0-9\+/]*={0,2}$", System.Text.RegularExpressions.RegexOptions.None);
     }
-
 
     private async void LoadAvatarFromFirebase()
     {
@@ -65,8 +67,9 @@ public partial class AppProfile : ContentView
         }
     }
 
+    public ObservableCollection<Friend> SuggestedFriends { get; set; }
 
-
+    public ICommand AddFriendCommand { get; }
 
     public ObservableCollection<Friend> Friends { get; set; }
 
@@ -94,6 +97,7 @@ public partial class AppProfile : ContentView
 
         Username = Preferences.Get("Username", "Default Username");
         Bio = Preferences.Get("UserBio", "Enter a short biography...");
+
         AvatarImageSource = "bob_avatar.png";
         var savedAvatar = Preferences.Get("UserAvatar", string.Empty);
         if (!string.IsNullOrEmpty(savedAvatar) && IsBase64String(savedAvatar))
@@ -106,15 +110,100 @@ public partial class AppProfile : ContentView
             LoadAvatarFromFirebase();
         }
 
+        Friends = new ObservableCollection<Friend>();
+        SuggestedFriends = new ObservableCollection<Friend>();
 
-        Friends = new ObservableCollection<Friend>
-        {
-            new Friend { Name = "Alice", Avatar = "alice_avatar.png" },
-            new Friend { Name = "Bob", Avatar = "bob_avatar.png" },
-            new Friend { Name = "Charlie", Avatar = "charlie_avatar.png" }
-        };
+        AddFriendCommand = new Command<Friend>(AddFriend);
+        Console.WriteLine("AddFriendCommand initialized.");
+
+        LoadFriends();
+        LoadSuggestedFriends();
 
         BindingContext = this;
+    }
+
+    private async void LoadSuggestedFriends()
+    {
+        try
+        {
+            var saveAndLoadService = new SaveAndLoad();
+            var randomUsers = await saveAndLoadService.LoadSuggestedFriends(Friends.ToList());
+
+            SuggestedFriends.Clear();
+            foreach (var user in randomUsers)
+            {
+                SuggestedFriends.Add(user);
+            }
+        }
+        catch (Exception ex)
+        {
+            await Application.Current.MainPage.DisplayAlert("Error", $"Failed to load suggested friends: {ex.Message}", "OK");
+        }
+    }
+
+    private async void LoadFriends()
+    {
+        try
+        {
+            var saveAndLoadService = new SaveAndLoad();
+            var userId = saveAndLoadService.UserId;
+            if (!string.IsNullOrEmpty(userId))
+            {
+                var friends = await saveAndLoadService.LoadFriendsFromFirebase(userId);
+                Friends.Clear();
+                foreach (var friend in friends)
+                {
+                    Friends.Add(friend);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in LoadFriends: {ex.Message}");
+        }
+    }
+
+    private async void AddFriend(Friend friend)
+    {
+        try
+        {
+            if (friend == null)
+            {
+                Console.WriteLine("Friend is null.");
+                return;
+            }
+
+            Console.WriteLine($"Attempting to add friend: {friend.Id}");
+
+            if (!Friends.Any(f => f.Id == friend.Id))
+            {
+                Console.WriteLine("Friend not in Friends list. Adding...");
+                Friends.Add(friend);
+                SuggestedFriends.Remove(friend);
+
+                Console.WriteLine("Saving friend to Firebase...");
+                var saveAndLoadService = new SaveAndLoad();
+                var userId = saveAndLoadService.UserId;
+                if (!string.IsNullOrEmpty(userId))
+                {
+                    await saveAndLoadService.AddFriendToFirebase(friend, userId);
+                    Console.WriteLine($"Friend {friend.Id} added successfully for user {userId}.");
+                }
+                else
+                {
+                    Console.WriteLine("User ID is null or empty.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Friend already exists in Friends list.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in AddFriend: {ex.Message}");
+            await Application.Current.MainPage.DisplayAlert("Error", $"Failed to add friend: {ex.Message}", "OK");
+        }
     }
 
     private async void OnAvatarTapped(object sender, EventArgs e)

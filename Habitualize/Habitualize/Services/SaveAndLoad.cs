@@ -21,6 +21,7 @@ using Firebase.Auth.Providers;
 using Firebase.Auth.Repository;
 using Google.Apis.Util;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace Habitualize.Services
 {
@@ -226,14 +227,12 @@ namespace Habitualize.Services
             var firebase = new FirebaseClient("https://habitualize-249ef-default-rtdb.europe-west1.firebasedatabase.app/");
             if (!string.IsNullOrEmpty(userId))
             {
-                // Получаем объект JSON из Firebase
                 var jsonObject = await firebase
                     .Child("user")
                     .Child(userId)
                     .Child("profilePhoto")
                     .OnceSingleAsync<Dictionary<string, string>>();
 
-                // Проверяем, содержит ли объект поле "ImageData"
                 if (jsonObject != null && jsonObject.ContainsKey("ImageData"))
                 {
                     return jsonObject["ImageData"];
@@ -242,6 +241,166 @@ namespace Habitualize.Services
             return null;
         }
 
+        public async Task<List<Friend>> LoadSuggestedFriends(List<Friend> currentFriends)
+        {
+            try
+            {
+                var firebase = new FirebaseClient("https://habitualize-249ef-default-rtdb.europe-west1.firebasedatabase.app/");
+                var allUsers = await firebase
+                    .Child("user")
+                    .OnceAsync<Dictionary<string, object>>(); // Загружаем всех пользователей как словарь
 
+                // Получаем список идентификаторов уже существующих друзей
+                var existingFriendIds = new HashSet<string>(currentFriends.Select(f => f.Id));
+
+                // Добавляем текущего пользователя в список исключений
+                if (!string.IsNullOrEmpty(_authClient.User?.Uid))
+                {
+                    existingFriendIds.Add(_authClient.User.Uid);
+                }
+
+                var suggestedFriends = new List<Friend>();
+
+                foreach (var user in allUsers)
+                {
+                    // Пропускаем текущего пользователя и уже существующих друзей
+                    if (existingFriendIds.Contains(user.Key))
+                        continue;
+
+                    // Загружаем фотографию пользователя
+                    var base64Photo = await LoadUserPhotoFromFirebase(user.Key);
+
+                    // Создаем объект Friend
+                    var friend = new Friend
+                    {
+                        Id = user.Key, // Используем ключ как Id
+                        Name = $"User {user.Key}", // Временно используем Id как имя
+                        Avatar = base64Photo // Сохраняем Base64-строку в Avatar
+                    };
+
+                    // Проверяем, есть ли уже такой друг в списке предложений
+                    if (!suggestedFriends.Any(f => f.Id == friend.Id))
+                    {
+                        suggestedFriends.Add(friend);
+                    }
+
+                    // Прерываем, если уже выбрано 3 уникальных пользователя
+                    if (suggestedFriends.Count == 3)
+                        break;
+                }
+
+                return suggestedFriends;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in LoadSuggestedFriends: {ex.Message}");
+                return new List<Friend>();
+            }
+        }
+
+
+
+
+
+        public async Task AddFriendToFirebase(Friend friend, string userId)
+        {
+            try
+            {
+                var firebase = new FirebaseClient("https://habitualize-249ef-default-rtdb.europe-west1.firebasedatabase.app/");
+
+                // Проверяем, существует ли друг с таким Id
+                var existingFriends = await firebase
+                    .Child("user")
+                    .Child(userId)
+                    .Child("friends")
+                    .OnceAsync<Friend>();
+
+                if (existingFriends.Any(f => f.Object.Id == friend.Id))
+                {
+                    Console.WriteLine($"Friend with Id {friend.Id} already exists for user {userId}.");
+                    return; // Друг уже существует, не добавляем его снова
+                }
+
+                // Добавляем друга под его Id
+                await firebase
+                    .Child("user")
+                    .Child(userId)
+                    .Child("friends")
+                    .Child(friend.Id) // Используем Id друга как ключ
+                    .PutAsync(friend);
+
+                Console.WriteLine($"Friend {friend.Id} saved to Firebase for user {userId}.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in AddFriendToFirebase: {ex.Message}");
+                throw;
+            }
+        }
+
+
+        public async Task<List<Friend>> LoadFriendsFromFirebase(string userId)
+        {
+            try
+            {
+                var firebase = new FirebaseClient("https://habitualize-249ef-default-rtdb.europe-west1.firebasedatabase.app/");
+                var friends = await firebase
+                    .Child("user")
+                    .Child(userId)
+                    .Child("friends")
+                    .OnceAsync<Friend>();
+
+                // Возвращаем список друзей
+                return friends.Select(f => f.Object).ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in LoadFriendsFromFirebase: {ex.Message}");
+                return new List<Friend>();
+            }
+        }
+
+
+    }
+    public class FriendComparer : IEqualityComparer<Friend>
+    {
+        public bool Equals(Friend x, Friend y)
+        {
+            if (x == null || y == null)
+                return false;
+
+            return x.Id == y.Id;
+        }
+
+        public int GetHashCode(Friend obj)
+        {
+            return obj.Id.GetHashCode();
+        }
+    }
+
+
+    public class Base64ToImageSourceConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is string base64 && !string.IsNullOrEmpty(base64))
+            {
+                try
+                {
+                    byte[] imageBytes = System.Convert.FromBase64String(base64);
+                    return ImageSource.FromStream(() => new MemoryStream(imageBytes));
+                }
+                catch
+                {
+                    return ImageSource.FromFile("bob_avatar.png"); // Заглушка
+                }
+            }
+            return ImageSource.FromFile("bob_avatar.png"); // Заглушка
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
