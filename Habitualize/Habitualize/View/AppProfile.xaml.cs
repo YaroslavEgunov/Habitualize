@@ -127,12 +127,21 @@ public partial class AppProfile : ContentView
         try
         {
             var saveAndLoadService = new SaveAndLoad();
-            var randomUsers = await saveAndLoadService.LoadSuggestedFriends(Friends.ToList());
+            var userId = saveAndLoadService.UserId;
 
-            SuggestedFriends.Clear();
-            foreach (var user in randomUsers)
+            if (!string.IsNullOrEmpty(userId))
             {
-                SuggestedFriends.Add(user);
+                var randomUsers = await saveAndLoadService.LoadSuggestedFriends(userId);
+
+                SuggestedFriends.Clear();
+                foreach (var user in randomUsers)
+                {
+                    SuggestedFriends.Add(user);
+                }
+            }
+            else
+            {
+                Console.WriteLine("User ID is null or empty.");
             }
         }
         catch (Exception ex)
@@ -140,6 +149,7 @@ public partial class AppProfile : ContentView
             await Application.Current.MainPage.DisplayAlert("Error", $"Failed to load suggested friends: {ex.Message}", "OK");
         }
     }
+
 
     private async void LoadFriends()
     {

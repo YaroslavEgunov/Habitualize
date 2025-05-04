@@ -241,23 +241,27 @@ namespace Habitualize.Services
             return null;
         }
 
-        public async Task<List<Friend>> LoadSuggestedFriends(List<Friend> currentFriends)
+        public async Task<List<Friend>> LoadSuggestedFriends(string userId)
         {
             try
             {
                 var firebase = new FirebaseClient("https://habitualize-249ef-default-rtdb.europe-west1.firebasedatabase.app/");
-                var allUsers = await firebase
-                    .Child("user")
-                    .OnceAsync<Dictionary<string, object>>(); // Загружаем всех пользователей как словарь
+
+                // Загружаем список текущих друзей из Firebase
+                var currentFriends = await LoadFriendsFromFirebase(userId);
 
                 // Получаем список идентификаторов уже существующих друзей
                 var existingFriendIds = new HashSet<string>(currentFriends.Select(f => f.Id));
 
                 // Добавляем текущего пользователя в список исключений
-                if (!string.IsNullOrEmpty(_authClient.User?.Uid))
+                if (!string.IsNullOrEmpty(userId))
                 {
-                    existingFriendIds.Add(_authClient.User.Uid);
+                    existingFriendIds.Add(userId);
                 }
+
+                var allUsers = await firebase
+                    .Child("user")
+                    .OnceAsync<Dictionary<string, object>>(); // Загружаем всех пользователей как словарь
 
                 var suggestedFriends = new List<Friend>();
 
@@ -297,8 +301,6 @@ namespace Habitualize.Services
                 return new List<Friend>();
             }
         }
-
-
 
 
 
