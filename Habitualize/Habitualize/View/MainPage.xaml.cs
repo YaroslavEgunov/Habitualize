@@ -64,6 +64,23 @@ namespace Habitualize
             }
         }
 
+        private async void OnNotificationButtonClicked(object sender, EventArgs e)
+        {
+            if (BindingContext is MainPageViewModel viewModel)
+            {
+                if (sender is ImageButton button)
+                {
+                    await button.TranslateTo(0, -10, 150, Easing.CubicInOut);
+                    await button.TranslateTo(0, 0, 150, Easing.CubicInOut);
+                }
+                if (viewModel.ActiveTab != "Notification")
+                {
+                    viewModel.ActiveTab = "Notification";
+                    await ChangeContentWithAnimation(new AppNotification());
+                }
+
+            }
+        }
 
         private async void OnMapButtonClicked(object sender, EventArgs e)
         {

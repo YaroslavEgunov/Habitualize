@@ -247,13 +247,10 @@ namespace Habitualize.Services
             {
                 var firebase = new FirebaseClient("https://habitualize-249ef-default-rtdb.europe-west1.firebasedatabase.app/");
 
-                // Загружаем список текущих друзей из Firebase
                 var currentFriends = await LoadFriendsFromFirebase(userId);
 
-                // Получаем список идентификаторов уже существующих друзей
                 var existingFriendIds = new HashSet<string>(currentFriends.Select(f => f.Id));
 
-                // Добавляем текущего пользователя в список исключений
                 if (!string.IsNullOrEmpty(userId))
                 {
                     existingFriendIds.Add(userId);
@@ -261,34 +258,29 @@ namespace Habitualize.Services
 
                 var allUsers = await firebase
                     .Child("user")
-                    .OnceAsync<Dictionary<string, object>>(); // Загружаем всех пользователей как словарь
+                    .OnceAsync<Dictionary<string, object>>(); 
 
                 var suggestedFriends = new List<Friend>();
 
                 foreach (var user in allUsers)
                 {
-                    // Пропускаем текущего пользователя и уже существующих друзей
                     if (existingFriendIds.Contains(user.Key))
                         continue;
 
-                    // Загружаем фотографию пользователя
                     var base64Photo = await LoadUserPhotoFromFirebase(user.Key);
 
-                    // Создаем объект Friend
                     var friend = new Friend
                     {
-                        Id = user.Key, // Используем ключ как Id
-                        Name = $"User {user.Key}", // Временно используем Id как имя
-                        Avatar = base64Photo // Сохраняем Base64-строку в Avatar
+                        Id = user.Key, 
+                        Name = $"User {user.Key}", 
+                        Avatar = base64Photo 
                     };
 
-                    // Проверяем, есть ли уже такой друг в списке предложений
                     if (!suggestedFriends.Any(f => f.Id == friend.Id))
                     {
                         suggestedFriends.Add(friend);
                     }
 
-                    // Прерываем, если уже выбрано 3 уникальных пользователя
                     if (suggestedFriends.Count == 3)
                         break;
                 }
@@ -302,15 +294,12 @@ namespace Habitualize.Services
             }
         }
 
-
-
         public async Task AddFriendToFirebase(Friend friend, string userId)
         {
             try
             {
                 var firebase = new FirebaseClient("https://habitualize-249ef-default-rtdb.europe-west1.firebasedatabase.app/");
 
-                // Проверяем, существует ли друг с таким Id
                 var existingFriends = await firebase
                     .Child("user")
                     .Child(userId)
@@ -320,18 +309,53 @@ namespace Habitualize.Services
                 if (existingFriends.Any(f => f.Object.Id == friend.Id))
                 {
                     Console.WriteLine($"Friend with Id {friend.Id} already exists for user {userId}.");
-                    return; // Друг уже существует, не добавляем его снова
+                    return; 
                 }
 
-                // Добавляем друга под его Id
                 await firebase
                     .Child("user")
                     .Child(userId)
                     .Child("friends")
-                    .Child(friend.Id) // Используем Id друга как ключ
+                    .Child(friend.Id) 
                     .PutAsync(friend);
 
                 Console.WriteLine($"Friend {friend.Id} saved to Firebase for user {userId}.");
+
+                var currentUserName = await LoadUserNameFromFirebase(userId);
+                var currentUserAvatar = await LoadUserPhotoFromFirebase(userId);
+
+                var currentUser = new Friend
+                {
+                    Id = userId,
+                    Name = currentUserName ?? userId, 
+                    Avatar = currentUserAvatar 
+                };
+
+                await firebase
+                    .Child("user")
+                    .Child(friend.Id)
+                    .Child("friends")
+                    .Child(userId) 
+                    .PutAsync(currentUser);
+
+                Console.WriteLine($"User {userId} added to friends of {friend.Id}.");
+
+                // Добавляем уведомление для друга
+                var notification = new Notification
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Message = $"{currentUserName ?? "User"} добавил вас в друзья.",
+                    Timestamp = DateTime.UtcNow
+                };
+
+                await firebase
+                    .Child("user")
+                    .Child(friend.Id)
+                    .Child("notifications")
+                    .Child(notification.Id)
+                    .PutAsync(notification);
+
+                Console.WriteLine($"Notification added for user {friend.Id}.");
             }
             catch (Exception ex)
             {
@@ -340,6 +364,26 @@ namespace Habitualize.Services
             }
         }
 
+
+        public async Task<string> LoadUserNameFromFirebase(string userId)
+        {
+            try
+            {
+                var firebase = new FirebaseClient("https://habitualize-249ef-default-rtdb.europe-west1.firebasedatabase.app/");
+                var userName = await firebase
+                    .Child("user")
+                    .Child(userId)
+                    .Child("name") 
+                    .OnceSingleAsync<string>();
+
+                return userName;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in LoadUserNameFromFirebase: {ex.Message}");
+                return null; 
+            }
+        }
 
         public async Task<List<Friend>> LoadFriendsFromFirebase(string userId)
         {
@@ -352,7 +396,6 @@ namespace Habitualize.Services
                     .Child("friends")
                     .OnceAsync<Friend>();
 
-                // Возвращаем список друзей
                 return friends.Select(f => f.Object).ToList();
             }
             catch (Exception ex)
@@ -364,22 +407,6 @@ namespace Habitualize.Services
 
 
     }
-    public class FriendComparer : IEqualityComparer<Friend>
-    {
-        public bool Equals(Friend x, Friend y)
-        {
-            if (x == null || y == null)
-                return false;
-
-            return x.Id == y.Id;
-        }
-
-        public int GetHashCode(Friend obj)
-        {
-            return obj.Id.GetHashCode();
-        }
-    }
-
 
     public class Base64ToImageSourceConverter : IValueConverter
     {
@@ -394,10 +421,10 @@ namespace Habitualize.Services
                 }
                 catch
                 {
-                    return ImageSource.FromFile("bob_avatar.png"); // Заглушка
+                    return ImageSource.FromFile("bob_avatar.png"); 
                 }
             }
-            return ImageSource.FromFile("bob_avatar.png"); // Заглушка
+            return ImageSource.FromFile("bob_avatar.png"); 
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

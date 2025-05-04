@@ -116,6 +116,9 @@
 	  <MauiXaml Update="View\AppFriendsPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\AppNotification.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\AppProfile.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

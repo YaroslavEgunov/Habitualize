@@ -16,10 +16,14 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <ImageButton Source="notif_unselect.png" 
-                             BackgroundColor="Transparent" 
-                             Grid.Column="0"
-                             Style="{StaticResource ButtonStyle}" />
+                <StackLayout HorizontalOptions="Center" 
+                             VerticalOptions="Center">
+                    <ImageButton Source="{Binding ActiveTab, 
+                                            Converter={StaticResource TabImageConverter}, 
+                                            ConverterParameter='Notification'}"
+                                 Style="{StaticResource FooterButtonStyle}" 
+                                 Clicked="OnNotificationButtonClicked"/>
+                </StackLayout>
             </Grid>
 
         </Border>

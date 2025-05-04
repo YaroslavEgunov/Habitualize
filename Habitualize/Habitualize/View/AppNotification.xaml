@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Habitualize.View.AppNotification">
+    <CollectionView ItemsSource="{Binding Notifications}">
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <StackLayout Padding="10">
+                    <Label Text="{Binding Message}" FontSize="16" TextColor="Black" />
+                    <Label Text="{Binding Timestamp, StringFormat='{0:dd.MM.yyyy HH:mm}'}" FontSize="12" TextColor="Gray" />
+                </StackLayout>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+</ContentView>
