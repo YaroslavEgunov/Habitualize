@@ -3,13 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Habitualize.View.CustomHabitsPages.EditCustomHabitPage">
     <Grid RowDefinitions="Auto,*,Auto">
-
         <ScrollView VerticalScrollBarVisibility="Never" 
-                HorizontalScrollBarVisibility="Never"
-                Grid.Row="1">
-
+                    HorizontalScrollBarVisibility="Never"
+                    Grid.Row="1">
             <StackLayout Padding="20,20,20,0" VerticalOptions="StartAndExpand">
-
                 <!-- Top Border -->
                 <Border Grid.Row="0" Style="{StaticResource ProfileStyleSqr}">
                     <Grid ColumnDefinitions="Auto,*" VerticalOptions="Center">
@@ -29,8 +26,7 @@
                                Margin="-42,0,0,0" />
                     </Grid>
                 </Border>
-
-                <!-- Habit add form -->
+                <!-- Add habit form -->
                 <Label Text="View your habit or edit it!" Style="{StaticResource HabitsLabelStyle}"/>
                 <Label Text="Habit Name:" Style="{StaticResource HabitsLabelStyle}" />
                 <Entry Text="{Binding HabitName}" HeightRequest="60" Placeholder="Name"/>
@@ -46,19 +42,17 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-
                 <Label Text="Repeat Schedule:" Style="{StaticResource HabitsLabelStyle}" />
                 <DatePicker x:Name="DatePick" Date="{Binding RepeatSchedule}" IsEnabled="False" Format="d" />
                 <Label Text="Is habit complete?" Style="{StaticResource HabitsLabelStyle}" />
                 <Switch IsToggled="{Binding IsComplete}" BackgroundColor="Transparent"/>
             </StackLayout>
         </ScrollView>
-
-        <!-- Нижний Border -->
+        <!-- Bottom Border -->
         <Border Grid.Row="2"
-             HeightRequest="100" 
-             Padding="0" 
-             Stroke="Transparent">
+                HeightRequest="100" 
+                Padding="0" 
+                Stroke="Transparent">
             <Grid ColumnDefinitions="*,*">
                 <StackLayout Grid.Column="0">
                     <Button Text="Confirm" Clicked="OnConfirmButtonClicked" Style="{StaticResource HabitsButtonStyle}" />

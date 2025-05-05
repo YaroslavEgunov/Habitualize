@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Habitualize.Services
 {
+    //For making habits glow up when completed
     public class BookCompleteToColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

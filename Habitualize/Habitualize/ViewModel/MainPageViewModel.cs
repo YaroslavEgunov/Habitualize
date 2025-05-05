@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Habitualize.ViewModel
 {
-    // Содержит информацию об активной вкладке и обновляет её при изменении
+    // Contains information about current page
     public class MainPageViewModel : INotifyPropertyChanged
     {
         private string _activeTab;

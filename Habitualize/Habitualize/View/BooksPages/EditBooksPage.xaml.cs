@@ -34,15 +34,12 @@ public partial class EditBooksPage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-
-        // Обновление состояния BookSwitch на основе сохраненного значения
         if (_editedBook != null)
         {
             BookSwitch.IsToggled = _editedBook.BookComplete;
             BookSwitch.OnColor = Colors.LawnGreen;
         }
     }
-
 
     private async void OnConfirmButtonClicked(object sender, EventArgs e)
     {

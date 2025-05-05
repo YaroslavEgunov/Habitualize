@@ -47,7 +47,7 @@ namespace Habitualize
             NavigationPage.SetHasNavigationBar(this, false);
         }
 
-        //Анимация при смене контента
+        //Animation
         private async Task ChangeContentWithAnimation(Microsoft.Maui.Controls.View newContent)
         {
             if (DynamicContent.Content != null)
@@ -181,7 +181,7 @@ namespace Habitualize
         }
     }
 
-    //Конвертер для фотографий в футере
+    //Converter for images in footer
     public class TabImageConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -205,7 +205,7 @@ namespace Habitualize
         }
     }
 
-    //Конвертер для подписей в футере
+    //Converter for text in footer
     public class TabVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

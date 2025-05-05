@@ -31,6 +31,7 @@ namespace Habitualize.Services
 
         private string _achievementsPath = Path.Combine(FileSystem.AppDataDirectory, "Achievements.json");
 
+        //For db connection
         private readonly FirebaseAuthClient _authClient = new FirebaseAuthClient(new FirebaseAuthConfig()
         {
             ApiKey = "AIzaSyAO6SGqXASw8zw_YD2xqCjBBP7ZOHDDcf0",
@@ -80,6 +81,7 @@ namespace Habitualize.Services
             string json = await LoadFromFile(_achievementsPath);
             json.ToCharArray();
             int i = 0;
+            //Store achievements data as binary
             foreach(var symbol in json)
             {
                 switch(symbol)
@@ -103,6 +105,7 @@ namespace Habitualize.Services
         public async Task SaveHabits(List<HabitTemplate> habits)
         {
             SaveAchievements(habits);
+            //Settings required for polymorphism
             string json = JsonConvert.SerializeObject(habits, new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.Auto
@@ -128,18 +131,15 @@ namespace Habitualize.Services
         public async Task SaveInFirebase(List<HabitTemplate> habits, List<AchievementsTemplate> achievements)
         {
             var firebase = new FirebaseClient("https://habitualize-249ef-default-rtdb.europe-west1.firebasedatabase.app/");
-            // Получите текущего пользователя
             var uid = _authClient.User.Uid;
 
             if (uid != null)
             {
-                // Сохраняем список привычек
                 await firebase
                     .Child("user")
                     .Child(uid)
                     .Child("habits")
                     .PutAsync(habits);
-                // Сохраняем список достижений
                 await firebase
                     .Child("user")
                     .Child(uid)

@@ -36,7 +36,7 @@ public partial class AppSettings : ContentView
 
         if (!string.IsNullOrEmpty(token))
         {
-            await Clipboard.SetTextAsync(token); // Копируем токен в буфер обмена
+            await Clipboard.SetTextAsync(token);
             Console.WriteLine($"FCM token: {token}");
             await Application.Current.MainPage.DisplayAlert("Success", "FCM added to clipboard.", "OK");
         }

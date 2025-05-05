@@ -8,37 +8,32 @@
             <local:BookCompleteToColorConverter x:Key="BookCompleteToColorConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-
     <Grid RowDefinitions="Auto,*,Auto">
-
-        <!-- Основной контент -->
+        <!-- Main content -->
         <ScrollView VerticalScrollBarVisibility="Never" 
-            HorizontalScrollBarVisibility="Never"
-            Grid.Row="1">
-
+                    HorizontalScrollBarVisibility="Never"
+                    Grid.Row="1">
             <StackLayout Padding="20" VerticalOptions="StartAndExpand">
-
-                <!-- Верхний Border -->
+                <!-- Top Border -->
                 <Border Style="{StaticResource ProfileStyleSqr}">
                     <Grid ColumnDefinitions="Auto,*" VerticalOptions="Center">
                         <Button Text="←"
-                        Grid.Column="0"
-                        HeightRequest="30"
-                        WidthRequest="30"
-                        BackgroundColor="White"
-                        Clicked="OnBackButtonClicked" />
+                                Grid.Column="0"
+                                HeightRequest="30"
+                                WidthRequest="30"
+                                BackgroundColor="White"
+                                Clicked="OnBackButtonClicked" />
                         <Label Text="Training"
-                       Grid.Column="1"
-                       VerticalOptions="Center"
-                       HorizontalOptions="Center"
-                       FontSize="40"
-                       FontAttributes="Bold"
-                       TextColor="White"
-                       Margin="-42,0,0,0" />
+                               Grid.Column="1"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"
+                               FontSize="40"
+                               FontAttributes="Bold"
+                               TextColor="White"
+                               Margin="-42,0,0,0" />
                     </Grid>
                 </Border>
-
-                <!-- Список занятий -->
+                <!-- Training list -->
                 <ListView x:Name="HabitListView" ItemTapped="OnItemTapped" Style="{StaticResource HabitsListViewStyle}" IsEnabled="True">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -52,20 +47,19 @@
                 </ListView>
             </StackLayout>
         </ScrollView>
-
-        <!-- Нижний Border -->
+        <!-- Bottom Border -->
         <Border Grid.Row="2"
-        HeightRequest="100" 
-        Padding="0" 
-        Stroke="Transparent">
+                HeightRequest="100" 
+                Padding="0" 
+                Stroke="Transparent">
             <Button Text="Add Training" 
-            Clicked="OnCreateTrainingHabitButtonClicked" 
-            Style="{StaticResource HabitsButtonStyle}" 
-            WidthRequest="150" 
-            BackgroundColor="#7950F2" 
-            TextColor="#FFFFFF" 
-            HorizontalOptions="Center"
-            Margin="0,0,0,20" />
+                    Clicked="OnCreateTrainingHabitButtonClicked" 
+                    Style="{StaticResource HabitsButtonStyle}" 
+                    WidthRequest="150" 
+                    BackgroundColor="#7950F2" 
+                    TextColor="#FFFFFF" 
+                    HorizontalOptions="Center"
+                    Margin="0,0,0,20" />
         </Border>
     </Grid>
 </ContentPage>

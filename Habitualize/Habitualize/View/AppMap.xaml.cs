@@ -28,7 +28,7 @@ public partial class AppMap : ContentView
 
         if (isFirstLaunch)
         {
-            AdditionalTextLabel.Text = "Добро пожаловать! Выберите категорию, чтобы начать!";
+            AdditionalTextLabel.Text = "Welcome! Choose category to begin!";
         }
         else
         {
@@ -69,21 +69,19 @@ public partial class AppMap : ContentView
             "You're with us again! Time for new victories.",
             "Good to see you again! Let’s move forward to success!"
         };
-
-            // Генерация случайного индекса
+            // Random index generation
             var random = new Random();
             int randomIndex = random.Next(phrases.Count);
-
-            // Установка случайной фразы
+            // Random phrase select
             AdditionalTextLabel.Text = phrases[randomIndex];
         }
     }
 
     private async void OnPlantsButtonClicked(object sender, EventArgs e)
     {
-        var data = await SavingLoadingSystem.LoadHabits(); // Загружаем привычки
-        var gardeningHabits = data.OfType<Gardening>().ToList(); // Фильтруем только привычки Gardening
-        await Navigation.PushAsync(new PlantsPage(gardeningHabits)); // Передаем список привычек на вторую страницу
+        var data = await SavingLoadingSystem.LoadHabits();
+        var gardeningHabits = data.OfType<Gardening>().ToList();
+        await Navigation.PushAsync(new PlantsPage(gardeningHabits));
     }
 
     private async void OnSportButtonClicked(object sender, EventArgs e)

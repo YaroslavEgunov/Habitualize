@@ -5,19 +5,29 @@
              x:Class="Habitualize.View.AppSchedule">
 
 
-    <ScrollView VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never">
+    <ScrollView VerticalScrollBarVisibility="Never" 
+                HorizontalScrollBarVisibility="Never">
         <VerticalStackLayout>
-            <Label Text="Habit Calendar" FontSize="24" HorizontalOptions="Center" />
-
-            <cal:Calendar x:Name="HabitCalendar" Events="{Binding Events}" EventsScrollViewVisible="False" SelectedDate="{Binding SelectedDate}" Style="{StaticResource CalendarStyle}"/>
-
+            <Label Text="Habit Calendar" 
+                   FontSize="24" 
+                   HorizontalOptions="Center" />
+            <cal:Calendar x:Name="HabitCalendar" 
+                          Events="{Binding Events}" 
+                          EventsScrollViewVisible="False" 
+                          SelectedDate="{Binding SelectedDate}" 
+                          Style="{StaticResource CalendarStyle}"/>
             <CollectionView x:Name="HabitCollectionView">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Border StrokeShape="RoundRectangle 10" Margin="15" Padding="5" BackgroundColor="MediumPurple">
+                        <Border StrokeShape="RoundRectangle 10" 
+                                Margin="15" 
+                                Padding="5" 
+                                BackgroundColor="MediumPurple">
                             <StackLayout>
-                                <Label Text="{Binding HabitName}" FontSize="18" />
-                                <Label Text="{Binding HabitDescription}" FontSize="14" />
+                                <Label Text="{Binding HabitName}" 
+                                       FontSize="18" />
+                                <Label Text="{Binding HabitDescription}" 
+                                       FontSize="14" />
                             </StackLayout>
                         </Border>
                     </DataTemplate>

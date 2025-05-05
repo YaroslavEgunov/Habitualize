@@ -27,7 +27,9 @@ public partial class AddSportPage : ContentPage
 
     private async void OnAddButtonClicked(object sender, EventArgs e)
     {
-        if (string.IsNullOrWhiteSpace(TainingNameEntry.Text) || string.IsNullOrWhiteSpace(TrainingDescriptionEntry.Text) || string.IsNullOrWhiteSpace(TrainingWeightEntry.Text))
+        if (string.IsNullOrWhiteSpace(TainingNameEntry.Text) || 
+            string.IsNullOrWhiteSpace(TrainingDescriptionEntry.Text) || 
+            string.IsNullOrWhiteSpace(TrainingWeightEntry.Text))
         {
             await DisplayAlert("Nuh uh!", "Please enter training, description and desired weight", "Sowwy...");
             return;

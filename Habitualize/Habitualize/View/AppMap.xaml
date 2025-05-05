@@ -5,14 +5,12 @@
 
     <ScrollView VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never">
         <StackLayout Padding="20" Spacing="20" >
-
-            <!-- Сетка с кнопками -->
+            <!-- Buttons net -->
             <Grid ColumnDefinitions="*,*" 
                   RowDefinitions="Auto,Auto,Auto" 
                   ColumnSpacing="15" 
                   RowSpacing="15">
-
-                <!-- Кнопка "Растения" -->
+                <!-- Button "Plants" -->
                 <Border Grid.Row="0" Grid.Column="0" 
                         BackgroundColor="#7950F2" 
                         StrokeShape="RoundRectangle 20" 
@@ -24,8 +22,7 @@
                             FontSize="20"
                             Clicked="OnPlantsButtonClicked" />
                 </Border>
-
-                <!-- Кнопка "Спорт" -->
+                <!-- Button "Sport" -->
                 <Border Grid.Row="0" Grid.Column="1" 
                         BackgroundColor="#7950F2" 
                         StrokeShape="RoundRectangle 20" 
@@ -43,8 +40,7 @@
                                 Clicked="OnSportButtonClicked" />
                     </StackLayout>
                 </Border>
-
-                <!-- Кнопка "Книги" -->
+                <!-- Button "Books" -->
                 <Border Grid.Row="1" Grid.Column="0" 
                         BackgroundColor="#7950F2" 
                         StrokeShape="RoundRectangle 20" 
@@ -62,8 +58,7 @@
                                 Clicked="OnBooksButtonClicked" />
                     </StackLayout>
                 </Border>
-
-                <!-- Кнопка "Музыка" -->
+                <!-- Button "Custom Habits" -->
                 <Border Grid.Row="1" Grid.Column="1" 
                         BackgroundColor="#7950F2" 
                         StrokeShape="RoundRectangle 20" 
@@ -82,15 +77,13 @@
                     </StackLayout>
                 </Border>
             </Grid>
-
-            <!-- Дополнительный текст -->
+            <!-- Additional text -->
             <Label x:Name="AdditionalTextLabel"
-                   Text="Выберите категорию, чтобы начать!" 
+                   Text="Choose category to begin!" 
                    FontSize="16" 
                    HorizontalOptions="Center" 
                    TextColor="#666666" 
                    Margin="0,20,0,0" />
-
         </StackLayout>
     </ScrollView>
 </ContentView>

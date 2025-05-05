@@ -24,8 +24,7 @@ public partial class PlantsPage : ContentPage
     {
         if (e.Item != null)
         {
-            // Получаем выбранный элемент
-            var selectedPlant = e.Item as Gardening; // Замените YourHabitModel на вашу модель данных
+            var selectedPlant = e.Item as Gardening;
             await Navigation.PushAsync(new EditPlantsPage(selectedPlant));
         }
         else

@@ -29,7 +29,8 @@ public partial class AppProfile : ContentView
         base64 = base64.Trim();
         if (base64.Length % 4 != 0)
             return false;
-        return System.Text.RegularExpressions.Regex.IsMatch(base64, @"^[a-zA-Z0-9\+/]*={0,2}$", System.Text.RegularExpressions.RegexOptions.None);
+        return System.Text.RegularExpressions.Regex.IsMatch(base64, @"^[a-zA-Z0-9\+/]*={0,2}$", 
+            System.Text.RegularExpressions.RegexOptions.None);
     }
 
     private async void LoadAvatarFromFirebase()
@@ -38,20 +39,16 @@ public partial class AppProfile : ContentView
         {
             var saveAndLoadService = new SaveAndLoad();
             var userId = saveAndLoadService.UserId;
-
             if (!string.IsNullOrEmpty(userId))
             {
                 var base64Image = await saveAndLoadService.LoadUserPhotoFromFirebase(userId);
-
                 if (!string.IsNullOrEmpty(base64Image))
                 {
                     base64Image = base64Image.Replace("\r", "").Replace("\n", "").Trim();
-
                     if (IsBase64String(base64Image))
                     {
                         byte[] imageBytes = Convert.FromBase64String(base64Image);
                         AvatarImageSource = ImageSource.FromStream(() => new MemoryStream(imageBytes));
-
                         Preferences.Set("UserAvatar", base64Image);
                     }
                     else
@@ -94,10 +91,8 @@ public partial class AppProfile : ContentView
     public AppProfile()
     {
         InitializeComponent();
-
         Username = Preferences.Get("Username", "Default Username");
         Bio = Preferences.Get("UserBio", "Enter a short biography...");
-
         AvatarImageSource = "bob_avatar.png";
         var savedAvatar = Preferences.Get("UserAvatar", string.Empty);
         if (!string.IsNullOrEmpty(savedAvatar) && IsBase64String(savedAvatar))
@@ -109,16 +104,12 @@ public partial class AppProfile : ContentView
         {
             LoadAvatarFromFirebase();
         }
-
         Friends = new ObservableCollection<Friend>();
         SuggestedFriends = new ObservableCollection<Friend>();
-
         AddFriendCommand = new Command<Friend>(AddFriend);
         Console.WriteLine("AddFriendCommand initialized.");
-
         LoadFriends();
         LoadSuggestedFriends();
-
         BindingContext = this;
     }
 
@@ -128,11 +119,9 @@ public partial class AppProfile : ContentView
         {
             var saveAndLoadService = new SaveAndLoad();
             var userId = saveAndLoadService.UserId;
-
             if (!string.IsNullOrEmpty(userId))
             {
                 var randomUsers = await saveAndLoadService.LoadSuggestedFriends(userId);
-
                 SuggestedFriends.Clear();
                 foreach (var user in randomUsers)
                 {
@@ -149,7 +138,6 @@ public partial class AppProfile : ContentView
             await Application.Current.MainPage.DisplayAlert("Error", $"Failed to load suggested friends: {ex.Message}", "OK");
         }
     }
-
 
     private async void LoadFriends()
     {
@@ -182,15 +170,12 @@ public partial class AppProfile : ContentView
                 Console.WriteLine("Friend is null.");
                 return;
             }
-
             Console.WriteLine($"Attempting to add friend: {friend.Id}");
-
             if (!Friends.Any(f => f.Id == friend.Id))
             {
                 Console.WriteLine("Friend not in Friends list. Adding...");
                 Friends.Add(friend);
                 SuggestedFriends.Remove(friend);
-
                 Console.WriteLine("Saving friend to Firebase...");
                 var saveAndLoadService = new SaveAndLoad();
                 var userId = saveAndLoadService.UserId;
@@ -228,23 +213,18 @@ public partial class AppProfile : ContentView
             if (result != null)
             {
                 AvatarImageSource = result.FullPath; 
-
                 var stream = await result.OpenReadAsync();
                 var imageSource = ImageSource.FromStream(() => stream);
                 var avatarImage = this.FindByName<Image>("AvatarImage");
-                avatarImage.Source = imageSource; 
-
+                avatarImage.Source = imageSource;
                 var saveAndLoadService = new SaveAndLoad();
-
-                var userId = saveAndLoadService.UserId; 
-
+                var userId = saveAndLoadService.UserId;
                 if (!string.IsNullOrEmpty(userId))
                 {
                     await saveAndLoadService.SaveUserPhotoToFirebase(userId, result.FullPath);
                     byte[] imageBytes = File.ReadAllBytes(result.FullPath);
                     string base64Image = Convert.ToBase64String(imageBytes);
                     Preferences.Set("UserAvatar", base64Image);
-
                     await Application.Current.MainPage.DisplayAlert("Success", "Photo saved to Firebase successfully.", "OK");
                 }
                 else

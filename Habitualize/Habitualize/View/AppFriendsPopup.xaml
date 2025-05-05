@@ -4,11 +4,11 @@
                   xmlns:local="clr-namespace:Habitualize.Services"
                   x:Class="Habitualize.View.AppFriendsPopup">
     <Border BackgroundColor="White"
-               Padding="20"
-               Stroke="LightGray"
-               StrokeThickness="2"
-               WidthRequest="400"
-               HeightRequest="700">
+            Padding="20"
+            Stroke="LightGray"
+            StrokeThickness="2"
+            WidthRequest="400"
+            HeightRequest="700">
         <StackLayout>
             <Label Text="Friends"
                    FontSize="20"

@@ -2,16 +2,12 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Habitualize.View.AddBooksPage">
-    
     <Grid RowDefinitions="Auto,*,Auto">
-        
         <ScrollView VerticalScrollBarVisibility="Never" 
-            HorizontalScrollBarVisibility="Never"
-            Grid.Row="1">
-
+                    HorizontalScrollBarVisibility="Never"
+                    Grid.Row="1">
             <StackLayout Padding="20,20,20,0" VerticalOptions="StartAndExpand">
-                
-                <!-- Верхний Border -->
+                <!-- Top Border -->
                 <Border Grid.Row="0" Style="{StaticResource ProfileStyleSqr}">
                     <Grid ColumnDefinitions="Auto,*" VerticalOptions="Center">
                         <Button Text="←"
@@ -30,35 +26,31 @@
                                Margin="-42,0,0,0" />
                     </Grid>
                 </Border>
-
-                <!-- Форма добавления книги -->
+                <!-- Add book form -->
                 <Label Text="Book Name:" Style="{StaticResource HabitsLabelStyle}" />
                 <Entry x:Name="BookNameEntry" Text="{Binding HabitName}" HeightRequest="60" Placeholder="Book Name" />
-
                 <Label Text="Book Author:" Style="{StaticResource HabitsLabelStyle}" />
                 <Entry x:Name="BookAuthorEntry" Text="{Binding HabitDescription}" HeightRequest="60" Placeholder="Book Author" />
-
                 <Label Text="How many pages in this book:" Style="{StaticResource HabitsLabelStyle}" />
                 <Entry x:Name="BookPagesEntry" Keyboard="Numeric" Text="{Binding PagesInBook}" Placeholder="Book Pages"/>
                 <Label Text="Select deadline:" Style="{StaticResource HabitsLabelStyle}" />
                 <DatePicker x:Name="DatePick" Date="{Binding RepeatSchedule}" TextColor="Black" />
             </StackLayout>
         </ScrollView>
-
-        <!-- Нижний Border -->
+        <!-- Bottom Border -->
         <Border Grid.Row="2"
-                         HeightRequest="100" 
-                         Padding="0" 
-                         Stroke="Transparent">
+                HeightRequest="100" 
+                Padding="0" 
+                Stroke="Transparent">
             <Button Text="Add" 
-                             Grid.Row="2"
-                             Clicked="OnAddButtonClicked" 
-                             Style="{StaticResource HabitsButtonStyle}" 
-                             WidthRequest="150" 
-                             BackgroundColor="#7950F2" 
-                             TextColor="#FFFFFF" 
-                             VerticalOptions="End" 
-                             HorizontalOptions="Center" />
+                    Grid.Row="2"
+                    Clicked="OnAddButtonClicked" 
+                    Style="{StaticResource HabitsButtonStyle}" 
+                    WidthRequest="150" 
+                    BackgroundColor="#7950F2" 
+                    TextColor="#FFFFFF" 
+                    VerticalOptions="End" 
+                    HorizontalOptions="Center" />
         </Border>
     </Grid>
 </ContentPage>

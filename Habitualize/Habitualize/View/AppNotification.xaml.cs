@@ -14,7 +14,6 @@ public partial class AppNotification : ContentView
 		InitializeComponent();
         Notifications = new ObservableCollection<Notification>();
         BindingContext = this;
-
         LoadNotifications();
     }
 

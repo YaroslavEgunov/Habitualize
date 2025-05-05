@@ -6,8 +6,12 @@
         <CollectionView.ItemTemplate>
             <DataTemplate>
                 <StackLayout Padding="10">
-                    <Label Text="{Binding Message}" FontSize="16" TextColor="Black" />
-                    <Label Text="{Binding Timestamp, StringFormat='{0:dd.MM.yyyy HH:mm}'}" FontSize="12" TextColor="Gray" />
+                    <Label Text="{Binding Message}" 
+                           FontSize="16" 
+                           TextColor="Black" />
+                    <Label Text="{Binding Timestamp, StringFormat='{0:dd.MM.yyyy HH:mm}'}" 
+                           FontSize="12" 
+                           TextColor="Gray" />
                 </StackLayout>
             </DataTemplate>
         </CollectionView.ItemTemplate>

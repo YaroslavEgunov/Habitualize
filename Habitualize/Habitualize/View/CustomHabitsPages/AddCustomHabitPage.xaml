@@ -3,13 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Habitualize.View.CustomHabitsPages.AddCustomHabitPage">
     <Grid RowDefinitions="Auto,*,Auto">
-
         <ScrollView VerticalScrollBarVisibility="Never" 
                     HorizontalScrollBarVisibility="Never"
                     Grid.Row="1">
-
             <StackLayout Padding="20,20,20,0" VerticalOptions="StartAndExpand">
-
                 <!-- Top Border -->
                 <Border Grid.Row="0" Style="{StaticResource ProfileStyleSqr}">
                     <Grid ColumnDefinitions="Auto,*" VerticalOptions="Center">
@@ -29,7 +26,6 @@
                                Margin="-42,0,0,0" />
                     </Grid>
                 </Border>
-
                 <!-- Add habit form -->
                 <Label Text="Habit Name:" Style="{StaticResource HabitsLabelStyle}" />
                 <Entry x:Name="HabitNameEntry" Text="{Binding HabitName}" HeightRequest="60" Placeholder="Name"/>
@@ -45,18 +41,16 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-
                 <Button Text="Add Task" Clicked="OnAddTaskButtonClicked"  Style="{StaticResource HabitsButtonStyle}" />
                 <Label Text="Repeat Schedule:" Style="{StaticResource HabitsLabelStyle}" />
                 <DatePicker x:Name="DatePick" TextColor="Black" Date="{Binding RepeatSchedule}" />
             </StackLayout>
         </ScrollView>
-
         <!-- Bottom Border -->
         <Border Grid.Row="2"
-                 HeightRequest="100" 
-                 Padding="0" 
-                 Stroke="Transparent">
+                HeightRequest="100" 
+                Padding="0" 
+                Stroke="Transparent">
             <Button Text="Add" 
                     Grid.Row="2"
                     Clicked="OnAddButtonClicked" 

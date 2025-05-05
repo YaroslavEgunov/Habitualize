@@ -3,9 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Habitualize"
              x:Class="Habitualize.MainPage">
-
     <Grid RowDefinitions="Auto,*,Auto">
-
         <!-- Header -->
         <Border Grid.Row="0" 
                 Padding="0" 
@@ -25,12 +23,9 @@
                                  Clicked="OnNotificationButtonClicked"/>
                 </StackLayout>
             </Grid>
-
         </Border>
-
         <!-- Main Content -->
         <ContentView Grid.Row="1"  x:Name="DynamicContent" />
-
         <!-- Footer -->
         <Border Grid.Row="2" 
                 HeightRequest="100" 
@@ -88,7 +83,6 @@
                                  Style="{StaticResource FooterButtonStyle}" 
                                  Clicked="OnScheduleButtonClicked" />
                 </StackLayout>
-
                 <StackLayout Grid.Column="3" 
                              HorizontalOptions="Center" 
                              VerticalOptions="Center">
@@ -106,7 +100,6 @@
                                  Style="{StaticResource FooterButtonStyle}" 
                                  Clicked="OnChestButtonClicked" />
                 </StackLayout>
-
                 <StackLayout Grid.Column="4" 
                              HorizontalOptions="Center" 
                              VerticalOptions="Center">

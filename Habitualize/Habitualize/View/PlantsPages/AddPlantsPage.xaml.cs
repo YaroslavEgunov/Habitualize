@@ -43,5 +43,4 @@ public partial class AddPlantsPage : ContentPage
         var existingHabits = await MainPage.SavingLoadingSystem.LoadHabits();
         await Navigation.PushAsync(new PlantsPage(existingHabits.OfType<Gardening>().ToList()));
     }
-
 }

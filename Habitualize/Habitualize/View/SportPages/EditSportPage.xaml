@@ -3,34 +3,30 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Habitualize.View.EditSportPage">
     <Grid RowDefinitions="Auto,*,Auto">
-
         <ScrollView VerticalScrollBarVisibility="Never" 
-                HorizontalScrollBarVisibility="Never"
-                Grid.Row="1">
-
+                    HorizontalScrollBarVisibility="Never"
+                    Grid.Row="1">
             <StackLayout Padding="20,20,20,0" VerticalOptions="StartAndExpand">
-
-                <!-- Верхний Border -->
+                <!-- Top Border -->
                 <Border Grid.Row="0" Style="{StaticResource ProfileStyleSqr}">
                     <Grid ColumnDefinitions="Auto,*" VerticalOptions="Center">
                         <Button Text="←"
-                    Grid.Column="0"
-                    HeightRequest="30"
-                    WidthRequest="30"
-                    BackgroundColor="White"
-                    Clicked="OnCancelButtonClicked" />
+                                Grid.Column="0"
+                                HeightRequest="30"
+                                WidthRequest="30"
+                                BackgroundColor="White"
+                                Clicked="OnCancelButtonClicked" />
                         <Label Text="Edit Training"
-                   Grid.Column="1"
-                   VerticalOptions="Center"
-                   HorizontalOptions="Center"
-                   FontSize="40"
-                   FontAttributes="Bold"
-                   TextColor="White"
-                   Margin="-42,0,0,0" />
+                               Grid.Column="1"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"
+                               FontSize="40"
+                               FontAttributes="Bold"
+                               TextColor="White"
+                               Margin="-42,0,0,0" />
                     </Grid>
                 </Border>
-
-                <!-- Форма -->
+                <!-- Edit training form -->
                 <Label Text="Training Name:" Style="{StaticResource HabitsLabelStyle}"/>
                 <Entry Text="{Binding HabitName}" HeightRequest="60" Placeholder="Name"/>
                 <Label Text="Description:" Style="{StaticResource HabitsLabelStyle}" />
@@ -55,12 +51,11 @@
                 <DatePicker x:Name="DateDeadline" Date="{Binding RepeatSchedule}" IsEnabled="False" TextColor="Black" Format="d" />
             </StackLayout>
         </ScrollView>
-
-        <!-- Нижний Border -->
+        <!-- Bottom Border -->
         <Border Grid.Row="2"
-             HeightRequest="100" 
-             Padding="0" 
-             Stroke="Transparent">
+                HeightRequest="100" 
+                Padding="0" 
+                Stroke="Transparent">
             <Grid ColumnDefinitions="*,*">
                 <StackLayout Grid.Column="0">
                     <Button Text="Confirm" Clicked="OnConfirmButtonClicked" Style="{StaticResource HabitsButtonStyle}" />

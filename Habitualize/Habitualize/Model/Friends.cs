@@ -32,7 +32,6 @@ namespace Habitualize.Model
         {
             MessageCommand = new Command(() =>
             {
-                // Логика отправки сообщения
                 Application.Current.MainPage.DisplayAlert("Message", $"Send a message to {Name}", "OK");
             });
         }

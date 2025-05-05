@@ -2,51 +2,41 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Habitualize.View.EditBooksPage">
-
     <Grid RowDefinitions="Auto,*,Auto">
-
         <ScrollView VerticalScrollBarVisibility="Never" 
-        HorizontalScrollBarVisibility="Never"
-        Grid.Row="1">
-
+                    HorizontalScrollBarVisibility="Never"
+                    Grid.Row="1">
             <StackLayout Padding="20,20,20,0" VerticalOptions="StartAndExpand">
-
-                <!-- Верхний Border -->
+                <!-- Top Border -->
                 <Border Grid.Row="0" Style="{StaticResource ProfileStyleSqr}">
                     <Grid ColumnDefinitions="Auto,*" VerticalOptions="Center">
                         <Button Text="←"
-                            Grid.Column="0"
-                            HeightRequest="30"
-                            WidthRequest="30"
-                            BackgroundColor="White"
-                            Clicked="OnCancelButtonClicked" />
+                                Grid.Column="0"
+                                HeightRequest="30"
+                                WidthRequest="30"
+                                BackgroundColor="White"
+                                Clicked="OnCancelButtonClicked" />
                         <Label Text="Edit Book"
-                           Grid.Column="1"
-                           VerticalOptions="Center"
-                           HorizontalOptions="Center"
-                           FontSize="40"
-                           FontAttributes="Bold"
-                           TextColor="White"
-                           Margin="-42,0,0,0" />
+                               Grid.Column="1"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"
+                               FontSize="40"
+                               FontAttributes="Bold"
+                               TextColor="White"
+                               Margin="-42,0,0,0" />
                     </Grid>
                 </Border>
-
-                <!-- Форма добавления книги -->
+                <!-- Edit book form -->
                 <Label Text="Book Name:" Style="{StaticResource HabitsLabelStyle}" />
                 <Entry Text="{Binding HabitName}" HeightRequest="60" Placeholder="Book Name" />
-
                 <Label Text="Description:" Style="{StaticResource HabitsLabelStyle}" />
                 <Entry Text="{Binding HabitDescription}" HeightRequest="60" Placeholder="Description" />
-
                 <Label Text="Pages in book:" Style="{StaticResource HabitsLabelStyle}" />
                 <Label Text="{Binding PagesInBook}" Style="{StaticResource HabitsLabelStyle}" />
-
                 <Label Text="Pages you read:" Style="{StaticResource HabitsLabelStyle}" />
                 <Entry Text="{Binding PagesRead}" Keyboard="Numeric" Placeholder="Book Pages"/>
-
                 <Label Text="Book deadline:" Style="{StaticResource HabitsLabelStyle}" />
                 <DatePicker x:Name="DatePick" Date="{Binding RepeatSchedule}" IsEnabled="False" Format="d" />
-
                 <Label Text="Is book complete?" Style="{StaticResource HabitsLabelStyle}" />
                 <Switch x:Name="BookSwitch" 
                         IsToggled="{Binding BoolComplete}" 
@@ -56,12 +46,11 @@
                 </Switch>
             </StackLayout>
         </ScrollView>
-
-        <!-- Нижний Border -->
+        <!-- Bottom Border -->
         <Border Grid.Row="2"
-                     HeightRequest="100" 
-                     Padding="0" 
-                     Stroke="Transparent">
+                HeightRequest="100" 
+                Padding="0" 
+                Stroke="Transparent">
             <Grid ColumnDefinitions="*,*">
                 <StackLayout Grid.Column="0">
                     <Button Text="Confirm" Clicked="OnConfirmButtonClicked" Style="{StaticResource HabitsButtonStyle}" />

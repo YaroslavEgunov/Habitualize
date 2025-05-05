@@ -8,17 +8,13 @@
             <local:BookCompleteToColorConverter x:Key="BookCompleteToColorConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-
     <Grid RowDefinitions="Auto,*,Auto">
-
-        <!-- Основной контент -->
+        <!-- Main content -->
         <ScrollView VerticalScrollBarVisibility="Never" 
                     HorizontalScrollBarVisibility="Never"
                     Grid.Row="1">
-            
             <StackLayout Padding="20" VerticalOptions="StartAndExpand">
-
-                <!-- Верхний Border -->
+                <!-- Top Border -->
                 <Border Style="{StaticResource ProfileStyleSqr}">
                     <Grid ColumnDefinitions="Auto,*" VerticalOptions="Center">
                         <Button Text="←"
@@ -37,8 +33,7 @@
                                Margin="-42,0,0,0" />
                     </Grid>
                 </Border>
-
-                <!-- Список книг -->
+                <!-- Books list -->
                 <ListView  x:Name="HabitListView" 
                            ItemTapped="OnItemTapped" 
                            Style="{StaticResource HabitsListViewStyle}" 
@@ -47,10 +42,10 @@
                         <DataTemplate>
                             <ViewCell>
                                 <Frame CornerRadius="15" 
-                                           Padding="10" 
-                                           Margin="0,5" 
-                                           BackgroundColor="{Binding BookComplete, Converter={StaticResource BookCompleteToColorConverter}}" 
-                                           HasShadow="True">
+                                       Padding="10" 
+                                       Margin="0,5" 
+                                       BackgroundColor="{Binding BookComplete, Converter={StaticResource BookCompleteToColorConverter}}" 
+                                       HasShadow="True">
                                     <Label Text="{Binding HabitName}" 
                                            Style="{StaticResource HabitsListViewLabelStyle}" 
                                            Margin="0"/>
@@ -61,8 +56,7 @@
                 </ListView>
             </StackLayout>
         </ScrollView>
-
-        <!-- Нижний Border -->
+        <!-- Bottom Border -->
         <Border Grid.Row="2"
                 HeightRequest="100" 
                 Padding="0" 

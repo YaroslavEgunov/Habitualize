@@ -3,34 +3,30 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Habitualize.View.AddPlantsPage">
     <Grid RowDefinitions="Auto,*,Auto">
-
         <ScrollView VerticalScrollBarVisibility="Never" 
-        HorizontalScrollBarVisibility="Never"
-        Grid.Row="1">
-
+                    HorizontalScrollBarVisibility="Never"
+                    Grid.Row="1">
             <StackLayout Padding="20,20,20,0" VerticalOptions="StartAndExpand">
-
-                <!-- Верхний Border -->
+                <!-- Top Border -->
                 <Border Grid.Row="0" Style="{StaticResource ProfileStyleSqr}">
                     <Grid ColumnDefinitions="Auto,*" VerticalOptions="Center">
                         <Button Text="←"
-                            Grid.Column="0"
-                            HeightRequest="30"
-                            WidthRequest="30"
-                            BackgroundColor="White"
-                            Clicked="OnCancelButtonClicked" />
+                                Grid.Column="0"
+                                HeightRequest="30"
+                                WidthRequest="30"
+                                BackgroundColor="White"
+                                Clicked="OnCancelButtonClicked" />
                         <Label Text="Add Plants"
-                           Grid.Column="1"
-                           VerticalOptions="Center"
-                           HorizontalOptions="Center"
-                           FontSize="40"
-                           FontAttributes="Bold"
-                           TextColor="White"
-                           Margin="-42,0,0,0" />
+                               Grid.Column="1"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"
+                               FontSize="40"
+                               FontAttributes="Bold"
+                               TextColor="White"
+                               Margin="-42,0,0,0" />
                     </Grid>
                 </Border>
-
-                <!-- Форма добавления растения -->
+                <!-- Add plant form -->
                 <Label Text="Plant Name:" Style="{StaticResource HabitsLabelStyle}" />
                 <Entry x:Name="HabitNameEntry" Text="{Binding HabitName}" HeightRequest="60" Placeholder="Name"/>
                 <Label Text="Description:" Style="{StaticResource HabitsLabelStyle}" />
@@ -45,28 +41,25 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-
                 <Button Text="Add Task" Clicked="OnAddTaskButtonClicked"  Style="{StaticResource HabitsButtonStyle}" />
-
                 <Label Text="Watering Schedule:" Style="{StaticResource HabitsLabelStyle}" />
                 <DatePicker x:Name="DatePick" TextColor="Black" Date="{Binding RepeatSchedule}" />
             </StackLayout>
         </ScrollView>
-
-        <!-- Нижний Border -->
+        <!-- Bottom Border -->
         <Border Grid.Row="2"
-                     HeightRequest="100" 
-                     Padding="0" 
-                     Stroke="Transparent">
+                HeightRequest="100" 
+                Padding="0" 
+                Stroke="Transparent">
             <Button Text="Add" 
-                         Grid.Row="2"
-                         Clicked="OnAddButtonClicked" 
-                         Style="{StaticResource HabitsButtonStyle}" 
-                         WidthRequest="150" 
-                         BackgroundColor="#7950F2" 
-                         TextColor="#FFFFFF" 
-                         VerticalOptions="End" 
-                         HorizontalOptions="Center" />
+                    Grid.Row="2"
+                    Clicked="OnAddButtonClicked" 
+                    Style="{StaticResource HabitsButtonStyle}" 
+                    WidthRequest="150" 
+                    BackgroundColor="#7950F2" 
+                    TextColor="#FFFFFF" 
+                    VerticalOptions="End" 
+                    HorizontalOptions="Center" />
         </Border>
     </Grid>
 </ContentPage>

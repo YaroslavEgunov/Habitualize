@@ -29,6 +29,7 @@ public partial class AddBooksPage : ContentPage
         var allBooks = existingHabits.OfType<Reading>().ToList();
         await Navigation.PushAsync(new BooksPage(allBooks));
     }
+
     private async void OnCancelButtonClicked(object sender, EventArgs e)
     {
         var existingHabits = await MainPage.SavingLoadingSystem.LoadHabits();

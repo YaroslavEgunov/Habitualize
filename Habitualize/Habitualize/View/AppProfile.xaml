@@ -8,16 +8,14 @@
            <local:Base64ToImageSourceConverter x:Key="Base64ToImageSourceConverter" />  
        </ResourceDictionary>  
    </ContentView.Resources>  
-
    <ScrollView VerticalScrollBarVisibility="Never"   
                HorizontalScrollBarVisibility="Never">  
        <StackLayout Padding="20">  
-
            <Border Grid.Row="0"   
                    Style="{StaticResource ProfileStyleSqr}">  
                <Grid ColumnDefinitions="*,Auto"   
                      VerticalOptions="Center">  
-                   <!-- Текст -->  
+                   <!-- Text -->  
                    <Label Grid.Column="0"  
                           HorizontalOptions="Start"   
                           VerticalOptions="Center"   
@@ -42,8 +40,7 @@
                            </FormattedString>  
                        </Label.FormattedText>  
                    </Label>  
-
-                   <!-- Изображение -->  
+                   <!-- Image -->  
                    <Image Grid.Column="1"  
                           x:Name="AvatarImage"  
                           Source="{Binding AvatarImageSource}"   
@@ -57,24 +54,21 @@
                    </Image>  
                </Grid>  
            </Border>  
-
-           <!-- Краткая биография -->  
+           <!-- Short bio -->  
            <Editor Style="{StaticResource ProfileEditorStyle}"  
            x:Name="BioEditor"  
            Text="{Binding Bio}"  
            Focused="OnBioEditorFocused"  
            Unfocused="OnBioEditorUnfocused"  
            TextChanged="OnBioTextChanged"/>  
-
            <Grid ColumnDefinitions="*,Auto" Margin="0,20,0,10">  
-               <!-- Заголовок "Friends" -->  
+               <!-- "Friends" -->  
                <Label Text="Friends"  
                       FontSize="18"  
                       TextColor="Black"  
                       FontAttributes="Bold"  
                       VerticalOptions="Center"  
                       HorizontalOptions="Start" />  
-
                <Label Grid.Column="1"  
                       Text="See All"  
                       FontSize="14"  
@@ -87,8 +81,7 @@
                    </Label.GestureRecognizers>  
                </Label>  
            </Grid>  
-
-           <!-- Список друзей -->  
+           <!-- Friends list -->  
            <CollectionView ItemsSource="{Binding Friends}"  
                            SelectionMode="None"  
                            VerticalOptions="FillAndExpand">  
@@ -97,22 +90,20 @@
                        <Grid Padding="10"   
                              ColumnDefinitions="Auto,*,Auto"   
                              RowDefinitions="Auto">  
-                           <!-- Аватар друга -->
+                           <!-- Friend avatar -->
                             <Image Source="{Binding Avatar, Converter={StaticResource Base64ToImageSourceConverter}}"     
                                   HeightRequest="50"  
                                   WidthRequest="50"  
                                   Aspect="AspectFill">   
                            </Image>  
-
-                           <!-- Имя друга -->  
+                           <!-- Friend username -->  
                            <Label Grid.Column="1"  
                                   Text="{Binding Name}"  
                                   FontSize="16"  
                                   TextColor="black"  
                                   VerticalOptions="Center"  
                                   Margin="10,0,0,0" />   
-
-                           <!-- Кнопка действия -->  
+                           <!-- Message button -->  
                            <Button Grid.Column="2"  
                                    Text="Message"  
                                    Background="#7950F2"  
@@ -125,47 +116,45 @@
                    </DataTemplate>  
                </CollectionView.ItemTemplate>  
            </CollectionView>  
-
-           <!-- Список случайных пользователей -->  
+           <!-- Random users list -->  
            <Label Text="Suggested Friends"  
                   FontSize="18"  
                   TextColor="Black"  
                   FontAttributes="Bold"  
                   VerticalOptions="Center"  
                   HorizontalOptions="Start"  
-                  Margin="0,20,0,10" />  
-           <CollectionView ItemsSource="{Binding SuggestedFriends}"  
-                           SelectionMode="None"  
-                           VerticalOptions="FillAndExpand">  
-               <CollectionView.ItemTemplate>  
-                   <DataTemplate>  
-                       <Grid Padding="10"   
-                             ColumnDefinitions="Auto,*,Auto"   
-                             RowDefinitions="Auto">  
-                           <Image Source="{Binding Avatar, Converter={StaticResource Base64ToImageSourceConverter}}"    
-                                  HeightRequest="50"  
-                                  WidthRequest="50"  
-                                  Aspect="AspectFill">  
-                           </Image>  
-                           <Label Grid.Column="1"  
-                                  Text="{Binding Id}"  
-                                  FontSize="16"  
-                                  TextColor="black"  
-                                  VerticalOptions="Center"  
-                                  Margin="10,0,0,0" />  
-                           <Button Grid.Column="2"  
-                                   Text="Add"  
-                                   Background="#7950F2"  
-                                   TextColor="White"  
-                                   FontSize="14"  
+                  Margin="0,20,0,10" />
+            <CollectionView ItemsSource="{Binding SuggestedFriends}"  
+                            SelectionMode="None"  
+                            VerticalOptions="FillAndExpand">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10"   
+                              ColumnDefinitions="Auto,*,Auto"   
+                              RowDefinitions="Auto">
+                            <Image Source="{Binding Avatar, Converter={StaticResource Base64ToImageSourceConverter}}"    
+                                   HeightRequest="50"  
+                                   WidthRequest="50"  
+                                   Aspect="AspectFill">
+                            </Image>
+                            <Label Grid.Column="1"  
+                                   Text="{Binding Id}"  
+                                   FontSize="16"  
+                                   TextColor="black"  
                                    VerticalOptions="Center"  
-                                   Command="{Binding Source={RelativeSource AncestorType={x:Type ContentView}}, Path=AddFriendCommand}"  
-                                   CommandParameter="{Binding .}" />  
-                       </Grid>  
-                   </DataTemplate>  
-               </CollectionView.ItemTemplate>  
-           </CollectionView>  
-             
-       </StackLayout>  
+                                   Margin="10,0,0,0" />
+                            <Button Grid.Column="2"  
+                                    Text="Add"  
+                                    Background="#7950F2"  
+                                    TextColor="White"  
+                                    FontSize="14"  
+                                    VerticalOptions="Center"  
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentView}}, Path=AddFriendCommand}"  
+                                    CommandParameter="{Binding .}" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>  
    </ScrollView>  
 </ContentView>

@@ -3,23 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Habitualize.Services"
              x:Class="Habitualize.View.PlantsPage">
-    
     <ContentPage.Resources>
         <ResourceDictionary>
             <local:BookCompleteToColorConverter x:Key="BookCompleteToColorConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-
     <Grid RowDefinitions="Auto,*,Auto">
-
-        <!-- Основной контент -->
+        <!-- Main content -->
         <ScrollView VerticalScrollBarVisibility="Never" 
-                HorizontalScrollBarVisibility="Never"
-                Grid.Row="1">
-
+                    HorizontalScrollBarVisibility="Never"
+                    Grid.Row="1">
             <StackLayout Padding="20" VerticalOptions="StartAndExpand">
-
-                <!-- Верхний Border -->
+                <!-- Top Border -->
                 <Border Style="{StaticResource ProfileStyleSqr}">
                     <Grid ColumnDefinitions="Auto,*" VerticalOptions="Center">
                         <Button Text="←"
@@ -38,8 +33,7 @@
                            Margin="-42,0,0,0" />
                     </Grid>
                 </Border>
-
-                <!-- Список растений -->
+                <!-- Plants list -->
                 <ListView VerticalScrollBarVisibility="Never" 
                           HorizontalScrollBarVisibility="Never" 
                           x:Name="HabitListView" 
@@ -61,12 +55,11 @@
                 </ListView>
             </StackLayout>
         </ScrollView>
-
-        <!-- Нижний Border -->
+        <!-- Bottom Border -->
         <Border Grid.Row="2"
-            HeightRequest="100" 
-            Padding="0" 
-            Stroke="Transparent">
+                HeightRequest="100" 
+                Padding="0" 
+                Stroke="Transparent">
             <Button Text="Add Plant" 
                 Clicked="OnCreatePlantHabitButtonClicked" 
                 Style="{StaticResource HabitsButtonStyle}" 

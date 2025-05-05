@@ -53,28 +53,6 @@ namespace Habitualize.Model
 
         }
 
-        //public AchievementsTemplate(string data)
-        //{
-        //    data.ToCharArray();
-        //    int i = 0;
-        //    foreach (var symbol in data)
-        //    {
-        //        switch (symbol)
-        //        {
-        //            case '1':
-        //                MainPage.Achievements.AchievementsList[i].Unlocked = true;
-        //                i++;
-        //                break;
-        //            case '0':
-        //                MainPage.Achievements.AchievementsList[i].Unlocked = false;
-        //                i++;
-        //                break;
-        //            default:
-        //                break;
-        //        }
-        //    }
-        //}
-
         public event PropertyChangedEventHandler? PropertyChanged;
     }
 }

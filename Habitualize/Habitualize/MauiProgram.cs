@@ -10,14 +10,11 @@ using System.Net.Http.Headers;
 using Plugin.Firebase.CloudMessaging;
 using Microsoft.Maui.LifecycleEvents;
 using CommunityToolkit.Maui;
-
-
 #if IOS
 using Plugin.Firebase.Core.Platforms.iOS;
 #elif ANDROID
 using Plugin.Firebase.Core.Platforms.Android;
 #endif
-
 namespace Habitualize;
 
 public static class MauiProgram
@@ -53,16 +50,13 @@ public static class MauiProgram
         builder.Services.AddSingleton<SignInViewModel>();
         builder.Services.AddSingleton<SignUpView>();
         builder.Services.AddSingleton<SignUpViewModel>();
-
         builder.Services.AddSingleton<FirebaseAuthHttpMessageHandler>();
-
         builder.Services.AddRefitClient<IGetHabitualizeQuery>()
                 .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://localhost:7026"))//Yarik: 7026 Krugloveskiy: 5440
                 .AddHttpMessageHandler<FirebaseAuthHttpMessageHandler>();
 
         return builder.Build();
     }
-
 
 //    private static MauiAppBuilder RegisterFirebase(this MauiAppBuilder builder)
 //    {
