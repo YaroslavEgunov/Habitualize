@@ -7,7 +7,7 @@ public partial class AppFriendsPopup : Popup
 {
 	public AppFriendsPopup(object friends)
 	{
-		InitializeComponent();
+        InitializeComponent();
         BindingContext = new { Friends = friends };
     }
 }

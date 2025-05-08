@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+                  xmlns:local="clr-namespace:Habitualize.Services"
+                  x:Class="Habitualize.View.AppAchievementPopup">
+    <toolkit:Popup.Resources>
+        <ResourceDictionary>
+            <local:AchievementCompletionToImage x:Key="AchievementCompletionToImage" />
+        </ResourceDictionary>
+    </toolkit:Popup.Resources>
+    <Border BackgroundColor="White"
+            Padding="20"
+            Stroke="LightGray"
+            StrokeThickness="2"
+            WidthRequest="400"
+            HeightRequest="700">
+        <StackLayout>
+            <Label Text="Achievements"
+                   FontSize="20"
+                   TextColor="Black"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
+            <CollectionView ItemsSource="{Binding AchievementsList}"
+                            SelectionMode="None"
+                            VerticalOptions="FillAndExpand">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10" 
+                      ColumnDefinitions="Auto,*" 
+                      RowDefinitions="Auto">
+                            <Image HeightRequest="50"
+                           WidthRequest="50"
+                           Aspect="AspectFill"
+                           Grid.Column="0"
+                           Source="{Binding Unlocked, Converter={StaticResource AchievementCompletionToImage}, ConverterParameter=achievement_complete.png}" />
+                            <Label Text="{Binding Name}"
+                           FontSize="16"
+                           TextColor="black"
+                           VerticalOptions="Center"
+                           Margin="10,0,0,0"
+                           Grid.Column="1"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                </CollectionView>
+        </StackLayout>
+    </Border>
+</toolkit:Popup>

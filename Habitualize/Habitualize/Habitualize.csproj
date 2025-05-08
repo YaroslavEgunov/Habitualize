@@ -107,6 +107,9 @@
 	  <MauiXaml Update="SignPages\SignUpView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\AppAchievementPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\AppChat.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

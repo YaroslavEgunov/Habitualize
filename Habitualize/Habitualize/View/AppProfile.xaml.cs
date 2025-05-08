@@ -261,7 +261,7 @@ public partial class AppProfile : ContentView
         if (BindingContext is AppProfile viewModel && viewModel.Friends != null)
         {
             var friendsPopup = new AppFriendsPopup(viewModel.Friends);
-            if (Application.Current.MainPage is Microsoft.Maui.Controls.Page currentPage)
+            if (Application.Current.MainPage is Page currentPage)
             {
                 currentPage.ShowPopup(friendsPopup);
             }
@@ -273,6 +273,26 @@ public partial class AppProfile : ContentView
         else
         {
             Application.Current.MainPage.DisplayAlert("Error", "Friends list is not available.", "OK");
+        }
+    }
+
+    private void OnSeeAllAchievementsTapped(object sender, EventArgs e)
+    {
+        if (BindingContext is AppProfile viewModel)
+        {
+            var achievementsPopup = new AppAchievementPopup(MainPage.Achievements);
+            if (Application.Current.MainPage is Page currentPage)
+            {
+                currentPage.ShowPopup(achievementsPopup);
+            }
+            else
+            {
+                Application.Current.MainPage.DisplayAlert("Error", "Unable to display the popup.", "OK");
+            }
+        }
+        else
+        {
+            Application.Current.MainPage.DisplayAlert("Error", "Achievement list is not available.", "OK");
         }
     }
 }

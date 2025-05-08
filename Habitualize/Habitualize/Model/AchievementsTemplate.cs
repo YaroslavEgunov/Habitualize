@@ -14,8 +14,9 @@ namespace Habitualize.Model
         
         public string Description { get; set; }
 
+        public string Image { get; set; }
 
-        public bool Unlocked = false;
+        public bool Unlocked { get; set; }
 
         public bool IsAchievementComplete(AchievementsTemplate achievement, List<HabitTemplate> habits)
         {
