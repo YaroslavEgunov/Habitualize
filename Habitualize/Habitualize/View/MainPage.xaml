@@ -24,8 +24,10 @@
                 </StackLayout>
             </Grid>
         </Border>
+        
         <!-- Main Content -->
         <ContentView Grid.Row="1"  x:Name="DynamicContent" />
+        
         <!-- Footer -->
         <Border Grid.Row="2" 
                 HeightRequest="100" 

@@ -10,6 +10,7 @@
         <VerticalStackLayout>
             <Label Text="Habit Calendar" 
                    FontSize="24" 
+                   TextColor="Black"
                    HorizontalOptions="Center" />
             <cal:Calendar x:Name="HabitCalendar" 
                           Events="{Binding Events}" 
