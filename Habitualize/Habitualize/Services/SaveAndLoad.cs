@@ -22,6 +22,7 @@ using Firebase.Auth.Repository;
 using Google.Apis.Util;
 using System.Diagnostics;
 using System.Globalization;
+using System.Collections.ObjectModel;
 
 namespace Habitualize.Services
 {
@@ -248,7 +249,6 @@ namespace Habitualize.Services
                 var firebase = new FirebaseClient("https://habitualize-249ef-default-rtdb.europe-west1.firebasedatabase.app/");
 
                 var currentFriends = await LoadFriendsFromFirebase(userId);
-
                 var existingFriendIds = new HashSet<string>(currentFriends.Select(f => f.Id));
 
                 if (!string.IsNullOrEmpty(userId))
@@ -258,7 +258,7 @@ namespace Habitualize.Services
 
                 var allUsers = await firebase
                     .Child("user")
-                    .OnceAsync<Dictionary<string, object>>(); 
+                    .OnceAsync<Dictionary<string, object>>();
 
                 var suggestedFriends = new List<Friend>();
 
@@ -269,11 +269,14 @@ namespace Habitualize.Services
 
                     var base64Photo = await LoadUserPhotoFromFirebase(user.Key);
 
+                    // Загружаем имя пользователя по Id
+                    var userName = await LoadUserNameFromFirebase(user.Key);
+
                     var friend = new Friend
                     {
-                        Id = user.Key, 
-                        Name = $"User {user.Key}", 
-                        Avatar = base64Photo 
+                        Id = user.Key,
+                        Name = userName ?? $"User {user.Key}",
+                        Avatar = base64Photo
                     };
 
                     if (!suggestedFriends.Any(f => f.Id == friend.Id))
@@ -293,6 +296,7 @@ namespace Habitualize.Services
                 return new List<Friend>();
             }
         }
+
 
         public async Task AddFriendToFirebase(Friend friend, string userId)
         {
@@ -340,7 +344,6 @@ namespace Habitualize.Services
 
                 Console.WriteLine($"User {userId} added to friends of {friend.Id}.");
 
-                // Добавляем уведомление для друга
                 var notification = new Notification
                 {
                     Id = Guid.NewGuid().ToString(),
@@ -364,6 +367,18 @@ namespace Habitualize.Services
             }
         }
 
+        public async Task SaveUserNameToFirebase(string userId, string userName)
+        {
+            var firebase = new FirebaseClient("https://habitualize-249ef-default-rtdb.europe-west1.firebasedatabase.app/");
+            if (!string.IsNullOrEmpty(userId) && !string.IsNullOrEmpty(userName))
+            {
+                await firebase
+                    .Child("user")
+                    .Child(userId)
+                    .Child("name")
+                    .PutAsync(userName);
+            }
+        }
 
         public async Task<string> LoadUserNameFromFirebase(string userId)
         {
@@ -373,15 +388,14 @@ namespace Habitualize.Services
                 var userName = await firebase
                     .Child("user")
                     .Child(userId)
-                    .Child("name") 
+                    .Child("name")
                     .OnceSingleAsync<string>();
-
                 return userName;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error in LoadUserNameFromFirebase: {ex.Message}");
-                return null; 
+                return null;
             }
         }
 
@@ -396,7 +410,18 @@ namespace Habitualize.Services
                     .Child("friends")
                     .OnceAsync<Friend>();
 
-                return friends.Select(f => f.Object).ToList();
+                var result = new List<Friend>();
+
+                foreach (var f in friends)
+                {
+                    var friend = f.Object;
+                    var userName = await LoadUserNameFromFirebase(friend.Id);
+                    if (!string.IsNullOrEmpty(userName))
+                        friend.Name = userName;
+
+                    result.Add(friend);
+                }
+                return result;
             }
             catch (Exception ex)
             {
@@ -406,6 +431,83 @@ namespace Habitualize.Services
         }
 
 
+        public async Task SaveUserBioToFirebase(string userId, string bio)
+        {
+            var firebase = new FirebaseClient("https://habitualize-249ef-default-rtdb.europe-west1.firebasedatabase.app/");
+            if (!string.IsNullOrEmpty(userId))
+            {
+                var bioObject = new { text = bio ?? string.Empty };
+                await firebase
+                    .Child("user")
+                    .Child(userId)
+                    .Child("bio")
+                    .PutAsync(bioObject);
+            }
+        }
+
+        public async Task<string> LoadUserBioFromFirebase(string userId)
+        {
+            var firebase = new FirebaseClient("https://habitualize-249ef-default-rtdb.europe-west1.firebasedatabase.app/");
+            if (!string.IsNullOrEmpty(userId))
+            {
+                var bioObj = await firebase
+                    .Child("user")
+                    .Child(userId)
+                    .Child("bio")
+                    .OnceSingleAsync<Dictionary<string, string>>();
+
+                if (bioObj != null && bioObj.TryGetValue("text", out var bioText))
+                    return bioText;
+            }
+            return null;
+        }
+
+
+        public async Task<Friend> LoadFriendById(string friendId)
+        {
+            try
+            {
+                var firebase = new FirebaseClient("https://habitualize-249ef-default-rtdb.europe-west1.firebasedatabase.app/");
+                if (string.IsNullOrEmpty(friendId))
+                    return null;
+
+                var name = await firebase
+                    .Child("user")
+                    .Child(friendId)
+                    .Child("name")
+                    .OnceSingleAsync<string>();
+
+                var avatar = await LoadUserPhotoFromFirebase(friendId);
+
+                string bio = null;
+                var bioObj = await firebase
+                    .Child("user")
+                    .Child(friendId)
+                    .Child("bio")
+                    .OnceSingleAsync<Dictionary<string, string>>();
+                if (bioObj != null && bioObj.TryGetValue("text", out var bioText))
+                    bio = bioText;
+
+                var friendsList = await LoadFriendsFromFirebase(friendId);
+                var friends = friendsList != null ? new ObservableCollection<Friend>(friendsList) : new ObservableCollection<Friend>();
+
+                var friend = new Friend
+                {
+                    Id = friendId,
+                    Name = name ?? $"User {friendId}",
+                    Avatar = avatar,
+                    Bio = bio,
+                    Friends = friends
+                };
+
+                return friend;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in LoadFriendById: {ex.Message}");
+                return null;
+            }
+        }
     }
 
     public class Base64ToImageSourceConverter : IValueConverter

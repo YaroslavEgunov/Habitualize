@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Habitualize.Services;
 using Habitualize.SignPages;
 using Habitualize.View;
 
@@ -39,6 +40,13 @@ namespace Habitualize.SignPages
             await _authClient.CreateUserWithEmailAndPasswordAsync(Email, Password, Username);
 
             Preferences.Set("IsLoggedIn", true);
+
+            var saveAndLoadService = new SaveAndLoad();
+            var userId = saveAndLoadService.UserId;
+            if (!string.IsNullOrEmpty(userId))
+            {
+                await saveAndLoadService.SaveUserNameToFirebase(userId, Username);
+            }
 
             await Shell.Current.GoToAsync("//SignIn");
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,8 +13,9 @@ namespace Habitualize.Model
         public string Id { get; set; }
         public string Name { get; set; }
         public string Avatar { get; set; }
+        public string Bio { get; set; }
         public ICommand MessageCommand { get; set; }
-
+        public ObservableCollection<Friend> Friends { get; set; }
         public override bool Equals(object obj)
         {
             if (obj is Friend other)

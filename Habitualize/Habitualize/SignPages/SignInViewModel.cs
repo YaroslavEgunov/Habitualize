@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Habitualize.Services;
 
 namespace Habitualize.SignPages
 {
@@ -52,6 +53,15 @@ namespace Habitualize.SignPages
             await Shell.Current.GoToAsync("//MainPage");
 
             OnPropertyChanged(nameof(Username));
+
+            var saveAndLoadService = new SaveAndLoad();
+            var userId = saveAndLoadService.UserId;
+            if (!string.IsNullOrEmpty(userId))
+            {
+                await saveAndLoadService.SaveUserNameToFirebase(userId, Username);
+            }
+
+            await (Application.Current as App).PreloadUserDataAsync();
         }
 
         [RelayCommand]

@@ -114,8 +114,11 @@
                             <Image Source="{Binding Avatar, Converter={StaticResource Base64ToImageSourceConverter}}"     
                                   HeightRequest="50"  
                                   WidthRequest="50"  
-                                  Aspect="AspectFill">   
-                           </Image>  
+                                  Aspect="AspectFill">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnFriendPhotoTapped"/>
+                                </Image.GestureRecognizers>
+                            </Image>  
                            <!-- Friend username -->  
                            <Label Grid.Column="1"  
                                   Text="{Binding Name}"  
@@ -158,7 +161,7 @@
                                    Aspect="AspectFill">
                             </Image>
                             <Label Grid.Column="1"  
-                                   Text="{Binding Id}"  
+                                   Text="{Binding Name}"  
                                    FontSize="16"  
                                    TextColor="black"  
                                    VerticalOptions="Center"  

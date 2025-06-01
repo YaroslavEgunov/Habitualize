@@ -64,6 +64,18 @@ public partial class AppProfile : ContentView
         }
     }
 
+    private void OnFriendPhotoTapped(object sender, EventArgs e)
+    {
+        if (sender is Image image && image.BindingContext is Friend friend)
+        {
+            var popup = new AppFriendProfile(friend.Id);
+            if (Application.Current.MainPage is Page currentPage)
+            {
+                currentPage.ShowPopup(popup);
+            }
+        }
+    }
+
     public ObservableCollection<Friend> SuggestedFriends { get; set; }
 
     public ICommand AddFriendCommand { get; }
@@ -91,6 +103,7 @@ public partial class AppProfile : ContentView
     public AppProfile()
     {
         InitializeComponent();
+        Friends = new ObservableCollection<Friend>(AppCache.Friends);
         Username = Preferences.Get("Username", "Default Username");
         Bio = Preferences.Get("UserBio", "Enter a short biography...");
         AvatarImageSource = "bob_avatar.png";
@@ -104,8 +117,7 @@ public partial class AppProfile : ContentView
         {
             LoadAvatarFromFirebase();
         }
-        Friends = new ObservableCollection<Friend>();
-        SuggestedFriends = new ObservableCollection<Friend>();
+        SuggestedFriends = new ObservableCollection<Friend>(AppCache.SuggestedFriends);
         AddFriendCommand = new Command<Friend>(AddFriend);
         Console.WriteLine("AddFriendCommand initialized.");
         LoadFriends();
@@ -174,6 +186,7 @@ public partial class AppProfile : ContentView
             if (!Friends.Any(f => f.Id == friend.Id))
             {
                 Console.WriteLine("Friend not in Friends list. Adding...");
+                AppCache.Friends.Add(friend);
                 Friends.Add(friend);
                 SuggestedFriends.Remove(friend);
                 Console.WriteLine("Saving friend to Firebase...");
@@ -240,9 +253,15 @@ public partial class AppProfile : ContentView
     }
 
 
-    private void OnBioTextChanged(object sender, TextChangedEventArgs e)
+    private async void OnBioTextChanged(object sender, TextChangedEventArgs e)
     {
         Preferences.Set("UserBio", e.NewTextValue);
+        var saveAndLoadService = new SaveAndLoad();
+        var userId = saveAndLoadService.UserId;
+        if (!string.IsNullOrEmpty(userId))
+        {
+            await saveAndLoadService.SaveUserBioToFirebase(userId, e.NewTextValue);
+        }
     }
 
     private void OnBioEditorFocused(object sender, FocusEventArgs e)

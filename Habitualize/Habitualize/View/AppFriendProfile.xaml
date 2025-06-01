@@ -1,0 +1,83 @@
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="Habitualize.View.AppFriendProfile">
+    <Border BackgroundColor="White"
+            Padding="20"
+            Stroke="LightGray"
+            StrokeThickness="2"
+            WidthRequest="400"
+            HeightRequest="700">
+        <ScrollView VerticalScrollBarVisibility="Never">
+            <StackLayout Spacing="20">
+
+                <!-- Name -->
+                <Border Grid.Row="0"   
+                        Style="{StaticResource FriendProfileStyleSqr}">
+                    <Grid ColumnDefinitions="*,Auto"   
+                          VerticalOptions="Center">
+                        <Label Text="{Binding Name}"
+                               FontSize="22"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"/>
+                        <Image Grid.Column="1"  
+                               Source="{Binding Avatar, Converter={StaticResource Base64ToImageSourceConverter}}"
+                               x:Name="AvatarImage"
+                               Aspect="AspectFill"  
+                               HeightRequest="100"  
+                               WidthRequest="100"  
+                               HorizontalOptions="End">
+                        </Image>
+                    </Grid>
+                </Border>
+
+                <!-- Bio -->
+                <Editor Style="{StaticResource ProfileEditorStyle}"  
+                        x:Name="BioEditor"  
+                        Text="{Binding Bio}"  
+                        IsReadOnly="True"/>
+
+                <!-- Friends -->
+                <CollectionView ItemsSource="{Binding Friends}"
+                                HeightRequest="200"
+                                SelectionMode="None">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="5" ColumnSpacing="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0"
+                                       Source="{Binding Avatar, Converter={StaticResource Base64ToImageSourceConverter}}"
+                                       HeightRequest="50"
+                                       WidthRequest="50"
+                                       Aspect="AspectFill"
+                                       VerticalOptions="Center"/>
+                                <Label Grid.Column="1"
+                                       Text="{Binding Name}"
+                                       FontSize="14"
+                                       VerticalOptions="Center"
+                                       LineBreakMode="TailTruncation"/>
+                                <Button Grid.Column="2"
+                                        Text="Add"
+                                        Background="#7950F2"
+                                        Command="{Binding BindingContext.AddFriendCommand, Source={x:Reference Name=RootPopup}}"
+                                        CommandParameter="{Binding .}"
+                                        FontSize="12"
+                                        Padding="8,0"
+                                        VerticalOptions="Center"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+
+            </StackLayout>
+        </ScrollView>
+    </Border>
+</toolkit:Popup>
