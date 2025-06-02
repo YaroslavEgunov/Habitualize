@@ -81,6 +81,26 @@
                     </Label.GestureRecognizers>
                 </Label>
             </Grid>
+            <Grid ColumnDefinitions="*,Auto" Margin="0,20,0,10">
+                <!-- "Diary" -->
+                <Label Text="Diary"  
+                       FontSize="18"  
+                       TextColor="Black"  
+                       FontAttributes="Bold"  
+                       VerticalOptions="Center"  
+                       HorizontalOptions="Start" />
+                <Label Grid.Column="1"  
+                       Text="See Diary"  
+                       FontSize="14"  
+                       TextColor="#7950F2"  
+                       FontAttributes="Bold"  
+                       VerticalOptions="Center"  
+                       HorizontalOptions="End">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnSeeDiaryTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </Grid>
             <Grid ColumnDefinitions="*,Auto" Margin="0,20,0,10">  
                <!-- "Friends" -->  
                <Label Text="Friends"  

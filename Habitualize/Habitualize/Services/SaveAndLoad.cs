@@ -32,6 +32,8 @@ namespace Habitualize.Services
 
         private string _achievementsPath = Path.Combine(FileSystem.AppDataDirectory, "Achievements.json");
 
+        private string _diaryPath = Path.Combine(FileSystem.AppDataDirectory, "Diary.json");
+
         //For db connection
         private readonly FirebaseAuthClient _authClient = new FirebaseAuthClient(new FirebaseAuthConfig()
         {
@@ -44,7 +46,7 @@ namespace Habitualize.Services
             UserRepository = new FileUserRepository("Habitualize")
         });
 
-        private async Task SaveToFile(string filePath,string jsonContent)
+        private async Task SaveToFile(string filePath, string jsonContent)
         {
             await File.WriteAllTextAsync(filePath, jsonContent);
         }
@@ -127,6 +129,23 @@ namespace Habitualize.Services
             {
                 TypeNameHandling = TypeNameHandling.Auto
             });
+        }
+
+        public async Task SaveDiary(List<MoodDiary> diary)
+        {
+            string json = JsonConvert.SerializeObject(diary);
+            await SaveToFile(_diaryPath, json);
+        }
+
+        public async Task<List<MoodDiary>> LoadDiary()
+        {
+            if (!File.Exists(_diaryPath) || new FileInfo(_diaryPath).Length == 0)
+            {
+                await SaveToFile(_diaryPath, "[]");
+                return new List<MoodDiary>();
+            }
+            string json = await LoadFromFile(_diaryPath);
+            return JsonConvert.DeserializeObject<List<MoodDiary>>(json);
         }
 
         public async Task SaveInFirebase(List<HabitTemplate> habits, List<AchievementsTemplate> achievements)
@@ -493,51 +512,6 @@ namespace Habitualize.Services
         }
 
 
-        public async Task<Friend> LoadFriendById(string friendId)
-        {
-            try
-            {
-                var firebase = new FirebaseClient("https://habitualize-249ef-default-rtdb.europe-west1.firebasedatabase.app/");
-                if (string.IsNullOrEmpty(friendId))
-                    return null;
-
-                var name = await firebase
-                    .Child("user")
-                    .Child(friendId)
-                    .Child("name")
-                    .OnceSingleAsync<string>();
-
-                var avatar = await LoadUserPhotoFromFirebase(friendId);
-
-                string bio = null;
-                var bioObj = await firebase
-                    .Child("user")
-                    .Child(friendId)
-                    .Child("bio")
-                    .OnceSingleAsync<Dictionary<string, string>>();
-                if (bioObj != null && bioObj.TryGetValue("text", out var bioText))
-                    bio = bioText;
-
-                var friendsList = await LoadFriendsFromFirebase(friendId);
-                var friends = friendsList != null ? new ObservableCollection<Friend>(friendsList) : new ObservableCollection<Friend>();
-
-                var friend = new Friend
-                {
-                    Id = friendId,
-                    Name = name ?? $"User {friendId}",
-                    Avatar = avatar,
-                    Bio = bio,
-                    Friends = friends
-                };
-
-                return friend;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error in LoadFriendById: {ex.Message}");
-                return null;
-            }
-        }
     }
 
     public class Base64ToImageSourceConverter : IValueConverter
