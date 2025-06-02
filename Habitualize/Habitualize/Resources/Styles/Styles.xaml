@@ -55,6 +55,15 @@
         <Setter Property="Margin" Value="0,0,0,0"/>
         <Setter Property="HorizontalOptions" Value="Fill"/>
         <Setter Property="HeightRequest" Value="175"/>
+    </Style> 
+    
+    <Style x:Key="MessageProfileStyleSqr" TargetType="Border">
+        <Setter Property="StrokeShape" Value="RoundRectangle 20,20,20,0"/>
+        <Setter Property="BackgroundColor" Value="#7950F2"/>
+        <Setter Property="Padding" Value="20"/>
+        <Setter Property="Margin" Value="0,0,0,0"/>
+        <Setter Property="HorizontalOptions" Value="Fill"/>
+        <Setter Property="HeightRequest" Value="90"/>
     </Style>
 
     <Style x:Key="LoginStylePlace" TargetType="Border">

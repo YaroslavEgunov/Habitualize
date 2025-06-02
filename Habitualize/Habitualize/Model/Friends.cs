@@ -29,13 +29,5 @@ namespace Habitualize.Model
         {
             return Id.GetHashCode();
         }
-
-        public Friend()
-        {
-            MessageCommand = new Command(() =>
-            {
-                Application.Current.MainPage.DisplayAlert("Message", $"Send a message to {Name}", "OK");
-            });
-        }
     }
 }

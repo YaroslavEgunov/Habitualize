@@ -23,6 +23,7 @@ using Google.Apis.Util;
 using System.Diagnostics;
 using System.Globalization;
 using System.Collections.ObjectModel;
+using SkiaSharp;
 
 namespace Habitualize.Services
 {
@@ -228,8 +229,31 @@ namespace Habitualize.Services
         public async Task SaveUserPhotoToFirebase(string userId, string imagePath)
         {
             var firebase = new FirebaseClient("https://habitualize-249ef-default-rtdb.europe-west1.firebasedatabase.app/");
-            byte[] imageBytes = await File.ReadAllBytesAsync(imagePath);
-            string base64Image = Convert.ToBase64String(imageBytes);
+
+            byte[] originalBytes = await File.ReadAllBytesAsync(imagePath);
+            using var inputStream = new MemoryStream(originalBytes);
+            using var original = SKBitmap.Decode(inputStream);
+
+            int targetSize = 100;
+            int width, height;
+            if (original.Width > original.Height)
+            {
+                width = targetSize;
+                height = original.Height * targetSize / original.Width;
+            }
+            else
+            {
+                height = targetSize;
+                width = original.Width * targetSize / original.Height;
+            }
+
+            using var resized = original.Resize(new SKImageInfo(width, height), SKFilterQuality.Medium);
+            using var image = SKImage.FromBitmap(resized);
+
+            using var ms = new MemoryStream();
+            image.Encode(SKEncodedImageFormat.Jpeg, 70).SaveTo(ms);
+
+            string base64Image = Convert.ToBase64String(ms.ToArray());
 
             if (!string.IsNullOrEmpty(userId))
             {

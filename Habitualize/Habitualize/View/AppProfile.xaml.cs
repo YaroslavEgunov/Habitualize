@@ -22,65 +22,13 @@ public partial class AppProfile : ContentView
 {
     private ImageSource _avatarImageSource;
 
-    private bool IsBase64String(string base64)
-    {
-        if (string.IsNullOrEmpty(base64))
-            return false;
-        base64 = base64.Trim();
-        if (base64.Length % 4 != 0)
-            return false;
-        return System.Text.RegularExpressions.Regex.IsMatch(base64, @"^[a-zA-Z0-9\+/]*={0,2}$", 
-            System.Text.RegularExpressions.RegexOptions.None);
-    }
-
-    private async void LoadAvatarFromFirebase()
-    {
-        try
-        {
-            var saveAndLoadService = new SaveAndLoad();
-            var userId = saveAndLoadService.UserId;
-            if (!string.IsNullOrEmpty(userId))
-            {
-                var base64Image = await saveAndLoadService.LoadUserPhotoFromFirebase(userId);
-                if (!string.IsNullOrEmpty(base64Image))
-                {
-                    base64Image = base64Image.Replace("\r", "").Replace("\n", "").Trim();
-                    if (IsBase64String(base64Image))
-                    {
-                        byte[] imageBytes = Convert.FromBase64String(base64Image);
-                        AvatarImageSource = ImageSource.FromStream(() => new MemoryStream(imageBytes));
-                        Preferences.Set("UserAvatar", base64Image);
-                    }
-                    else
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Error", "The image data is not a valid Base64 string.", "OK");
-                    }
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            await Application.Current.MainPage.DisplayAlert("Error", $"Failed to load photo: {ex.Message}", "OK");
-        }
-    }
-
-    private void OnFriendPhotoTapped(object sender, EventArgs e)
-    {
-        if (sender is Image image && image.BindingContext is Friend friend)
-        {
-            var popup = new AppFriendProfile(friend.Id);
-            if (Application.Current.MainPage is Page currentPage)
-            {
-                currentPage.ShowPopup(popup);
-            }
-        }
-    }
-
     public ObservableCollection<Friend> SuggestedFriends { get; set; }
 
     public ICommand AddFriendCommand { get; }
 
     public ICommand RemoveFriendCommand { get; }
+
+    public ICommand OpenChatCommand { get; }
 
     public ObservableCollection<Friend> Friends { get; set; }
 
@@ -122,10 +70,25 @@ public partial class AppProfile : ContentView
         SuggestedFriends = new ObservableCollection<Friend>(AppCache.SuggestedFriends);
         AddFriendCommand = new Command<Friend>(AddFriend);
         RemoveFriendCommand = new Command<Friend>(RemoveFriend);
+        OpenChatCommand = new Command<Friend>(OpenChat);
+        foreach (var friend in Friends)
+        {
+            friend.MessageCommand = OpenChatCommand;
+        }
         LoadFriends();
         LoadSuggestedFriends();
         BindingContext = this;
     }
+
+    private async void OpenChat(Friend friend)
+    {
+        if (friend == null)
+            return;
+
+        var chatPage = new AppMessenger(friend);
+        await Application.Current.MainPage.Navigation.PushAsync(chatPage);
+    }
+
 
     private async void LoadSuggestedFriends()
     {
@@ -135,11 +98,16 @@ public partial class AppProfile : ContentView
             var userId = saveAndLoadService.UserId;
             if (!string.IsNullOrEmpty(userId))
             {
-                var randomUsers = await saveAndLoadService.LoadSuggestedFriends(userId);
-                SuggestedFriends.Clear();
-                foreach (var user in randomUsers)
+                var newSuggested = await saveAndLoadService.LoadSuggestedFriends(userId);
+                for (int i = SuggestedFriends.Count - 1; i >= 0; i--)
                 {
-                    SuggestedFriends.Add(user);
+                    if (!newSuggested.Any(f => f.Id == SuggestedFriends[i].Id))
+                        SuggestedFriends.RemoveAt(i);
+                }
+                foreach (var friend in newSuggested)
+                {
+                    if (!SuggestedFriends.Any(f => f.Id == friend.Id))
+                        SuggestedFriends.Add(friend);
                 }
             }
             else
@@ -161,11 +129,19 @@ public partial class AppProfile : ContentView
             var userId = saveAndLoadService.UserId;
             if (!string.IsNullOrEmpty(userId))
             {
-                var friends = await saveAndLoadService.LoadFriendsFromFirebase(userId);
-                Friends.Clear();
-                foreach (var friend in friends)
+                var newFriends = await saveAndLoadService.LoadFriendsFromFirebase(userId);
+                for (int i = Friends.Count - 1; i >= 0; i--)
                 {
-                    Friends.Add(friend);
+                    if (!newFriends.Any(f => f.Id == Friends[i].Id))
+                        Friends.RemoveAt(i);
+                }
+                foreach (var friend in newFriends)
+                {
+                    if (!Friends.Any(f => f.Id == friend.Id))
+                    {
+                        friend.MessageCommand = OpenChatCommand;
+                        Friends.Add(friend);
+                    }
                 }
             }
         }
@@ -188,6 +164,7 @@ public partial class AppProfile : ContentView
             if (!Friends.Any(f => f.Id == friend.Id))
             {
                 Console.WriteLine("Friend not in Friends list. Adding...");
+                friend.MessageCommand = OpenChatCommand;
                 AppCache.Friends.Add(friend);
                 Friends.Add(friend);
                 SuggestedFriends.Remove(friend);
@@ -361,5 +338,59 @@ public partial class AppProfile : ContentView
         var data = await MainPage.SavingLoadingSystem.LoadDiary();
         var diaryEntries = data.ToList<MoodDiary>();
         await Navigation.PushAsync(new DiaryPages.DiaryPage(diaryEntries));
+    }
+
+    private bool IsBase64String(string base64)
+    {
+        if (string.IsNullOrEmpty(base64))
+            return false;
+        base64 = base64.Trim();
+        if (base64.Length % 4 != 0)
+            return false;
+        return System.Text.RegularExpressions.Regex.IsMatch(base64, @"^[a-zA-Z0-9\+/]*={0,2}$",
+            System.Text.RegularExpressions.RegexOptions.None);
+    }
+
+    private async void LoadAvatarFromFirebase()
+    {
+        try
+        {
+            var saveAndLoadService = new SaveAndLoad();
+            var userId = saveAndLoadService.UserId;
+            if (!string.IsNullOrEmpty(userId))
+            {
+                var base64Image = await saveAndLoadService.LoadUserPhotoFromFirebase(userId);
+                if (!string.IsNullOrEmpty(base64Image))
+                {
+                    base64Image = base64Image.Replace("\r", "").Replace("\n", "").Trim();
+                    if (IsBase64String(base64Image))
+                    {
+                        byte[] imageBytes = Convert.FromBase64String(base64Image);
+                        AvatarImageSource = ImageSource.FromStream(() => new MemoryStream(imageBytes));
+                        Preferences.Set("UserAvatar", base64Image);
+                    }
+                    else
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Error", "The image data is not a valid Base64 string.", "OK");
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await Application.Current.MainPage.DisplayAlert("Error", $"Failed to load photo: {ex.Message}", "OK");
+        }
+    }
+
+    private void OnFriendPhotoTapped(object sender, EventArgs e)
+    {
+        if (sender is Image image && image.BindingContext is Friend friend)
+        {
+            var popup = new AppFriendProfile(friend.Id);
+            if (Application.Current.MainPage is Page currentPage)
+            {
+                currentPage.ShowPopup(popup);
+            }
+        }
     }
 }

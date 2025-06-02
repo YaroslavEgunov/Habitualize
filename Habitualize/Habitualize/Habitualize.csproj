@@ -79,6 +79,8 @@
 		<PackageReference Include="Plugin.Maui.Calendar" Version="1.2.6" />
 		<PackageReference Include="Refit" Version="8.0.0" />
 		<PackageReference Include="Refit.HttpClientFactory" Version="8.0.0" />
+		<PackageReference Include="SkiaSharp" Version="3.119.0" />
+		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="3.119.0" />
 	</ItemGroup>
 
 	<ItemGroup>

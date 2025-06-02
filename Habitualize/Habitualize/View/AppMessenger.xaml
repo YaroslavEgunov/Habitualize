@@ -1,16 +1,37 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:services="clr-namespace:Habitualize.Services"
              x:Class="Habitualize.View.AppMessenger"
              Title="{Binding FriendName}">
-    <VerticalStackLayout>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <services:Base64ToImageSourceConverter x:Key="Base64ToImageSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid RowDefinitions="Auto,*,Auto">
         <!-- Header -->
-        <Grid Padding="10" ColumnDefinitions="Auto,*">
-            <Image Source="{Binding FriendAvatar}" HeightRequest="40" WidthRequest="40" Aspect="AspectFill" />
-            <Label Grid.Column="1" Text="{Binding FriendName}" FontSize="20" VerticalOptions="Center" Margin="10,0,0,0"/>
-        </Grid>
-        <!-- Message -->
-        <CollectionView ItemsSource="{Binding Messages}" VerticalOptions="FillAndExpand">
+        <Border Style="{StaticResource MessageProfileStyleSqr}">
+            <Grid Grid.Row="0" Padding="10" ColumnDefinitions="Auto,Auto,*" Background="#7950F2">
+                <Button x:Name="BackButton"
+                        Clicked="OnBackButtonClicked"
+                        BackgroundColor="Transparent"
+                        Padding="0"
+                        Grid.Column="0"
+                        Margin="-20,0,10,0"
+                        WidthRequest="40"
+                        HeightRequest="40"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Start"
+                        FontSize="30"
+                        Text="↩">
+                </Button>
+                <Image Grid.Column="1" Source="{Binding FriendAvatar, Converter={StaticResource Base64ToImageSourceConverter}}" HeightRequest="50" WidthRequest="50" Aspect="AspectFill" />
+                <Label Grid.Column="2" Text="{Binding FriendName}" FontSize="20" VerticalOptions="Center" Margin="10,0,0,0"/>
+            </Grid>
+        </Border>
+       
+        <!-- Messages -->
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Messages}" VerticalOptions="FillAndExpand">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid ColumnDefinitions="Auto,*" Margin="0,5">
@@ -27,9 +48,9 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
         <!-- Input -->
-        <Grid ColumnDefinitions="*,Auto" Padding="10">
+        <Grid Grid.Row="2" ColumnDefinitions="*,Auto" Padding="10" BackgroundColor="White">
             <Entry x:Name="MessageEntry" Placeholder="Your message..." Text="{Binding NewMessage, Mode=TwoWay}" />
             <Button Grid.Column="1" Text="Nend sudes" Command="{Binding SendMessageCommand}" />
         </Grid>
-    </VerticalStackLayout>
+    </Grid>
 </ContentPage>
