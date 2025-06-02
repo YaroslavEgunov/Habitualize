@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Habitualize.View.DiaryPages.AddDiaryEntry"
+             Title="AddDiaryEntry">
+    <Grid RowDefinitions="Auto,*,Auto">
+        <ScrollView VerticalScrollBarVisibility="Never" 
+                HorizontalScrollBarVisibility="Never"
+                Grid.Row="1">
+            <StackLayout Padding="20,20,20,0" VerticalOptions="StartAndExpand">
+                <!-- Top Border -->
+                <Border Grid.Row="0" Style="{StaticResource ProfileStyleSqr}">
+                    <Grid ColumnDefinitions="Auto,*" VerticalOptions="Center">
+                        <Button Text="←"
+                            Grid.Column="0"
+                            HeightRequest="30"
+                            WidthRequest="30"
+                            BackgroundColor="White"
+                            Clicked="OnBackButtonClicked" />
+                        <Label Text="Add diary entry"
+                           Grid.Column="1"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           FontSize="40"
+                           FontAttributes="Bold"
+                           TextColor="White"
+                           Margin="-42,0,0,0" />
+                    </Grid>
+                </Border>
+                <!-- Add diary entry form -->
+                <Label Text="Entry title:" Style="{StaticResource HabitsLabelStyle}" />
+                <Entry x:Name="Title" Text="{Binding Title}" HeightRequest="60" Placeholder="Name"/>
+                <Label Text="Description:" Style="{StaticResource HabitsLabelStyle}" />
+                <Entry x:Name="Description" Text="{Binding Description}" HeightRequest="60" Placeholder="Description"/>
+                <Label Text="Pick your mood:" Style="{StaticResource HabitsLabelStyle}" />
+                <Picker x:Name="MoodPicker" SelectedItem="{Binding CurrentMood}"/>
+                <Label Text="Date:" Style="{StaticResource HabitsLabelStyle}" />
+                <DatePicker Date="{Binding Date}" IsEnabled="False" />
+            </StackLayout>
+        </ScrollView>
+        <!-- Bottom Border -->
+        <Border Grid.Row="2"
+            HeightRequest="100" 
+            Padding="0" 
+            Stroke="Transparent">
+            <Button Text="Add" 
+                Grid.Row="2"
+                Clicked="OnAddButtonClicked" 
+                Style="{StaticResource HabitsButtonStyle}" 
+                WidthRequest="150" 
+                BackgroundColor="#7950F2" 
+                TextColor="#FFFFFF" 
+                VerticalOptions="End" 
+                HorizontalOptions="Center" />
+        </Border>
+    </Grid>
+</ContentPage>

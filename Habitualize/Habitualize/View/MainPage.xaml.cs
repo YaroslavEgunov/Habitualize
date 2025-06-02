@@ -19,6 +19,8 @@ namespace Habitualize
 
         public static Achievements Achievements = new Achievements();
 
+        public static MoodDiary Diary = new MoodDiary();
+
         public static async Task CheckAchievements(List<HabitTemplate> habits, Page currentPage)
         {
             foreach (var achievement in Achievements.AchievementsList)

@@ -355,4 +355,11 @@ public partial class AppProfile : ContentView
             Application.Current.MainPage.DisplayAlert("Error", "Achievement list is not available.", "OK");
         }
     }
+
+    private async void OnSeeDiaryTapped(object sender, TappedEventArgs e)
+    {
+        var data = await MainPage.SavingLoadingSystem.LoadDiary();
+        var diaryEntries = data.ToList<MoodDiary>();
+        await Navigation.PushAsync(new DiaryPages.DiaryPage(diaryEntries));
+    }
 }

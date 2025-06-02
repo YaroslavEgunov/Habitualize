@@ -16,7 +16,7 @@
                                 WidthRequest="30"
                                 BackgroundColor="White"
                                 Clicked="OnCancelButtonClicked" />
-                        <Label Text="Edit Plants"
+                        <Label Text="Edit Habit"
                                Grid.Column="1"
                                VerticalOptions="Center"
                                HorizontalOptions="Center"

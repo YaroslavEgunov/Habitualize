@@ -32,6 +32,8 @@ namespace Habitualize.Services
 
         private string _achievementsPath = Path.Combine(FileSystem.AppDataDirectory, "Achievements.json");
 
+        private string _diaryPath = Path.Combine(FileSystem.AppDataDirectory, "Diary.json");
+
         //For db connection
         private readonly FirebaseAuthClient _authClient = new FirebaseAuthClient(new FirebaseAuthConfig()
         {
@@ -44,7 +46,7 @@ namespace Habitualize.Services
             UserRepository = new FileUserRepository("Habitualize")
         });
 
-        private async Task SaveToFile(string filePath,string jsonContent)
+        private async Task SaveToFile(string filePath, string jsonContent)
         {
             await File.WriteAllTextAsync(filePath, jsonContent);
         }
@@ -57,9 +59,9 @@ namespace Habitualize.Services
         private async void SaveAchievements(List<HabitTemplate> habits)
         {
             string completionData = "";
-            foreach(var achievement in MainPage.Achievements.AchievementsList)
+            foreach (var achievement in MainPage.Achievements.AchievementsList)
             {
-                if(achievement.Unlocked)
+                if (achievement.Unlocked)
                 {
                     completionData += "1";
                 }
@@ -83,9 +85,9 @@ namespace Habitualize.Services
             json.ToCharArray();
             int i = 0;
             //Store achievements data as binary
-            foreach(var symbol in json)
+            foreach (var symbol in json)
             {
-                switch(symbol)
+                switch (symbol)
                 {
                     case '1':
                         MainPage.Achievements.AchievementsList[i].Unlocked = true;
@@ -118,7 +120,7 @@ namespace Habitualize.Services
         {
             if (!File.Exists(_filePath) || new FileInfo(_filePath).Length == 0)
             {
-                await SaveToFile(_filePath,"[]");
+                await SaveToFile(_filePath, "[]");
                 return new List<HabitTemplate>();
             }
             LoadAchievements();
@@ -127,6 +129,23 @@ namespace Habitualize.Services
             {
                 TypeNameHandling = TypeNameHandling.Auto
             });
+        }
+
+        public async Task SaveDiary(List<MoodDiary> diary)
+        {
+            string json = JsonConvert.SerializeObject(diary);
+            await SaveToFile(_diaryPath, json);
+        }
+
+        public async Task<List<MoodDiary>> LoadDiary()
+        {
+            if (!File.Exists(_diaryPath) || new FileInfo(_diaryPath).Length == 0)
+            {
+                await SaveToFile(_diaryPath, "[]");
+                return new List<MoodDiary>();
+            }
+            string json = await LoadFromFile(_diaryPath);
+            return JsonConvert.DeserializeObject<List<MoodDiary>>(json);
         }
 
         public async Task SaveInFirebase(List<HabitTemplate> habits, List<AchievementsTemplate> achievements)
@@ -313,14 +332,14 @@ namespace Habitualize.Services
                 if (existingFriends.Any(f => f.Object.Id == friend.Id))
                 {
                     Console.WriteLine($"Friend with Id {friend.Id} already exists for user {userId}.");
-                    return; 
+                    return;
                 }
 
                 await firebase
                     .Child("user")
                     .Child(userId)
                     .Child("friends")
-                    .Child(friend.Id) 
+                    .Child(friend.Id)
                     .PutAsync(friend);
 
                 Console.WriteLine($"Friend {friend.Id} saved to Firebase for user {userId}.");
@@ -331,15 +350,15 @@ namespace Habitualize.Services
                 var currentUser = new Friend
                 {
                     Id = userId,
-                    Name = currentUserName ?? userId, 
-                    Avatar = currentUserAvatar 
+                    Name = currentUserName ?? userId,
+                    Avatar = currentUserAvatar
                 };
 
                 await firebase
                     .Child("user")
                     .Child(friend.Id)
                     .Child("friends")
-                    .Child(userId) 
+                    .Child(userId)
                     .PutAsync(currentUser);
 
                 Console.WriteLine($"User {userId} added to friends of {friend.Id}.");
@@ -492,7 +511,6 @@ namespace Habitualize.Services
             return null;
         }
 
-
         public async Task<Friend> LoadFriendById(string friendId)
         {
             try
@@ -539,6 +557,7 @@ namespace Habitualize.Services
             }
         }
     }
+
 
     public class Base64ToImageSourceConverter : IValueConverter
     {

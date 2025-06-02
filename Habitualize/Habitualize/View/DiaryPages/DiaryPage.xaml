@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Habitualize.Services"
+             x:Class="Habitualize.View.DiaryPages.DiaryPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:MoodToColorConverter x:Key="MoodToColorConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid RowDefinitions="Auto,*,Auto">
+        <StackLayout>
+
+            <!-- Top Border -->
+            <Border Style="{StaticResource ProfileStyleSqr}">
+                <Grid ColumnDefinitions="Auto,*" VerticalOptions="Center">
+                    <Button Text="←"
+                        Grid.Column="0"
+                        HeightRequest="30"
+                        WidthRequest="30"
+                        BackgroundColor="White"
+                        Clicked="OnBackButtonClicked" />
+                    <Label Text="Mood diary"
+                       Grid.Column="1"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"
+                       FontSize="40"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       Margin="-42,0,0,0" />
+                </Grid>
+            </Border>
+            <ListView VerticalScrollBarVisibility="Never" 
+                  HorizontalScrollBarVisibility="Never" 
+                  x:Name="DiaryEntries" 
+                  ItemTapped="OnItemTapped" 
+                  Style="{StaticResource HabitsListViewStyle}" IsEnabled="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Border StrokeShape="RoundRectangle 20" 
+                                Padding="0" 
+                                BackgroundColor="{Binding CurrentMood, Converter={StaticResource MoodToColorConverter}}">
+                                <Label Text="{Binding Title}"
+                                   FontSize="16"
+                                   TextColor="White"
+                                   VerticalOptions="Center"
+                                   Margin="10,0,0,0"
+                                   Grid.Column="1"/>
+                            </Border>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Border Grid.Row="2"
+                HeightRequest="100" 
+                Padding="0" 
+                Stroke="Transparent">
+                <Button Text="Add Entry" 
+                    Clicked="OnAddEntryClicked" 
+                    Style="{StaticResource HabitsButtonStyle}" 
+                    WidthRequest="150" 
+                    BackgroundColor="#7950F2" 
+                    TextColor="#FFFFFF" 
+                    HorizontalOptions="Center"
+                    Margin="0,0,0,20" />
+            </Border>
+        </StackLayout>
+    </Grid>
+</ContentPage>
