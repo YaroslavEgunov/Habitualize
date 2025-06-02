@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Habitualize.View.AppMessenger"
+             Title="{Binding FriendName}">
+    <VerticalStackLayout>
+        <!-- Header -->
+        <Grid Padding="10" ColumnDefinitions="Auto,*">
+            <Image Source="{Binding FriendAvatar}" HeightRequest="40" WidthRequest="40" Aspect="AspectFill" />
+            <Label Grid.Column="1" Text="{Binding FriendName}" FontSize="20" VerticalOptions="Center" Margin="10,0,0,0"/>
+        </Grid>
+        <!-- Message -->
+        <CollectionView ItemsSource="{Binding Messages}" VerticalOptions="FillAndExpand">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid ColumnDefinitions="Auto,*" Margin="0,5">
+                        <Image Source="{Binding SenderAvatar}" HeightRequest="30" WidthRequest="30" 
+                               IsVisible="{Binding IsFriend}" VerticalOptions="End" Margin="0,0,5,0"/>
+                        <Frame Grid.Column="{Binding MessagePosition}" 
+                               BackgroundColor="{Binding MessageBackground}" 
+                               CornerRadius="10" Padding="10" HasShadow="False"
+                               HorizontalOptions="{Binding MessageAlignment}">
+                            <Label Text="{Binding Text}" TextColor="Black"/>
+                        </Frame>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <!-- Input -->
+        <Grid ColumnDefinitions="*,Auto" Padding="10">
+            <Entry x:Name="MessageEntry" Placeholder="Your message..." Text="{Binding NewMessage, Mode=TwoWay}" />
+            <Button Grid.Column="1" Text="Nend sudes" Command="{Binding SendMessageCommand}" />
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>
