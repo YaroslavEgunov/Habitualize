@@ -347,7 +347,7 @@ namespace Habitualize.Services
                 var notification = new Notification
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Message = $"{currentUserName ?? "User"} добавил вас в друзья.",
+                    Message = $"{currentUserName ?? "User"} add you as friend.",
                     Timestamp = DateTime.UtcNow
                 };
 
@@ -366,6 +366,36 @@ namespace Habitualize.Services
                 throw;
             }
         }
+
+        public async Task RemoveFriendFromFirebase(string userId, string friendId)
+        {
+            try
+            {
+                var firebase = new FirebaseClient("https://habitualize-249ef-default-rtdb.europe-west1.firebasedatabase.app/");
+
+                await firebase
+                    .Child("user")
+                    .Child(userId)
+                    .Child("friends")
+                    .Child(friendId)
+                    .DeleteAsync();
+
+                await firebase
+                    .Child("user")
+                    .Child(friendId)
+                    .Child("friends")
+                    .Child(userId)
+                    .DeleteAsync();
+
+                Console.WriteLine($"Friend {friendId} delete {userId}.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                throw;
+            }
+        }
+
 
         public async Task SaveUserNameToFirebase(string userId, string userName)
         {

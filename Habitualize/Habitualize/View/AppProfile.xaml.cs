@@ -80,6 +80,8 @@ public partial class AppProfile : ContentView
 
     public ICommand AddFriendCommand { get; }
 
+    public ICommand RemoveFriendCommand { get; }
+
     public ObservableCollection<Friend> Friends { get; set; }
 
     public string Username { get; }
@@ -119,7 +121,7 @@ public partial class AppProfile : ContentView
         }
         SuggestedFriends = new ObservableCollection<Friend>(AppCache.SuggestedFriends);
         AddFriendCommand = new Command<Friend>(AddFriend);
-        Console.WriteLine("AddFriendCommand initialized.");
+        RemoveFriendCommand = new Command<Friend>(RemoveFriend);
         LoadFriends();
         LoadSuggestedFriends();
         BindingContext = this;
@@ -214,6 +216,46 @@ public partial class AppProfile : ContentView
         }
     }
 
+    private async void RemoveFriend(Friend friend)
+    {
+        try
+        {
+            if (friend == null)
+            {
+                Console.WriteLine("Friend is null.");
+                return;
+            }
+            Console.WriteLine($"Attempting to remove friend: {friend.Id}");
+            if (Friends.Any(f => f.Id == friend.Id))
+            {
+                AppCache.Friends.Remove(friend);
+                Friends.Remove(friend);
+                Console.WriteLine("Removing friend from Firebase...");
+                var saveAndLoadService = new SaveAndLoad();
+                var userId = saveAndLoadService.UserId;
+                if (!string.IsNullOrEmpty(userId))
+                {
+                    await saveAndLoadService.RemoveFriendFromFirebase(userId, friend.Id);
+                    Console.WriteLine($"Friend {friend.Id} removed successfully for user {userId}.");
+                }
+                else
+                {
+                    Console.WriteLine("User ID is null or empty.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Friend does not exist in Friends list.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in RemoveFriend: {ex.Message}");
+            await Application.Current.MainPage.DisplayAlert("Error", $"Failed to remove friend: {ex.Message}", "OK");
+        }
+    }
+
+
     private async void OnAvatarTapped(object sender, EventArgs e)
     {
         try
@@ -251,7 +293,6 @@ public partial class AppProfile : ContentView
             await Application.Current.MainPage.DisplayAlert("Error", $"Failed to select photo: {ex.Message}", "OK");
         }
     }
-
 
     private async void OnBioTextChanged(object sender, TextChangedEventArgs e)
     {

@@ -108,7 +108,7 @@
                <CollectionView.ItemTemplate>  
                    <DataTemplate>  
                        <Grid Padding="10"   
-                             ColumnDefinitions="Auto,*,Auto"   
+                             ColumnDefinitions="Auto,*,Auto,Auto"   
                              RowDefinitions="Auto">  
                            <!-- Friend avatar -->
                             <Image Source="{Binding Avatar, Converter={StaticResource Base64ToImageSourceConverter}}"     
@@ -125,12 +125,24 @@
                                   FontSize="16"  
                                   TextColor="black"  
                                   VerticalOptions="Center"  
-                                  Margin="10,0,0,0" />   
+                                  Margin="10,0,0,0" />
+                           <!-- Delete button -->  
+                           <Button
+                               Grid.Column="2"
+                               Margin="0,0,10,0"
+                               WidthRequest="85"
+                               Background="Salmon" 
+                               FontSize="14"
+                               VerticalOptions="Center"
+                               Text="Delete"
+                               Command="{Binding Source={RelativeSource AncestorType={x:Type ContentView}}, Path=RemoveFriendCommand}"  
+                               CommandParameter="{Binding .}" />
                            <!-- Message button -->  
-                           <Button Grid.Column="2"  
+                           <Button Grid.Column="3"  
                                    Text="Message"  
                                    Background="#7950F2"  
                                    TextColor="White"  
+                                   WidthRequest="85"
                                    FontSize="14"  
                                    VerticalOptions="Center"  
                                    Command="{Binding MessageCommand}"  
