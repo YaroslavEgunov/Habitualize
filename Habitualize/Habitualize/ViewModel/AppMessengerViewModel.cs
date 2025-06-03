@@ -1,0 +1,79 @@
+﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using Habitualize.Model;
+using Habitualize.Services;
+
+namespace Habitualize.ViewModel;
+public class AppMessengerViewModel : ObservableObject
+{
+    private readonly ChatService _chatService = new();
+    private readonly SaveAndLoad _saveAndLoad = new();
+    private readonly string _currentUserId;
+    private readonly string _friendId;
+    private readonly string _friendAvatar;
+
+    public ObservableCollection<Message> Messages { get; } = new();
+    public string NewMessage { get; set; }
+    public ICommand SendMessageCommand { get; }
+
+    public string FriendName { get; }
+    public string FriendAvatar => _friendAvatar;
+
+    public AppMessengerViewModel(Friend friend, string currentUserId)
+    {
+        _currentUserId = currentUserId;
+        _friendId = friend.Id;
+        _friendAvatar = friend.Avatar;
+        FriendName = friend.Name;
+
+        SendMessageCommand = new Command(async () => await SendMessage());
+
+        LoadHistory();
+
+        _chatService.OnMessageReceived += async (message) => await OnMessageReceived(message);
+        _chatService.ConnectAsync(_currentUserId, _friendId);
+    }
+
+    private async void LoadHistory()
+    {
+        var history = await _chatService.LoadHistoryAsync(_currentUserId, _friendId);
+        foreach (var msg in history)
+        {
+            msg.IsFriend = msg.SenderId != _currentUserId;
+            Messages.Add(msg);
+
+            if (msg.IsFriend && !msg.IsRead)
+            {
+                msg.IsRead = true;
+                await _saveAndLoad.MarkMessageAsReadAsync(msg, _currentUserId, _friendId);
+            }
+        }
+    }
+
+    private async Task SendMessage()
+    {
+        if (string.IsNullOrWhiteSpace(NewMessage))
+            return;
+
+        var message = new Message
+        {
+            Text = NewMessage,
+            SenderId = _currentUserId,
+            Timestamp = DateTime.UtcNow
+        };
+
+        await _chatService.SendMessageAsync(message);
+        await _saveAndLoad.SaveMessageToFirebase(message, _currentUserId, _friendId);
+
+        Messages.Add(message);
+        NewMessage = string.Empty;
+        OnPropertyChanged(nameof(NewMessage));
+    }
+
+    private async Task OnMessageReceived(Message message)
+    {
+        message.IsFriend = message.SenderId != _currentUserId;
+        Messages.Add(message);
+    }
+}

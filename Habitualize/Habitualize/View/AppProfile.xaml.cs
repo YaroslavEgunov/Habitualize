@@ -87,8 +87,15 @@ public partial class AppProfile : ContentView
 
         var chatPage = new AppMessenger(friend);
         await Application.Current.MainPage.Navigation.PushAsync(chatPage);
+        await UpdateUnreadStatusForFriend(friend);
     }
-
+    private async Task UpdateUnreadStatusForFriend(Friend friend)
+    {
+        var saveAndLoadService = new SaveAndLoad();
+        var userId = saveAndLoadService.UserId;
+        var messages = await saveAndLoadService.LoadMessagesFromFirebase(userId, friend.Id);
+        friend.HasUnreadMessages = messages.Any(m => m.SenderId != userId && !m.IsRead);
+    }
 
     private async void LoadSuggestedFriends()
     {
@@ -129,6 +136,12 @@ public partial class AppProfile : ContentView
             var userId = saveAndLoadService.UserId;
             if (!string.IsNullOrEmpty(userId))
             {
+                foreach (var friend in Friends)
+                {
+                    var messages = await saveAndLoadService.LoadMessagesFromFirebase(userId, friend.Id);
+                    friend.HasUnreadMessages = messages.Any(m => m.SenderId != userId && !m.IsRead);
+                    friend.MessageCommand = OpenChatCommand;
+                }
                 var newFriends = await saveAndLoadService.LoadFriendsFromFirebase(userId);
                 for (int i = Friends.Count - 1; i >= 0; i--)
                 {
@@ -231,7 +244,6 @@ public partial class AppProfile : ContentView
             await Application.Current.MainPage.DisplayAlert("Error", $"Failed to remove friend: {ex.Message}", "OK");
         }
     }
-
 
     private async void OnAvatarTapped(object sender, EventArgs e)
     {

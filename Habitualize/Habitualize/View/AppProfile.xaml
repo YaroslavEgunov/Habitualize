@@ -157,17 +157,35 @@
                                Text="Delete"
                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentView}}, Path=RemoveFriendCommand}"  
                                CommandParameter="{Binding .}" />
-                           <!-- Message button -->  
-                           <Button Grid.Column="3"  
-                                   Text="Message"  
-                                   Background="#7950F2"  
-                                   TextColor="White"  
-                                   WidthRequest="85"
-                                   FontSize="14"  
-                                   VerticalOptions="Center"  
-                                   Command="{Binding MessageCommand}"  
-                                   CommandParameter="{Binding .}" />  
-                       </Grid>  
+                           <!-- Message button -->
+                           <Border
+                               Grid.Column="3"
+                               WidthRequest="85"
+                               HeightRequest="45"
+                               BackgroundColor="#7950F2"
+                               VerticalOptions="Center"
+                               HorizontalOptions="End"
+                               StrokeShape="RoundRectangle 12">
+                               <Grid Padding="10,0,5,0">
+                                   <Label Text="Message"
+                                          TextColor="White"
+                                          VerticalOptions="Center"
+                                          HorizontalOptions="Center"
+                                          FontSize="14"/>
+                                   <Ellipse
+                                       WidthRequest="10"
+                                       HeightRequest="10"
+                                       Fill="Red"
+                                       HorizontalOptions="End"
+                                       VerticalOptions="Start"
+                                       IsVisible="{Binding HasUnreadMessages}"/>
+                                   <Grid.GestureRecognizers>
+                                       <TapGestureRecognizer Command="{Binding MessageCommand}" CommandParameter="{Binding .}" />
+                                   </Grid.GestureRecognizers>
+                               </Grid>
+                           </Border>
+
+                        </Grid>  
                    </DataTemplate>  
                </CollectionView.ItemTemplate>  
            </CollectionView>  

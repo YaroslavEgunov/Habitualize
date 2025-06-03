@@ -580,8 +580,72 @@ namespace Habitualize.Services
                 return null;
             }
         }
-    }
 
+        public async Task SaveMessageToFirebase(Message message, string userId1, string userId2)
+        {
+            var firebase = new FirebaseClient("https://habitualize-249ef-default-rtdb.europe-west1.firebasedatabase.app/");
+            string chatId = GetChatId(userId1, userId2);
+            var result = await firebase
+                .Child("chats")
+                .Child(chatId)
+                .PostAsync(message);
+
+
+            message.Id = result.Key;
+
+            await firebase
+                .Child("chats")
+                .Child(chatId)
+                .Child(result.Key)
+                .Child("Id")
+                .PutAsync(JsonConvert.SerializeObject(result.Key));
+        }
+
+        public async Task<List<Message>> LoadMessagesFromFirebase(string userId1, string userId2, DateTime? since = null)
+        {
+            var firebase = new FirebaseClient("https://habitualize-249ef-default-rtdb.europe-west1.firebasedatabase.app/");
+            string chatId = GetChatId(userId1, userId2);
+            var messages = await firebase
+                .Child("chats")
+                .Child(chatId)
+                .OnceAsync<Message>();
+
+            var result = messages.Select(m => m.Object)
+                .Where(m => since == null || m.Timestamp >= since.Value)
+                .OrderBy(m => m.Timestamp)
+                .ToList();
+
+            return result;
+        }
+
+        public async Task MarkMessageAsReadAsync(Message message, string userId1, string userId2)
+        {
+            var firebase = new FirebaseClient("https://habitualize-249ef-default-rtdb.europe-west1.firebasedatabase.app/");
+            string chatId = GetChatId(userId1, userId2);
+
+            if (!string.IsNullOrEmpty(message.Id))
+            {
+                var cleanId = message.Id.Trim('"');
+
+                await firebase
+                    .Child("chats")
+                    .Child(chatId)
+                    .Child(message.Id)
+                    .Child("IsRead")
+                    .PutAsync(true);
+
+                message.IsRead = true;
+            }
+        }
+
+
+        private string GetChatId(string userId1, string userId2)
+        {
+            return string.CompareOrdinal(userId1, userId2) < 0
+                ? $"{userId1}_{userId2}"
+                : $"{userId2}_{userId1}";
+        }
+    }
 
     public class Base64ToImageSourceConverter : IValueConverter
     {

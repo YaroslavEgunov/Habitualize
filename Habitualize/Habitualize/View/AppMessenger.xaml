@@ -1,14 +1,14 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:services="clr-namespace:Habitualize.Services"
-             x:Class="Habitualize.View.AppMessenger"
-             Title="{Binding FriendName}">
+             x:Class="Habitualize.View.AppMessenger">
     <ContentPage.Resources>
         <ResourceDictionary>
             <services:Base64ToImageSourceConverter x:Key="Base64ToImageSourceConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <Grid RowDefinitions="Auto,*,Auto">
+
         <!-- Header -->
         <Border Style="{StaticResource MessageProfileStyleSqr}">
             <Grid Grid.Row="0" Padding="10" ColumnDefinitions="Auto,Auto,*" Background="#7950F2">
@@ -38,19 +38,28 @@
                         <Image Source="{Binding SenderAvatar}" HeightRequest="30" WidthRequest="30" 
                                IsVisible="{Binding IsFriend}" VerticalOptions="End" Margin="0,0,5,0"/>
                         <Frame Grid.Column="{Binding MessagePosition}" 
+                               Margin="10,15,10,0"
                                BackgroundColor="{Binding MessageBackground}" 
                                CornerRadius="10" Padding="10" HasShadow="False"
                                HorizontalOptions="{Binding MessageAlignment}">
-                            <Label Text="{Binding Text}" TextColor="Black"/>
+                            <StackLayout>
+                                <Label Text="{Binding Text}" TextColor="Black"/>
+                                <Label Text="{Binding Timestamp, StringFormat='{0:HH:mm}'}"
+                                       FontSize="10"
+                                       TextColor="Gray"
+                                       HorizontalOptions="End"/>
+                                <Label Text="✓" IsVisible="{Binding IsRead}" FontSize="10" TextColor="Green" HorizontalOptions="End"/>
+                            </StackLayout>
                         </Frame>
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+
         <!-- Input -->
         <Grid Grid.Row="2" ColumnDefinitions="*,Auto" Padding="10" BackgroundColor="White">
             <Entry x:Name="MessageEntry" Placeholder="Your message..." Text="{Binding NewMessage, Mode=TwoWay}" />
-            <Button Grid.Column="1" Text="Nend sudes" Command="{Binding SendMessageCommand}" />
+            <Button Grid.Column="1" Background="#7950F2" TextColor="White" Text="Nend sudes" Command="{Binding SendMessageCommand}" />
         </Grid>
     </Grid>
 </ContentPage>

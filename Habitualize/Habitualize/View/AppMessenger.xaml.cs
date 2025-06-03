@@ -1,4 +1,6 @@
 using Habitualize.Model;
+using Habitualize.ViewModel;
+using Habitualize.Services;
 
 namespace Habitualize.View;
 
@@ -15,7 +17,9 @@ public partial class AppMessenger : ContentPage
         FriendName = friend?.Name;
         FriendAvatar = friend?.Avatar;
         NavigationPage.SetHasNavigationBar(this, false);
-        BindingContext = this;
+        var saveAndLoadService = new SaveAndLoad();
+        var currentUserId = saveAndLoadService.UserId;
+        BindingContext = new AppMessengerViewModel(friend, currentUserId);
     }
     private async void OnBackButtonClicked(object sender, EventArgs e)
     {
