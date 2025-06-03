@@ -90,6 +90,23 @@
                    HorizontalOptions="Center" 
                    TextColor="#666666" 
                    Margin="0,20,0,0" />
+            <Grid ColumnDefinitions="*,*" 
+                  RowDefinitions="Auto,Auto,Auto" 
+                  ColumnSpacing="15" 
+                  RowSpacing="15">
+                <Label Grid.Row="0" 
+                       Grid.Column="0" 
+                       x:Name="DailiesLabel"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       TextColor="Black" />
+                <Label Grid.Row="0" 
+                       Grid.Column="1" 
+                       x:Name="LevelLabel"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       TextColor="Black" />
+            </Grid>
         </StackLayout>
     </ScrollView>
 </ContentView>

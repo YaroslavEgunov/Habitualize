@@ -20,6 +20,10 @@ public partial class AppMap : ContentView
 	{
 		InitializeComponent();
         UpdateAdditionalText();
+        var random = new Random();
+        var daily = MainPage.Dailies[random.Next(MainPage.Dailies.Count)];
+        DailiesLabel.Text = "Your task for today: " + daily.TaskName + "\n" + daily.TaskDescription;
+        LevelLabel.Text = "Your Level: " + ProgressionSystem.Level.ToString();
     }
 
     private void UpdateAdditionalText()

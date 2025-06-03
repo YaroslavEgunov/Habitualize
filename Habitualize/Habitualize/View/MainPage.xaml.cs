@@ -21,6 +21,28 @@ namespace Habitualize
 
         public static MoodDiary Diary = new MoodDiary();
 
+        public static List<DailyTasks> Dailies = new List<DailyTasks>
+        {
+            new DailyTasks
+            {
+                TaskName = "Hydrate!",
+                TaskDescription = "Water your plant",
+                Condition = () => 10 >= 10
+            },
+            new DailyTasks
+            {
+                TaskName = "Read!",
+                TaskDescription = "Read 10 pages",
+                Condition = () => 10 >= 10
+            },
+            new DailyTasks
+            {
+                TaskName = "Do stuff!",
+                TaskDescription = "Complete custom habit",
+                Condition = () => 10 >= 10
+            }
+        };
+
         public static async Task CheckAchievements(List<HabitTemplate> habits, Page currentPage)
         {
             foreach (var achievement in Achievements.AchievementsList)

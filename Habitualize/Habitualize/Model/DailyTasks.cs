@@ -12,11 +12,11 @@ namespace Habitualize.Model
 
         public string TaskDescription { get; set; }
 
-        public Func<HabitTemplate, bool> Condition { get; set; }
+        public Func<bool> Condition { get; set; }
 
-        public bool IsTaskComplete(HabitTemplate habit)
+        public bool IsTaskComplete()
         {
-            return Condition(habit);
+            return Condition();
         }
     }
 }
