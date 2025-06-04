@@ -50,6 +50,11 @@ public partial class EditBooksPage : ContentPage
         }
         else
         {
+            MainPage.Dailies[1].Condition = () => _editedBook.PagesRead >= 10;
+            if(MainPage.Dailies[1].IsTaskComplete())
+            {
+                ProgressionSystem.Experience += 100;
+            }
             var existingHabits = await MainPage.SavingLoadingSystem.LoadHabits();
             var existingBooks = existingHabits.OfType<Reading>().ToList();
             if (_editedBook.PagesRead == _editedBook.PagesInBook && !_editedBook.BookComplete)

@@ -14,15 +14,37 @@ namespace Habitualize.View;
 
 public partial class AppMap : ContentView
 {
+    private const string _lastUpdateKey = "LastUpdateDate";
+
+    public void CheckAndUpdateDailyTasks()
+    {
+        var lastUpdate = Preferences.Get(_lastUpdateKey, DateTime.MinValue);
+        var today = DateTime.Today;
+
+        if (lastUpdate < today)
+        {
+            ResetDailyTasks();
+            Preferences.Set(_lastUpdateKey, today);
+        }
+    }
+
+    private void ResetDailyTasks()
+    {
+        var random = new Random();
+        var chosenDaily = MainPage.Dailies[random.Next(MainPage.Dailies.Count)];
+        Daily = chosenDaily;
+    }
+
+    public DailyTasks Daily = new DailyTasks();
+
     public static SaveAndLoad SavingLoadingSystem = new SaveAndLoad();
 
     public AppMap()
 	{
 		InitializeComponent();
         UpdateAdditionalText();
-        var random = new Random();
-        var daily = MainPage.Dailies[random.Next(MainPage.Dailies.Count)];
-        DailiesLabel.Text = "Your task for today: " + daily.TaskName + "\n" + daily.TaskDescription;
+        CheckAndUpdateDailyTasks();
+        DailiesLabel.Text = "Your task for today: " + Daily.TaskName + "\n" + Daily.TaskDescription;
         LevelLabel.Text = "Your Level: " + ProgressionSystem.Level.ToString();
     }
 

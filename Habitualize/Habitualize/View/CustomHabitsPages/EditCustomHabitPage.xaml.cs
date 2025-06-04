@@ -45,6 +45,11 @@ public partial class EditCustomHabitPage : ContentPage
         }
         else
         {
+            MainPage.Dailies[2].Condition = () => _editedHabit.IsComplete == true;
+            if (MainPage.Dailies[2].IsTaskComplete())
+            {
+                ProgressionSystem.Experience += 100;
+            }
             var existingHabits = await MainPage.SavingLoadingSystem.LoadHabits();
             var existingCustomHabits = existingHabits.OfType<HabitTemplate>().ToList();
             if (_editedHabit.IsComplete && DatePick.Date == DateTime.Now.Date)
