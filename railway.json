@@ -1,4 +1,8 @@
 {
-  "build": "dotnet build Habitualize/Habitualize/Habitualize.csproj --configuration Release",
-  "start": "dotnet Habitualize/Habitualize/bin/Release/net9.0/Habitualize.dll"
+  "build": {
+    "command": "dotnet build Habitualize/Habitualize/Habitualize.csproj --configuration Release"
+  },
+  "start": {
+    "command": "dotnet Habitualize/Habitualize/bin/Release/net9.0/Habitualize.dll"
+  }
 }
