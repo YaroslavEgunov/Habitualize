@@ -1,0 +1,4 @@
+{
+  "build": "dotnet build Habitualize.sln --configuration Release",
+  "start": "dotnet Habitualize/bin/Release/net9.0/Habitualize.dll"
+}
