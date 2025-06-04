@@ -16,7 +16,7 @@ public partial class AppMap : ContentView
 {
     private const string _lastUpdateKey = "LastUpdateDate";
 
-    public void CheckAndUpdateDailyTasks()
+    private void CheckAndUpdateDailyTasks()
     {
         var lastUpdate = Preferences.Get(_lastUpdateKey, DateTime.MinValue);
         var today = DateTime.Today;
@@ -39,11 +39,14 @@ public partial class AppMap : ContentView
 
     public static SaveAndLoad SavingLoadingSystem = new SaveAndLoad();
 
+    public static ProgressionData ProgressionSystem = new ProgressionData();
+
     public AppMap()
 	{
 		InitializeComponent();
         UpdateAdditionalText();
         CheckAndUpdateDailyTasks();
+        SavingLoadingSystem.LoadProgress();
         DailiesLabel.Text = "Your task for today: " + Daily.TaskName + "\n" + Daily.TaskDescription;
         LevelLabel.Text = "Your Level: " + ProgressionSystem.Level.ToString();
     }

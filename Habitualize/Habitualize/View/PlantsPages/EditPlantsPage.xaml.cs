@@ -51,6 +51,11 @@ public partial class EditPlantsPage : ContentPage
             if (MainPage.Dailies[0].IsTaskComplete())
             {
                 ProgressionSystem.Experience += 100;
+                if (ProgressionSystem.IsLevelUp())
+                {
+                    this.DisplayAlert("Congratulations!", $"Your level is now: {ProgressionSystem.Level}!", "OK");
+                    AppMap.SavingLoadingSystem.SaveProgress();
+                }
             }
             var existingHabits = await MainPage.SavingLoadingSystem.LoadHabits();
             var existingPlants = existingHabits.OfType<Gardening>().ToList();

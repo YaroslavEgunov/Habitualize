@@ -49,6 +49,11 @@ public partial class EditCustomHabitPage : ContentPage
             if (MainPage.Dailies[2].IsTaskComplete())
             {
                 ProgressionSystem.Experience += 100;
+                if(ProgressionSystem.IsLevelUp())
+                {
+                    this.DisplayAlert("Congratulations!", $"Your level is now: {ProgressionSystem.Level}!", "OK");
+                    AppMap.SavingLoadingSystem.SaveProgress();
+                }
             }
             var existingHabits = await MainPage.SavingLoadingSystem.LoadHabits();
             var existingCustomHabits = existingHabits.OfType<HabitTemplate>().ToList();

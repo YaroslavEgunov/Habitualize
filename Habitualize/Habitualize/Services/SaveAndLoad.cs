@@ -24,6 +24,8 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Collections.ObjectModel;
 using SkiaSharp;
+using System.Windows.Forms;
+using Message = Habitualize.Model.Message;
 
 namespace Habitualize.Services
 {
@@ -34,6 +36,8 @@ namespace Habitualize.Services
         private string _achievementsPath = Path.Combine(FileSystem.AppDataDirectory, "Achievements.json");
 
         private string _diaryPath = Path.Combine(FileSystem.AppDataDirectory, "Diary.json");
+
+        private string _progressPath = Path.Combine(FileSystem.AppDataDirectory, "Progress.json");
 
         //For db connection
         private readonly FirebaseAuthClient _authClient = new FirebaseAuthClient(new FirebaseAuthConfig()
@@ -147,6 +151,34 @@ namespace Habitualize.Services
             }
             string json = await LoadFromFile(_diaryPath);
             return JsonConvert.DeserializeObject<List<MoodDiary>>(json);
+        }
+
+        public async Task SaveProgress()
+        {
+            var data = new ProgressionData
+            {
+                Experience = ProgressionSystem.Experience,
+                ExpForLevel = ProgressionSystem.ExpForLevel,
+                Level = ProgressionSystem.Level
+            };
+            string json = JsonConvert.SerializeObject(data);
+            await SaveToFile(_progressPath, json);
+        }
+
+        public async Task LoadProgress()
+        {
+            if (!File.Exists(_progressPath) || new FileInfo(_progressPath).Length == 0)
+            {
+                await SaveToFile(_progressPath, "[]");
+            }
+            string json = await LoadFromFile(_progressPath);
+            var data = JsonConvert.DeserializeObject<ProgressionData>(json);
+            if (data != null)
+            {
+                ProgressionSystem.Experience = data.Experience;
+                ProgressionSystem.ExpForLevel = data.ExpForLevel;
+                ProgressionSystem.Level = data.Level;
+            }
         }
 
         public async Task SaveInFirebase(List<HabitTemplate> habits, List<AchievementsTemplate> achievements)
