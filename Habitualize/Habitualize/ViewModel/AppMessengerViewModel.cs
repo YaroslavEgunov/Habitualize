@@ -14,9 +14,9 @@ public class AppMessengerViewModel : ObservableObject
     private readonly string _friendAvatar;
 
     public ObservableCollection<Message> Messages { get; } = new();
+    public ObservableCollection<ChatItem> ChatItems { get; } = new();
     public string NewMessage { get; set; }
     public ICommand SendMessageCommand { get; }
-
     public string FriendName { get; }
     public string FriendAvatar => _friendAvatar;
 
@@ -49,6 +49,7 @@ public class AppMessengerViewModel : ObservableObject
                 await _saveAndLoad.MarkMessageAsReadAsync(msg, _currentUserId, _friendId);
             }
         }
+        BuildChatItems(Messages);
     }
 
     private async Task SendMessage()
@@ -68,6 +69,7 @@ public class AppMessengerViewModel : ObservableObject
 
         Messages.Add(message);
         NewMessage = string.Empty;
+        BuildChatItems(Messages);
         OnPropertyChanged(nameof(NewMessage));
     }
 
@@ -75,5 +77,28 @@ public class AppMessengerViewModel : ObservableObject
     {
         message.IsFriend = message.SenderId != _currentUserId;
         Messages.Add(message);
+        BuildChatItems(Messages);
     }
+
+    public void StopChatHistoryRefresh()
+    {
+        _chatService?.StopHistoryRefresh();
+    }
+
+    private void BuildChatItems(IEnumerable<Message> messages)
+    {
+        ChatItems.Clear();
+        DateTime? lastDate = null;
+        foreach (var msg in messages.OrderBy(m => m.Timestamp))
+        {
+            var msgDate = msg.Timestamp.Date;
+            if (lastDate == null || lastDate.Value != msgDate)
+            {
+                ChatItems.Add(new DateSeparatorItem { Date = msgDate });
+                lastDate = msgDate;
+            }
+            ChatItems.Add(new MessageItem { Message = msg });
+        }
+    }
+
 }

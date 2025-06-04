@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
 using Habitualize.Model;
+using System.Threading;
+
 
 namespace Habitualize.Services;
 
@@ -10,6 +12,11 @@ public class ChatService
     private string _currentUserId;
     private readonly SaveAndLoad _saveAndLoad = new();
     public event Action<Message> OnMessageReceived;
+    public event Action<List<Message>> OnHistoryUpdated;
+
+
+    private Timer _refreshTimer;
+
 
     public async Task ConnectAsync(string userId, string friendId)
     {
@@ -27,6 +34,24 @@ public class ChatService
         });
 
         await _connection.StartAsync();
+
+        StartHistoryRefresh();
+    }
+
+    private void StartHistoryRefresh()
+    {
+        _refreshTimer?.Dispose();
+        _refreshTimer = new Timer(async _ =>
+        {
+            var history = await LoadHistoryAsync(_currentUserId, _friendId);
+            OnHistoryUpdated?.Invoke(history);
+        }, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
+    }
+
+    public void StopHistoryRefresh()
+    {
+        _refreshTimer?.Dispose();
+        _refreshTimer = null;
     }
 
     public async Task SendMessageAsync(Message message)
