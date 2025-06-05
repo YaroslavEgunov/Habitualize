@@ -16,6 +16,10 @@ public partial class AppMap : ContentView
 {
     private const string _lastUpdateKey = "LastUpdateDate";
 
+    private const string _lastDailyName = "LastDailyData";
+
+    private const string _lastDailyDescription = "LastDailyDesc";
+
     private void CheckAndUpdateDailyTasks()
     {
         var lastUpdate = Preferences.Get(_lastUpdateKey, DateTime.MinValue);
@@ -32,23 +36,32 @@ public partial class AppMap : ContentView
     {
         var random = new Random();
         var chosenDaily = MainPage.Dailies[random.Next(MainPage.Dailies.Count)];
-        Daily = chosenDaily;
+        Preferences.Set(_lastDailyName, chosenDaily.TaskName);
+        Preferences.Set(_lastDailyDescription, chosenDaily.TaskDescription);
     }
+    
 
     public DailyTasks Daily = new DailyTasks();
 
     public static SaveAndLoad SavingLoadingSystem = new SaveAndLoad();
 
-    public static ProgressionData ProgressionSystem = new ProgressionData();
+    public static ProgressionData ProgressionData = new ProgressionData();
+
+    private async void InitAsync()
+    {
+        UpdateAdditionalText();
+        CheckAndUpdateDailyTasks();
+        await SavingLoadingSystem.LoadProgress();
+        Daily.TaskName = Preferences.Get(_lastDailyName, "Error");
+        Daily.TaskDescription = Preferences.Get(_lastDailyDescription, "Error");
+        DailiesLabel.Text = "Your task for today: " + Daily.TaskName + "\n" + Daily.TaskDescription;
+        LevelLabel.Text = "Your Level: " + ProgressionSystem.Level.ToString();
+    }
 
     public AppMap()
 	{
 		InitializeComponent();
-        UpdateAdditionalText();
-        CheckAndUpdateDailyTasks();
-        SavingLoadingSystem.LoadProgress();
-        DailiesLabel.Text = "Your task for today: " + Daily.TaskName + "\n" + Daily.TaskDescription;
-        LevelLabel.Text = "Your Level: " + ProgressionSystem.Level.ToString();
+        InitAsync();
     }
 
     private void UpdateAdditionalText()
