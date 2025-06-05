@@ -47,6 +47,16 @@ public partial class EditPlantsPage : ContentPage
         }
         else
         {
+            MainPage.Dailies[0].Condition = () => _editedPlant.PlantIsWatered == true;
+            if (MainPage.Dailies[0].IsTaskComplete())
+            {
+                ProgressionSystem.Experience += 100;
+                if (ProgressionSystem.IsLevelUp())
+                {
+                    this.DisplayAlert("Congratulations!", $"Your level is now: {ProgressionSystem.Level}!", "OK");
+                    AppMap.SavingLoadingSystem.SaveProgress();
+                }
+            }
             var existingHabits = await MainPage.SavingLoadingSystem.LoadHabits();
             var existingPlants = existingHabits.OfType<Gardening>().ToList();
             if (_editedPlant.PlantIsWatered && DatePick.Date == DateTime.Now.Date)

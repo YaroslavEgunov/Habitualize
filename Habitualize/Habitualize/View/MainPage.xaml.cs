@@ -27,7 +27,7 @@ namespace Habitualize
             {
                 TaskName = "Hydrate!",
                 TaskDescription = "Water your plant",
-                Condition = () => 10 >= 10
+                Condition = () => true == true
             },
             new DailyTasks
             {
@@ -39,7 +39,7 @@ namespace Habitualize
             {
                 TaskName = "Do stuff!",
                 TaskDescription = "Complete custom habit",
-                Condition = () => 10 >= 10
+                Condition = () => true == true
             }
         };
 

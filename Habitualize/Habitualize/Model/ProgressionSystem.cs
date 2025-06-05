@@ -26,4 +26,13 @@ namespace Habitualize.Model
             return false;
         }
     }
+
+    public class ProgressionData
+    {
+        public int Experience { get; set; } = 0;
+
+        public int ExpForLevel { get; set; } = 100;
+
+        public int Level { get; set; } = 1;
+    }
 }
