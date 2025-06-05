@@ -63,7 +63,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Platforms\Android\Resources\layout\habit_widget.xml" />
 	  <None Remove="Platforms\Android\Resources\values\strings.xml" />
+	  <None Remove="Platforms\Android\Resources\xml\habit_widget_provider.xml" />
 	</ItemGroup>
 
 	<ItemGroup>
