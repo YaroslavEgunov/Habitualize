@@ -2,10 +2,12 @@ using Habitualize.SignPages;
 using Habitualize.View;
 using Plugin.Firebase.CloudMessaging;
 using Habitualize.Model;
+#if ANDROID
 using Android.Content;
 using Android.App;
-using Application = Microsoft.Maui.Controls.Application;
 using Android.Appwidget;
+#endif
+using Application = Microsoft.Maui.Controls.Application;
 
 namespace Habitualize;
 

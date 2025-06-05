@@ -90,7 +90,8 @@
                    HorizontalOptions="Center" 
                    TextColor="#666666" 
                    Margin="0,20,0,0" />
-            <Grid ColumnDefinitions="*,*" 
+            <!-- Level and dailies -->
+                <Grid ColumnDefinitions="*,*" 
                   RowDefinitions="Auto,Auto,Auto" 
                   ColumnSpacing="15" 
                   RowSpacing="15">
@@ -106,6 +107,12 @@
                        FontSize="20"
                        FontAttributes="Bold"
                        TextColor="Black" />
+                <ProgressBar Grid.Column="1"
+                             Grid.Row="1"
+                             x:Name="ExperienceProgressBar"
+                             Progress="0"
+                             ProgressColor="#7950F2"
+                             BackgroundColor="Black" />
             </Grid>
         </StackLayout>
     </ScrollView>
