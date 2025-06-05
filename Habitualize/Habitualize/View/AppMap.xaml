@@ -107,12 +107,39 @@
                        FontSize="20"
                        FontAttributes="Bold"
                        TextColor="Black" />
-                <ProgressBar Grid.Column="1"
-                             Grid.Row="1"
-                             x:Name="ExperienceProgressBar"
-                             Progress="0"
-                             ProgressColor="#7950F2"
-                             BackgroundColor="Black" />
+                <Border Grid.Column="1"
+                        Grid.Row="1"
+                        StrokeShape="RoundRectangle 20"
+                        BackgroundColor="#F3F0FF"
+                        HeightRequest="28"
+                        VerticalOptions="Center"
+                        Padding="0,1,1,1">
+                    <Grid>
+                        <!-- Градиентная полоса прогресса -->
+                        <BoxView x:Name="ProgressGradient"
+                                 CornerRadius="14"
+                                 HeightRequest="24"
+                                 HorizontalOptions="Start"
+                                 VerticalOptions="Center"
+                                 WidthRequest="0">
+                            <BoxView.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="#7950F2" Offset="0.0"/>
+                                    <GradientStop Color="#FF6BD6" Offset="1.0"/>
+                                </LinearGradientBrush>
+                            </BoxView.Background>
+                        </BoxView>
+                        <!-- Прозрачный ProgressBar для управления прогрессом -->
+                        <ProgressBar x:Name="ExperienceProgressBar"
+                                     Progress="0"
+                                     HeightRequest="24"
+                                     ProgressColor="Transparent"
+                                     BackgroundColor="Transparent"
+                                     VerticalOptions="Center"
+                                     HorizontalOptions="FillAndExpand"
+                                     Opacity="0.01"/>
+                    </Grid>
+                </Border>
             </Grid>
         </StackLayout>
     </ScrollView>

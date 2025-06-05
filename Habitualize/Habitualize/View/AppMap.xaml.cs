@@ -65,6 +65,28 @@ public partial class AppMap : ContentView
         ExperienceProgressBar.Progress = progress;
     }
 
+    protected override void OnParentSet()
+    {
+        base.OnParentSet();
+        ExperienceProgressBar.PropertyChanged += (s, e) =>
+        {
+            if (e.PropertyName == nameof(ExperienceProgressBar.Progress))
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    var totalWidth = ExperienceProgressBar.Width;
+                    ProgressGradient.WidthRequest = totalWidth * ExperienceProgressBar.Progress;
+                });
+            }
+        };
+        ExperienceProgressBar.SizeChanged += (s, e) =>
+        {
+            var totalWidth = ExperienceProgressBar.Width;
+            ProgressGradient.WidthRequest = totalWidth * ExperienceProgressBar.Progress;
+        };
+    }
+
+
     public AppMap()
 	{
 		InitializeComponent();
