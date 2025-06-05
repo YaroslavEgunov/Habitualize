@@ -24,7 +24,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Collections.ObjectModel;
 using SkiaSharp;
-using System.Windows.Forms;
+
 using Message = Habitualize.Model.Message;
 
 namespace Habitualize.Services
