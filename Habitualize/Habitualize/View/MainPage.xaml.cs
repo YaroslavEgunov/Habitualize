@@ -2,8 +2,10 @@
 using Firebase.Auth.Repository;
 using Firebase.Auth;
 using Habitualize.SignPages;
+using Microsoft.Maui.Controls;
 using Plugin.Firebase.CloudMessaging;
 using FirebaseAdmin;
+using Microsoft.Maui.Storage;
 using Habitualize.Services;
 using Habitualize.Model;
 using Habitualize.View;
@@ -62,13 +64,60 @@ namespace Habitualize
         public MainPage()
         {
             InitializeComponent();
-            BindingContext = new MainPageViewModel();
-            DynamicContent.Content = new AppMap();
-            if (BindingContext is MainPageViewModel viewModel)
+            var viewModel = new MainPageViewModel();
+            bool tutorialShown = Preferences.Get("TutorialShown", false);
+            if (!tutorialShown)
             {
-                viewModel.ActiveTab = "Map";
+                viewModel.IsTutorialActive = true;
+                Preferences.Set("TutorialShown", true);
             }
+            else
+            {
+                viewModel.IsTutorialActive = false;
+            }
+            BindingContext = viewModel;
+            DynamicContent.Content = new AppMap();
+            viewModel.ActiveTab = "Map";
             NavigationPage.SetHasNavigationBar(this, false);
+            viewModel.TutorialContentRequested += OnTutorialContentRequested;
+        }
+
+        private void OnTutorialContentRequested(string contentKey)
+        {
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                if (contentKey == "Settings")
+                {
+                    var authClient = new FirebaseAuthClient(new FirebaseAuthConfig()
+                    {
+                        ApiKey = "AIzaSyAO6SGqXASw8zw_YD2xqCjBBP7ZOHDDcf0",
+                        AuthDomain = "habitualize-249ef.firebaseapp.com",
+                        Providers = new FirebaseAuthProvider[]
+                        {
+                            new EmailProvider()
+                        },
+                        UserRepository = new FileUserRepository("Habitualize")
+                    });
+                    var signUpViewModel = new SignUpViewModel(authClient);
+                    await ChangeContentWithAnimation(new AppSettings(signUpViewModel));
+                }
+                else if (contentKey == "Map")
+                {
+                    await ChangeContentWithAnimation(new AppMap());
+                }
+                else if (contentKey == "Profile")
+                {
+                    await ChangeContentWithAnimation(new AppProfile());
+                }
+                else if (contentKey == "Schedule")
+                {
+                    await ChangeContentWithAnimation(new AppSchedule());
+                }
+                else if (contentKey == "Third")
+                {
+                    await ChangeContentWithAnimation(new AppThird(this));
+                }
+            });
         }
 
         //Animation
@@ -102,7 +151,6 @@ namespace Habitualize
                     viewModel.ActiveTab = "Notification";
                     await ChangeContentWithAnimation(new AppNotification());
                 }
-
             }
         }
 
@@ -120,7 +168,6 @@ namespace Habitualize
                     viewModel.ActiveTab = "Map";
                     await ChangeContentWithAnimation(new AppMap());
                 }
-
             }
         }
 
@@ -138,7 +185,7 @@ namespace Habitualize
                     viewModel.ActiveTab = "Profile";
                     await ChangeContentWithAnimation(new AppProfile());
                 }
-            }   
+            }
         }
 
         private async void OnScheduleButtonClicked(object sender, EventArgs e)
@@ -156,8 +203,8 @@ namespace Habitualize
                     await ChangeContentWithAnimation(new AppSchedule());
                 }
             }
-        } 
-        
+        }
+
         private async void OnThirdButtonClicked(object sender, EventArgs e)
         {
             if (BindingContext is MainPageViewModel viewModel)
@@ -174,7 +221,6 @@ namespace Habitualize
                 }
             }
         }
-
 
         private async void OnSettingsButtonClicked(object sender, EventArgs e)
         {

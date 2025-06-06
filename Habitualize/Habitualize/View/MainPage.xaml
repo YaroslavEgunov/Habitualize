@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Habitualize"
+             xmlns:services="clr-namespace:Habitualize.Services"
              x:Class="Habitualize.MainPage">
     <Grid RowDefinitions="Auto,*,Auto">
         <!-- Header -->
@@ -27,98 +28,230 @@
         
         <!-- Main Content -->
         <ContentView Grid.Row="1"  x:Name="DynamicContent" />
-        
+
+        <!-- Little teacher -->
+        <AbsoluteLayout x:Name="TutorialOverlay"
+                        Grid.RowSpan="3"
+                        IsVisible="{Binding IsTutorialActive}">
+            <BoxView Color="#80000000"
+                     x:Name="OverlayBox"
+                     AbsoluteLayout.LayoutBounds="0,0,1,1"
+                     IsVisible="{Binding IsOverlayVisible}"
+                     AbsoluteLayout.LayoutFlags="All" />
+            <Image Source="green.png"
+                   WidthRequest="100"
+                   HeightRequest="100"
+                   AbsoluteLayout.LayoutBounds="{Binding MascotPosition}"
+                   AbsoluteLayout.LayoutFlags="PositionProportional" />
+            <Frame BackgroundColor="White"
+                   Padding="16"
+                   CornerRadius="16"
+                   AbsoluteLayout.LayoutBounds="{Binding BubblePosition}"
+                   AbsoluteLayout.LayoutFlags="PositionProportional">
+                <StackLayout>
+                    <Label Text="{Binding TutorialText}" 
+                           TextColor="Black"
+                           FontSize="16"/>
+                    <Button Text="Далее"
+                            Command="{Binding NextTutorialStepCommand}" />
+                </StackLayout>
+            </Frame>
+        </AbsoluteLayout>
+
         <!-- Footer -->
         <Border Grid.Row="2" 
                 HeightRequest="100" 
                 Padding="0" 
                 Stroke="Transparent">
             <Grid ColumnDefinitions="*,*,*,*,*">
-                <StackLayout Grid.Column="0" 
-                             HorizontalOptions="Center" 
-                             VerticalOptions="Center">
-                    <Label Text="Map" 
-                           FontSize="16" 
-                           FontAttributes="Bold" 
-                           IsVisible="{Binding ActiveTab, 
-                                        Converter={StaticResource TabVisibilityConverter}, 
-                                        ConverterParameter='Map'}"
-                           TextColor="#7950F2"
-                           HorizontalOptions="Center"/>
-                    <ImageButton Source="{Binding ActiveTab, 
-                                            Converter={StaticResource TabImageConverter}, 
+                <Frame x:Name="MapFrame"
+                       Grid.Column="0"
+                       HasShadow="False"
+                       Padding="0"
+                       Margin="0"
+                       CornerRadius="24">
+                    <Frame.Style>
+                        <Style TargetType="Frame">
+                            <Style.Triggers>
+                                <DataTrigger TargetType="Frame"
+                                             Binding="{Binding HighlightKey}"
+                                             Value="MapButton">
+                                    <Setter Property="BackgroundColor" Value="White"/>
+                                    <Setter Property="HasShadow" Value="True"/>
+                                    <Setter Property="BorderColor" Value="#7950F2"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Frame.Style>
+                    <StackLayout HorizontalOptions="Center" 
+                                 VerticalOptions="Center">
+                        <Label Text="Map" 
+                               FontSize="16" 
+                               FontAttributes="Bold" 
+                               IsVisible="{Binding ActiveTab, 
+                                            Converter={StaticResource TabVisibilityConverter}, 
                                             ConverterParameter='Map'}"
-                                 Style="{StaticResource FooterButtonStyle}" 
-                                 Clicked="OnMapButtonClicked"/>
-                </StackLayout>
-                <StackLayout Grid.Column="1" 
-                             HorizontalOptions="Center" 
-                             VerticalOptions="Center">
-                    <Label Text="Profile" 
-                           FontSize="16" 
-                           FontAttributes="Bold" 
-                           IsVisible="{Binding ActiveTab, 
-                                        Converter={StaticResource TabVisibilityConverter}, 
-                                        ConverterParameter='Profile'}"
-                           TextColor="#7950F2"
-                           HorizontalOptions="Center" />
-                    <ImageButton Source="{Binding ActiveTab, 
-                                            Converter={StaticResource TabImageConverter}, 
-                                            ConverterParameter='Profile'}"
-                                 Style="{StaticResource FooterButtonStyle}" 
-                                 Clicked="OnProfileButtonClicked" />
-                </StackLayout>
-                <StackLayout Grid.Column="2" 
-                             HorizontalOptions="Center" 
-                             VerticalOptions="Center">
-                    <Label Text="Schedule" 
-                           FontSize="16" 
-                           FontAttributes="Bold" 
-                           IsVisible="{Binding ActiveTab, 
-                                        Converter={StaticResource TabVisibilityConverter}, 
-                                        ConverterParameter='Schedule'}"
-                           TextColor="#7950F2"
-                           HorizontalOptions="Center" />
-                    <ImageButton Source="{Binding ActiveTab, 
-                                            Converter={StaticResource TabImageConverter}, 
-                                            ConverterParameter='Schedule'}"
-                                 Style="{StaticResource FooterButtonStyle}" 
-                                 Clicked="OnScheduleButtonClicked" />
-                </StackLayout>
-                <StackLayout Grid.Column="3" 
-                             HorizontalOptions="Center" 
-                             VerticalOptions="Center">
-                    <Label Text="Third" 
-                           FontSize="16" 
-                           FontAttributes="Bold" 
-                           IsVisible="{Binding ActiveTab, 
-                                        Converter={StaticResource TabVisibilityConverter}, 
-                                        ConverterParameter='Third'}"
-                           TextColor="#7950F2"
-                           HorizontalOptions="Center" />
-                    <ImageButton Source="{Binding ActiveTab, 
+                               TextColor="#7950F2"
+                               HorizontalOptions="Center"/>
+                        <ImageButton x:Name="MapButton" 
+                                     Style="{StaticResource FooterButtonStyle}"
+                                     Source="{Binding ActiveTab, 
+                                             Converter={StaticResource TabImageConverter}, 
+                                             ConverterParameter='Map'}"
+                                     Clicked="OnMapButtonClicked">
+                        </ImageButton>
+                    </StackLayout>
+                </Frame>
+                <Frame x:Name="ProfileFrame"
+                       Grid.Column="1"
+                       HasShadow="False"
+                       Padding="0"
+                       Margin="0"
+                       CornerRadius="24">
+                    <Frame.Style>
+                        <Style TargetType="Frame">
+                            <Style.Triggers>
+                                <DataTrigger TargetType="Frame"
+                                             Binding="{Binding HighlightKey}"
+                                             Value="ProfileButton">
+                                    <Setter Property="BackgroundColor" Value="White"/>
+                                    <Setter Property="HasShadow" Value="True"/>
+                                    <Setter Property="BorderColor" Value="#7950F2"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Frame.Style>
+                    <StackLayout Grid.Column="1" 
+                                 HorizontalOptions="Center" 
+                                 VerticalOptions="Center">
+                        <Label Text="Profile" 
+                               FontSize="16" 
+                               FontAttributes="Bold" 
+                               IsVisible="{Binding ActiveTab, 
+                        Converter={StaticResource TabVisibilityConverter}, 
+                        ConverterParameter='Profile'}"
+                               TextColor="#7950F2"
+                               HorizontalOptions="Center" />
+                        <ImageButton x:Name="ProfileButton"  Source="{Binding ActiveTab, 
+                            Converter={StaticResource TabImageConverter}, 
+                            ConverterParameter='Profile'}"
+                                     Style="{StaticResource FooterButtonStyle}" 
+                                     Clicked="OnProfileButtonClicked" />
+                    </StackLayout>
+                </Frame>
+                <Frame x:Name="MapSchedule"
+                       Grid.Column="2"
+                       HasShadow="False"
+                       Padding="0"
+                       Margin="0"
+                       CornerRadius="24">
+                    <Frame.Style>
+                        <Style TargetType="Frame">
+                            <Style.Triggers>
+                                <DataTrigger TargetType="Frame"
+                                             Binding="{Binding HighlightKey}"
+                                             Value="ScheduleButton">
+                                    <Setter Property="BackgroundColor" Value="White"/>
+                                    <Setter Property="HasShadow" Value="True"/>
+                                    <Setter Property="BorderColor" Value="#7950F2"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Frame.Style>
+                    <StackLayout Grid.Column="2" 
+                                 HorizontalOptions="Center" 
+                                 VerticalOptions="Center">
+                        <Label Text="Schedule" 
+                               FontSize="16" 
+                               FontAttributes="Bold" 
+                               IsVisible="{Binding ActiveTab, 
+                        Converter={StaticResource TabVisibilityConverter}, 
+                        ConverterParameter='Schedule'}"
+                               TextColor="#7950F2"
+                               HorizontalOptions="Center" />
+                        <ImageButton x:Name="ScheduleButton" 
+                                     Source="{Binding ActiveTab, 
+                            Converter={StaticResource TabImageConverter}, 
+                            ConverterParameter='Schedule'}"
+                                     Style="{StaticResource FooterButtonStyle}" 
+                                     Clicked="OnScheduleButtonClicked" />
+                    </StackLayout>
+                </Frame>
+                <Frame x:Name="ThirdFrame"
+                       Grid.Column="3"
+                       HasShadow="False"
+                       Padding="0"
+                       Margin="0"
+                       CornerRadius="24">
+                    <Frame.Style>
+                        <Style TargetType="Frame">
+                            <Style.Triggers>
+                                <DataTrigger TargetType="Frame"
+                                             Binding="{Binding HighlightKey}"
+                                             Value="ThirdButton">
+                                    <Setter Property="BackgroundColor" Value="White"/>
+                                    <Setter Property="HasShadow" Value="True"/>
+                                    <Setter Property="BorderColor" Value="#7950F2"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Frame.Style>
+                    <StackLayout Grid.Column="3" 
+                                 HorizontalOptions="Center" 
+                                 VerticalOptions="Center">
+                        <Label Text="Third" 
+                               FontSize="16" 
+                               FontAttributes="Bold" 
+                               IsVisible="{Binding ActiveTab, 
+                        Converter={StaticResource TabVisibilityConverter}, 
+                        ConverterParameter='Third'}"
+                               TextColor="#7950F2"
+                               HorizontalOptions="Center" />
+                        <ImageButton x:Name="ThirdButton" 
+                                     Source="{Binding ActiveTab, 
                                             Converter={StaticResource TabImageConverter}, 
                                             ConverterParameter='Third'}"
-                                 Style="{StaticResource FooterButtonStyle}" 
-                                 Clicked="OnThirdButtonClicked" />
-                </StackLayout>
-                <StackLayout Grid.Column="4" 
-                             HorizontalOptions="Center" 
-                             VerticalOptions="Center">
-                    <Label Text="Settings" 
-                           FontSize="16" 
-                           FontAttributes="Bold" 
-                           IsVisible="{Binding ActiveTab, 
-                                        Converter={StaticResource TabVisibilityConverter}, 
-                                        ConverterParameter='Settings'}"
-                           TextColor="#7950F2"
-                           HorizontalOptions="Center" />
-                    <ImageButton Source="{Binding ActiveTab, 
-                                    Converter={StaticResource TabImageConverter}, 
-                                    ConverterParameter='Settings'}"
-                                 Style="{StaticResource FooterButtonStyle}" 
-                                 Clicked="OnSettingsButtonClicked"/>         
-                </StackLayout>
+                                     Style="{StaticResource FooterButtonStyle}" 
+                                     Clicked="OnThirdButtonClicked" />
+                    </StackLayout>
+                </Frame>
+                <Frame x:Name="SettingsFrame"
+                       Grid.Column="4"
+                       HasShadow="False"
+                       Padding="0"
+                       Margin="0"
+                       CornerRadius="24">
+                    <Frame.Style>
+                        <Style TargetType="Frame">
+                            <Style.Triggers>
+                                <DataTrigger TargetType="Frame"
+                                             Binding="{Binding HighlightKey}"
+                                             Value="SettingsButton">
+                                    <Setter Property="BackgroundColor" Value="White"/>
+                                    <Setter Property="HasShadow" Value="True"/>
+                                    <Setter Property="BorderColor" Value="#7950F2"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Frame.Style>
+                    <StackLayout Grid.Column="4" 
+                                 HorizontalOptions="Center" 
+                                 VerticalOptions="Center">
+                        <Label Text="Settings" 
+                               FontSize="16" 
+                               FontAttributes="Bold" 
+                               IsVisible="{Binding ActiveTab, 
+                         Converter={StaticResource TabVisibilityConverter}, 
+                         ConverterParameter='Settings'}"
+                               TextColor="#7950F2"
+                               HorizontalOptions="Center" />
+                        <ImageButton x:Name="SettingsButton" Source="{Binding ActiveTab, 
+                     Converter={StaticResource TabImageConverter}, 
+                     ConverterParameter='Settings'}"
+                                     Style="{StaticResource FooterButtonStyle}" 
+                                     Clicked="OnSettingsButtonClicked"/>
+                    </StackLayout>
+                </Frame>
             </Grid>
         </Border>
     </Grid>
