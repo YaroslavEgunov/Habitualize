@@ -88,19 +88,19 @@
                 <StackLayout Grid.Column="3" 
                              HorizontalOptions="Center" 
                              VerticalOptions="Center">
-                    <Label Text="Chest" 
+                    <Label Text="Third" 
                            FontSize="16" 
                            FontAttributes="Bold" 
                            IsVisible="{Binding ActiveTab, 
                                         Converter={StaticResource TabVisibilityConverter}, 
-                                        ConverterParameter='Chest'}"
+                                        ConverterParameter='Third'}"
                            TextColor="#7950F2"
                            HorizontalOptions="Center" />
                     <ImageButton Source="{Binding ActiveTab, 
                                             Converter={StaticResource TabImageConverter}, 
-                                            ConverterParameter='Chest'}"
+                                            ConverterParameter='Third'}"
                                  Style="{StaticResource FooterButtonStyle}" 
-                                 Clicked="OnChestButtonClicked" />
+                                 Clicked="OnThirdButtonClicked" />
                 </StackLayout>
                 <StackLayout Grid.Column="4" 
                              HorizontalOptions="Center" 

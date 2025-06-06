@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:view="clr-namespace:Habitualize.View"
+             x:Class="Habitualize.View.AppHabitDays">
+    <Grid RowDefinitions="Auto,*,Auto">
+        <Grid Grid.Row="0" ColumnDefinitions="*,auto" Padding="20,20,20,0">
+            <Button
+                Clicked="OnBackButtonClicked"
+                BackgroundColor="Transparent"
+                Padding="0"
+                Margin="-20,0,10,0"
+                WidthRequest="40"
+                HeightRequest="40"
+                VerticalOptions="Center"
+                HorizontalOptions="Start"
+                FontSize="30"
+                Text="↩"/>
+            <Label x:Name="HabitTitleLabel"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   TextColor="Black"/>
+        </Grid>
+        <CollectionView x:Name="DaysCollection"
+                        Grid.Row="1"
+                        Margin="20,0,20,0">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <HorizontalStackLayout Spacing="10" Padding="5">
+                        <Label Text="{Binding DayNumber}" WidthRequest="40" TextColor="Black"
+                               Opacity="{Binding IsActive, Converter={StaticResource BoolToOpacityConverter}}"/>
+                        <Label Text="{Binding Task}" WidthRequest="200" TextColor="Black"
+                               Opacity="{Binding IsActive, Converter={StaticResource BoolToOpacityConverter}}"/>
+                        <CheckBox IsChecked="{Binding IsDone, Mode=TwoWay}" IsEnabled="{Binding IsActive}" CheckedChanged="OnCheckBoxChanged"/>
+                    </HorizontalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Button x:Name="ResultButton"
+                Grid.Row="2"
+                Text="Подвести результаты"
+                Clicked="OnResultButtonClicked"
+                IsEnabled="False"
+                HorizontalOptions="Fill"
+                VerticalOptions="End"
+                FontSize="20"
+                BackgroundColor="#B0B0B0" 
+                TextColor="White"
+                Margin="20,20,20,20">
+            <Button.Triggers>
+                <Trigger TargetType="Button" Property="IsEnabled" Value="True">
+                    <Setter Property="BackgroundColor" Value="#7950F2"/>
+                </Trigger>
+                <Trigger TargetType="Button" Property="IsEnabled" Value="False">
+                    <Setter Property="BackgroundColor" Value="#B0B0B0"/>
+                </Trigger>
+            </Button.Triggers>
+        </Button>
+
+        <BoxView x:Name="BlurOverlay"
+                 Grid.RowSpan="3"
+                 BackgroundColor="#80000000" 
+                 IsVisible="{Binding Source={x:Reference StartButton}, Path=IsVisible}"/>
+
+        <Button x:Name="StartButton"
+                Text="Start"
+                Grid.Row="1"
+                Clicked="OnStartButtonClicked"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                FontSize="24"
+                BackgroundColor="#7950F2"
+                TextColor="White"
+                IsVisible="True"/>
+
+        <!--  Testing button for resetting progress
+        <Button Text="Сбросить прогресс"
+        Clicked="OnResetProgressClicked"
+        HorizontalOptions="End"
+        BackgroundColor="Transparent"
+        TextColor="Red"
+        FontAttributes="Bold"/>
+        -->
+    </Grid>
+</ContentView>

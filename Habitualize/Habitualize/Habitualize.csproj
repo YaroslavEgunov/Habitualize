@@ -95,6 +95,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="View\AppThird.xaml.cs">
+	    <DependentUpon>AppThird.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="View\DiaryPages\DiaryPage.xaml.cs">
 	    <DependentUpon>DiaryPage.xaml</DependentUpon>
 	  </Compile>
@@ -124,7 +127,10 @@
 	  <MauiXaml Update="View\AppChat.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\AppChest.xaml">
+	  <MauiXaml Update="View\AppHabitDays.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\AppThird.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\AppFriendProfile.xaml">

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Habitualize.View.AppThird">
+    <ScrollView>
+        <VerticalStackLayout Spacing="20" Padding="10">
+            <ScrollView>
+                <VerticalStackLayout Spacing="20" Padding="10">
+                    <Frame BorderColor="#7950F2" CornerRadius="10" HeightRequest="150" Padding="0">
+                        <Grid>
+                            <Image Source="water.png" Aspect="AspectFill" Opacity="0.25"/>
+                            <VerticalStackLayout Padding="10" VerticalOptions="Center" HorizontalOptions="Center">
+                                <Label Text="Drink water"
+                                   FontAttributes="Bold"
+                                   FontSize="36"
+                                   TextColor="White"
+                                   HorizontalOptions="Center"
+                                   HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+                        </Grid>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnWaterTapped"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <Frame BorderColor="#7950F2" CornerRadius="10" HeightRequest="150" Padding="0">
+                        <Grid>
+                            <Image Source="morning_exercises.png" Aspect="AspectFill" Opacity="0.25"/>
+                            <VerticalStackLayout Padding="10" VerticalOptions="Center" HorizontalOptions="Center">
+                                <Label Text="Morning exercises"
+                                   FontAttributes="Bold"
+                                   FontSize="36"
+                                   TextColor="White"
+                                   HorizontalOptions="Center"
+                                   HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+                        </Grid>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnExercisesTapped"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <Frame BorderColor="#7950F2" CornerRadius="10" HeightRequest="150" Padding="0">
+                        <Grid>
+                            <Image Source="teeth.jpg" Aspect="AspectFill" Opacity="0.25"/>
+                            <VerticalStackLayout Padding="10" VerticalOptions="Center" HorizontalOptions="Center">
+                                <Label Text="Brush teeth"
+                                   FontAttributes="Bold"
+                                   FontSize="36"
+                                   TextColor="White"
+                                   HorizontalOptions="Center"
+                                   HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+                        </Grid>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnTeethTapped"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <Frame BorderColor="#7950F2" CornerRadius="10" HeightRequest="150" Padding="0" >
+                        <Grid>
+                            <Image Source="more.jpg" Aspect="AspectFill" Opacity="0.25"/>
+                            <VerticalStackLayout Padding="10" VerticalOptions="Center" HorizontalOptions="Center">
+                                <Label Text="And more later..."
+                                   FontAttributes="Bold"
+                                   FontSize="36"
+                                   TextColor="White"
+                                   HorizontalOptions="Center"
+                                   HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Frame>
+                </VerticalStackLayout>
+            </ScrollView>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentView>

@@ -72,7 +72,7 @@ namespace Habitualize
         }
 
         //Animation
-        private async Task ChangeContentWithAnimation(Microsoft.Maui.Controls.View newContent)
+        public async Task ChangeContentWithAnimation(Microsoft.Maui.Controls.View newContent)
         {
             if (DynamicContent.Content != null)
             {
@@ -158,7 +158,7 @@ namespace Habitualize
             }
         } 
         
-        private async void OnChestButtonClicked(object sender, EventArgs e)
+        private async void OnThirdButtonClicked(object sender, EventArgs e)
         {
             if (BindingContext is MainPageViewModel viewModel)
             {
@@ -167,10 +167,10 @@ namespace Habitualize
                     await button.TranslateTo(0, -10, 150, Easing.CubicInOut);
                     await button.TranslateTo(0, 0, 150, Easing.CubicInOut);
                 }
-                if (viewModel.ActiveTab != "Chest")
+                if (viewModel.ActiveTab != "Third")
                 {
-                    viewModel.ActiveTab = "Chest";
-                    await ChangeContentWithAnimation(new AppChest());
+                    viewModel.ActiveTab = "Third";
+                    await ChangeContentWithAnimation(new AppThird(this));
                 }
             }
         }
