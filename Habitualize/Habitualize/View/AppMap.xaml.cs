@@ -9,6 +9,8 @@ using Habitualize.Services;
 using Habitualize.ViewModel;
 using System.Globalization;
 using Habitualize.View.CustomHabitsPages;
+using System.Collections.ObjectModel;
+using Syncfusion.Maui.Charts;
 
 namespace Habitualize.View;
 
@@ -72,6 +74,8 @@ public partial class AppMap : ContentView
 
     public static ProgressionData ProgressionData = new ProgressionData();
 
+    public ObservableCollection<ChartItem> ChartData { get; set; }
+
     private async void InitAsync()
     {
         UpdateAdditionalText();
@@ -95,6 +99,30 @@ public partial class AppMap : ContentView
         BooksDaysDoneInARow.Text = CalculateMaxDaysInARow(data, typeof(Reading)).ToString();
         CustomHabitsTotalDaysDone.Text = CalculateMaxTotalDays(data, typeof(HabitTemplate)).ToString();
         CustomHabitsDaysDoneInARow.Text = CalculateMaxDaysInARow(data, typeof(HabitTemplate)).ToString();
+        ChartData = new ObservableCollection<ChartItem>
+        {
+            new ChartItem
+            {
+                Category = "Plants",
+                Value = CalculateMaxTotalDays(data, typeof(Gardening))
+            },
+            new ChartItem
+            {
+                Category = "Sport",
+                Value = CalculateMaxTotalDays(data, typeof(Training))
+            },
+            new ChartItem
+            {
+                Category = "Books",
+                Value = CalculateMaxTotalDays(data, typeof(Reading))
+            },
+            new ChartItem
+            {
+                Category = "Custom habits",
+                Value = CalculateMaxTotalDays(data, typeof(HabitTemplate))
+            }
+        };
+        OnPropertyChanged(nameof(ChartData));
     }
 
     protected override void OnParentSet()
@@ -122,6 +150,7 @@ public partial class AppMap : ContentView
     public AppMap()
 	{
 		InitializeComponent();
+        BindingContext = this;
         InitAsync();
     }
 
@@ -207,4 +236,9 @@ public partial class AppMap : ContentView
         var customHabits = data.OfType<HabitTemplate>().ToList();
         await Navigation.PushAsync(new CustomHabitPage(customHabits));
     }
+}
+public class ChartItem
+{
+    public string Category { get; set; }
+    public double Value { get; set; }
 }

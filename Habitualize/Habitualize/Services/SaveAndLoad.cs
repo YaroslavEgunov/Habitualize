@@ -214,7 +214,7 @@ namespace Habitualize.Services
                     .Child(uid)
                     .Child("habits")
                     .OnceAsListAsync<HabitTemplate>();
-                customHabits = customHabits.Where(habit => habit.Object.TypeOfHabit == "HabitTemplate").ToList();
+                customHabits = customHabits.Where(habit => habit.Object.Type == "HabitTemplate").ToList();
                 var gardeningHabits = await firebase
                     .Child("user")
                     .Child(uid)

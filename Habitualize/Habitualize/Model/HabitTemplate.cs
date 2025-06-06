@@ -51,7 +51,7 @@ namespace Habitualize.Model
         public bool IsComplete { get; set; }
 
         //type for getting data from db
-        public string TypeOfHabit = "HabitTemplate";
+        public string Type = "HabitTemplate";
 
         //public DateTime TotalTimeSpentOnHabit { get; set; }
 
