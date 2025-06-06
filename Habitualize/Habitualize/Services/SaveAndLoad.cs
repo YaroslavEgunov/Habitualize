@@ -169,7 +169,9 @@ namespace Habitualize.Services
         {
             if (!File.Exists(_progressPath) || new FileInfo(_progressPath).Length == 0)
             {
-                await SaveToFile(_progressPath, "[]");
+                var emptyData = new ProgressionData();
+                string emptyJson = JsonConvert.SerializeObject(emptyData);
+                await SaveToFile(_progressPath, emptyJson);
             }
             string json = await LoadFromFile(_progressPath);
             var data = JsonConvert.DeserializeObject<ProgressionData>(json);

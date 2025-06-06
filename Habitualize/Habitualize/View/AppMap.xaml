@@ -6,37 +6,40 @@
     <ScrollView VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never">
         <StackLayout Padding="20" Spacing="20" >
             <!-- Level and dailies -->
-            <Grid ColumnDefinitions="*,*" 
-      RowDefinitions="Auto,Auto,Auto" 
-      ColumnSpacing="15" 
-      RowSpacing="15">
+            <Border BackgroundColor="#7950F2" 
+                    StrokeShape="RoundRectangle 20" 
+                    Padding="15">
+                <Grid ColumnDefinitions="*,*" 
+                      RowDefinitions="Auto,Auto,Auto" 
+                      ColumnSpacing="15" 
+                      RowSpacing="15">
                 <Label Grid.Row="0" 
-           Grid.Column="0" 
-           x:Name="DailiesLabel"
-           FontSize="20"
-           FontAttributes="Bold"
-           TextColor="Black" />
+                       Grid.Column="0" 
+                       x:Name="DailiesLabel"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       TextColor="#F3F0FF" />
                 <Label Grid.Row="0" 
-           Grid.Column="1" 
-           x:Name="LevelLabel"
-           FontSize="20"
-           FontAttributes="Bold"
-           TextColor="Black" />
+                       Grid.Column="1" 
+                       x:Name="LevelLabel"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       TextColor="#F3F0FF" />
                 <Border Grid.Column="1"
-            Grid.Row="1"
-            StrokeShape="RoundRectangle 20"
-            BackgroundColor="#F3F0FF"
-            HeightRequest="28"
-            VerticalOptions="Center"
-            Padding="0,1,1,1">
+                        Grid.Row="1"
+                        StrokeShape="RoundRectangle 20"
+                        BackgroundColor="#F3F0FF"
+                        HeightRequest="28"
+                        VerticalOptions="Center"
+                        Padding="0,1,1,1">
                     <Grid>
-                        <!-- Градиентная полоса прогресса -->
+                        <!-- Gradient progress bar -->
                         <BoxView x:Name="ProgressGradient"
-                     CornerRadius="14"
-                     HeightRequest="24"
-                     HorizontalOptions="Start"
-                     VerticalOptions="Center"
-                     WidthRequest="0">
+                                 CornerRadius="14"
+                                 HeightRequest="24"
+                                 HorizontalOptions="Start"
+                                 VerticalOptions="Center"
+                                 WidthRequest="0">
                             <BoxView.Background>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                                     <GradientStop Color="#7950F2" Offset="0.0"/>
@@ -44,18 +47,20 @@
                                 </LinearGradientBrush>
                             </BoxView.Background>
                         </BoxView>
-                        <!-- Прозрачный ProgressBar для управления прогрессом -->
+                        <!-- Transparent progress bar -->
                         <ProgressBar x:Name="ExperienceProgressBar"
-                         Progress="0"
-                         HeightRequest="24"
-                         ProgressColor="Transparent"
-                         BackgroundColor="Transparent"
-                         VerticalOptions="Center"
-                         HorizontalOptions="FillAndExpand"
-                         Opacity="0.01"/>
+                                     Progress="0"
+                                     HeightRequest="24"
+                                     ProgressColor="Transparent"
+                                     BackgroundColor="Transparent"
+                                     VerticalOptions="Center"
+                                     HorizontalOptions="FillAndExpand"
+                                     Opacity="0.01"/>
                     </Grid>
                 </Border>
             </Grid>
+
+            </Border>
             <!-- Buttons net -->
             <Grid ColumnDefinitions="*,*" 
                   RowDefinitions="Auto,Auto,Auto" 
