@@ -17,23 +17,43 @@
                 FontSize="30"
                 Text="↩"/>
             <Label x:Name="HabitTitleLabel"
-                   FontSize="24"
+                   FontSize="28"
                    FontAttributes="Bold"
                    HorizontalOptions="Center"
-                   TextColor="Black"/>
+                   TextColor="#7950F2"/>
         </Grid>
         <CollectionView x:Name="DaysCollection"
                         Grid.Row="1"
                         Margin="20,0,20,0">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <HorizontalStackLayout Spacing="10" Padding="5">
-                        <Label Text="{Binding DayNumber}" WidthRequest="40" TextColor="Black"
-                               Opacity="{Binding IsActive, Converter={StaticResource BoolToOpacityConverter}}"/>
-                        <Label Text="{Binding Task}" WidthRequest="200" TextColor="Black"
-                               Opacity="{Binding IsActive, Converter={StaticResource BoolToOpacityConverter}}"/>
-                        <CheckBox IsChecked="{Binding IsDone, Mode=TwoWay}" IsEnabled="{Binding IsActive}" CheckedChanged="OnCheckBoxChanged"/>
-                    </HorizontalStackLayout>
+                    <Frame CornerRadius="16"
+                           Padding="10"
+                           Margin="0,6"
+                           BackgroundColor="White"
+                           BorderColor="#7950F2"
+                           HasShadow="True">
+                        <Grid ColumnDefinitions="40,*,auto" VerticalOptions="Center">
+                            <Label Text="{Binding DayNumber}"
+                                   FontSize="20"
+                                   FontAttributes="Bold"
+                                   TextColor="#7950F2"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"
+                                   Opacity="{Binding IsActive, Converter={StaticResource BoolToOpacityConverter}}"/>
+                            <Label Text="{Binding Task}" 
+                                   Grid.Column="1"
+                                   FontSize="16"
+                                   TextColor="Black"
+                                   VerticalOptions="Center"
+                                   Opacity="{Binding IsActive, Converter={StaticResource BoolToOpacityConverter}}"/>
+                            <CheckBox Grid.Column="2"
+                                      IsChecked="{Binding IsDone, Mode=TwoWay}" 
+                                      IsEnabled="{Binding IsActive}" 
+                                      CheckedChanged="OnCheckBoxChanged"
+                                      VerticalOptions="Center"/>
+                        </Grid>
+                    </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
@@ -45,7 +65,7 @@
                 HorizontalOptions="Fill"
                 VerticalOptions="End"
                 FontSize="20"
-                BackgroundColor="#B0B0B0" 
+                BackgroundColor="#B0B0B0"
                 TextColor="White"
                 Margin="20,20,20,20">
             <Button.Triggers>
