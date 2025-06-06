@@ -29,6 +29,16 @@ public partial class EditBooksPage : ContentPage
         _editedBook = book;
         BindingContext = _editedBook;
         NavigationPage.SetHasNavigationBar(this, false);
+        if(!_existingBook.BookComplete && _existingBook.PagesRead > 0)
+        {
+            _existingBook.LastTimeDone = DateTime.Now.Date;
+            _existingBook.TotalDaysDone++;
+            _existingBook.DaysDoneInARow++;
+        }
+        if (!_existingBook.BookComplete && _existingBook.LastTimeDone < DateTime.Now.Date)
+        {
+            _existingBook.DaysDoneInARow = 0;
+        }
     }
 
     protected override void OnAppearing()

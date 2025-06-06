@@ -29,6 +29,16 @@ public partial class EditSportPage : ContentPage
         _editedTraining = training;
         BindingContext = _editedTraining;
         NavigationPage.SetHasNavigationBar(this, false);
+        if (!(_existingTraining.CurrentWeight != _existingTraining.TargetWeight))
+        {
+            _existingTraining.LastTimeDone = DateTime.Now.Date;
+            _existingTraining.TotalDaysDone++;
+            _existingTraining.DaysDoneInARow++;
+        }
+        if (_existingTraining.CurrentWeight != _existingTraining.TargetWeight && _existingTraining.LastTimeDone < DateTime.Now.Date)
+        {
+            _existingTraining.DaysDoneInARow = 0;
+        }
     }
 
     private async void OnConfirmButtonClicked(object sender, EventArgs e)
@@ -41,25 +51,26 @@ public partial class EditSportPage : ContentPage
         else
         {
             var existingHabits = await MainPage.SavingLoadingSystem.LoadHabits();
-            var existingTainings = existingHabits.OfType<Training>().ToList();
+            var existingTrainings = existingHabits.OfType<Training>().ToList();
             if (_editedTraining.CurrentWeight == _editedTraining.TargetWeight && !_editedTraining.TrainingComplete)
             {
                 _editedTraining.TrainingComplete = true;
             }
-            DeleteAtIndex(existingTainings);
-            existingTainings.Add(_editedTraining);
+            DeleteAtIndex(existingTrainings);
+            _editedTraining.LastTimeDone = DateTime.Now.Date;
+            existingTrainings.Add(_editedTraining);
             int j = 0;
             for (int i = 0; i < existingHabits.Count; i++)
             {
                 if (existingHabits[i] is Training)
                 {
-                    existingHabits[i] = existingTainings[j];
+                    existingHabits[i] = existingTrainings[j];
                     j++;
                 }
             }
             await MainPage.CheckAchievements(existingHabits, this);
             await MainPage.SavingLoadingSystem.SaveHabits(existingHabits);
-            await Navigation.PushAsync(new SportPage(existingTainings));
+            await Navigation.PushAsync(new SportPage(existingTrainings));
         }
     }
 

@@ -57,10 +57,8 @@ public partial class AppMap : ContentView
         DailiesLabel.Text = "Your task for today: " + Daily.TaskName + "\n" + Daily.TaskDescription;
         LevelLabel.Text = "Your Level: " + ProgressionSystem.Level.ToString();
         double progress = 0;
-
         if (ProgressionSystem.ExpForLevel > 0)
             progress = (double)ProgressionSystem.Experience / ProgressionSystem.ExpForLevel;
-        // Ограничиваем значение от 0 до 1
         progress = Math.Clamp(progress, 0, 1);
         ExperienceProgressBar.Progress = progress;
     }

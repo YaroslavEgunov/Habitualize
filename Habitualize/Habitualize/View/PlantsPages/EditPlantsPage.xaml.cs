@@ -35,7 +35,19 @@ public partial class EditPlantsPage : ContentPage
         _editedPlant = plant;
         BindingContext = _editedPlant;
         NavigationPage.SetHasNavigationBar(this, false);
-
+        if (_existingPlant.PlantIsWatered && DatePick.Date == DateTime.Now.Date)
+        {
+            _existingPlant.RepeatSchedule = DateTime.Now.AddDays(2);
+            DatePick.Date = DateTime.Now.AddDays(2);
+            _existingPlant.PlantIsWatered = false;
+            _existingPlant.DaysDoneInARow++;
+            _existingPlant.LastTimeDone = DateTime.Now.Date;
+            _existingPlant.TotalDaysDone++;
+        }
+        if(!_existingPlant.PlantIsWatered && _existingPlant.LastTimeDone < DateTime.Now.Date)
+        {
+            _existingPlant.DaysDoneInARow = 0;
+        }
     }
 
     private async void OnConfirmButtonClicked(object sender, EventArgs e)
@@ -59,12 +71,6 @@ public partial class EditPlantsPage : ContentPage
             }
             var existingHabits = await MainPage.SavingLoadingSystem.LoadHabits();
             var existingPlants = existingHabits.OfType<Gardening>().ToList();
-            if (_editedPlant.PlantIsWatered && DatePick.Date == DateTime.Now.Date)
-            {
-                _existingPlant.RepeatSchedule = DateTime.Now.AddDays(2);
-                DatePick.Date = DateTime.Now.AddDays(2);
-                _existingPlant.PlantIsWatered = false;
-            }
             DeleteAtIndex(existingPlants);
             existingPlants.Add(_editedPlant);
             int j = 0;

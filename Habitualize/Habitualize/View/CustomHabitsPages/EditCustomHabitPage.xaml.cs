@@ -35,6 +35,16 @@ public partial class EditCustomHabitPage : ContentPage
         _editedHabit = habit;
         BindingContext = _editedHabit;
         NavigationPage.SetHasNavigationBar(this, false);
+        if (!_existingHabit.IsComplete)
+        {
+            _existingHabit.LastTimeDone = DateTime.Now.Date;
+            _existingHabit.TotalDaysDone++;
+            _existingHabit.DaysDoneInARow++;
+        }
+        if (!_existingHabit.IsComplete && _existingHabit.LastTimeDone < DateTime.Now.Date)
+        {
+            _existingHabit.DaysDoneInARow = 0;
+        }
     }
     private async void OnConfirmButtonClicked(object sender, EventArgs e)
     {
@@ -59,8 +69,8 @@ public partial class EditCustomHabitPage : ContentPage
             var existingCustomHabits = existingHabits.OfType<HabitTemplate>().ToList();
             if (_editedHabit.IsComplete && DatePick.Date == DateTime.Now.Date)
             {
-                _existingHabit.RepeatSchedule = DateTime.Now.AddDays(2);
-                DatePick.Date = DateTime.Now.AddDays(2);
+                _existingHabit.RepeatSchedule = DateTime.Now.AddDays(1);
+                DatePick.Date = DateTime.Now.AddDays(1);
                 _existingHabit.IsComplete = false;
             }
             DeleteAtIndex(existingCustomHabits);
