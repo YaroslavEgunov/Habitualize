@@ -40,6 +40,31 @@ public partial class AppMap : ContentView
         Preferences.Set(_lastDailyDescription, chosenDaily.TaskDescription);
     }
     
+    private int CalculateMaxTotalDays(List<HabitTemplate> habits, Type type)
+    {
+        int max = int.MinValue;
+        foreach(var habit in habits)
+        {
+            if(habit.TotalDaysDone > max && habit.GetType() == type)
+            {
+                max = habit.TotalDaysDone;
+            }
+        }
+        return max;
+    }
+
+    private int CalculateMaxDaysInARow(List<HabitTemplate> habits, Type type)
+    {
+        int max = int.MinValue;
+        foreach (var habit in habits)
+        {
+            if (habit.DaysDoneInARow > max && habit.GetType() == type)
+            {
+                max = habit.DaysDoneInARow;
+            }
+        }
+        return max;
+    }
 
     public DailyTasks Daily = new DailyTasks();
 
@@ -61,6 +86,15 @@ public partial class AppMap : ContentView
             progress = (double)ProgressionSystem.Experience / ProgressionSystem.ExpForLevel;
         progress = Math.Clamp(progress, 0, 1);
         ExperienceProgressBar.Progress = progress;
+        var data = await SavingLoadingSystem.LoadHabits();
+        PlantsTotalDaysDone.Text = CalculateMaxTotalDays(data, typeof(Gardening)).ToString();
+        PlantsDaysDoneInARow.Text = CalculateMaxDaysInARow(data, typeof(Gardening)).ToString();
+        TrainingTotalDaysDone.Text = CalculateMaxTotalDays(data, typeof(Training)).ToString();
+        TrainingDaysDoneInARow.Text = CalculateMaxDaysInARow(data, typeof(Training)).ToString();
+        BooksTotalDaysDone.Text = CalculateMaxTotalDays(data, typeof(Reading)).ToString();
+        BooksDaysDoneInARow.Text = CalculateMaxDaysInARow(data, typeof(Reading)).ToString();
+        CustomHabitsTotalDaysDone.Text = CalculateMaxTotalDays(data, typeof(HabitTemplate)).ToString();
+        CustomHabitsDaysDoneInARow.Text = CalculateMaxDaysInARow(data, typeof(HabitTemplate)).ToString();
     }
 
     protected override void OnParentSet()

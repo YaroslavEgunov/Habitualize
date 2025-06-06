@@ -151,9 +151,9 @@
                     StrokeShape="RoundRectangle 20" 
                     Padding="15">
                 <Grid ColumnDefinitions="*,*" 
-                      RowDefinitions="Auto,Auto,Auto" 
-                      ColumnSpacing="15" 
-                      RowSpacing="15">
+                      RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+                      ColumnSpacing="-100" 
+                      RowSpacing="10">
                     <Label Grid.Row="0" 
                            Grid.Column="0" 
                            Text="Your stats:"
