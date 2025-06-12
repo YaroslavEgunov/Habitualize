@@ -174,7 +174,9 @@ namespace Habitualize.Services
                 await SaveToFile(_progressPath, emptyJson);
             }
             string json = await LoadFromFile(_progressPath);
-            var data = JsonConvert.DeserializeObject<ProgressionData>(json);
+            var dataList = JsonConvert.DeserializeObject<List<ProgressionData>>(json);
+            var data = dataList?.FirstOrDefault();
+
             if (data != null)
             {
                 ProgressionSystem.Experience = data.Experience;
