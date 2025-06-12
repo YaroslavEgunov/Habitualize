@@ -12,6 +12,7 @@ public class AppMessengerViewModel : ObservableObject
     private readonly string _currentUserId;
     private readonly string _friendId;
     private readonly string _friendAvatar;
+    private bool _isFirstLoad = true;
 
     public ObservableCollection<Message> Messages { get; } = new();
     public ObservableCollection<ChatItem> ChatItems { get; } = new();
@@ -35,6 +36,20 @@ public class AppMessengerViewModel : ObservableObject
         _chatService.ConnectAsync(_currentUserId, _friendId);
     }
 
+    public void UpdateMessages(IEnumerable<Message> messages)
+    {
+        if (_isFirstLoad)
+        {
+
+            BuildChatItems(messages);
+            _isFirstLoad = false;
+        }
+        else
+        {
+            AddNewMessages(messages);
+        }
+    }
+
     private async void LoadHistory()
     {
         var history = await _chatService.LoadHistoryAsync(_currentUserId, _friendId);
@@ -51,6 +66,34 @@ public class AppMessengerViewModel : ObservableObject
         }
         BuildChatItems(Messages);
     }
+
+    public void AddNewMessages(IEnumerable<Message> newMessages)
+    {
+        var existingIds = new HashSet<string>(
+            ChatItems.OfType<MessageItem>().Select(mi => mi.Message.Id)
+        );
+
+        DateTime? lastDate = ChatItems.LastOrDefault(i => i is DateSeparatorItem) is DateSeparatorItem lastSep
+            ? lastSep.Date
+            : null;
+
+        foreach (var msg in newMessages.OrderBy(m => m.Timestamp))
+        {
+            if (existingIds.Contains(msg.Id))
+                continue;
+
+            msg.IsFriend = msg.SenderId != _currentUserId;
+
+            var msgDate = msg.Timestamp.Date;
+            if (lastDate == null || lastDate.Value != msgDate)
+            {
+                ChatItems.Add(new DateSeparatorItem { Date = msgDate });
+                lastDate = msgDate;
+            }
+            ChatItems.Add(new MessageItem { Message = msg });
+        }
+    }
+
 
     private async Task SendMessage()
     {
@@ -91,6 +134,9 @@ public class AppMessengerViewModel : ObservableObject
         DateTime? lastDate = null;
         foreach (var msg in messages.OrderBy(m => m.Timestamp))
         {
+            // ВАЖНО: выставляем IsFriend
+            msg.IsFriend = msg.SenderId != _currentUserId;
+
             var msgDate = msg.Timestamp.Date;
             if (lastDate == null || lastDate.Value != msgDate)
             {
@@ -100,5 +146,4 @@ public class AppMessengerViewModel : ObservableObject
             ChatItems.Add(new MessageItem { Message = msg });
         }
     }
-
 }

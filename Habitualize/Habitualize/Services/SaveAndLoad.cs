@@ -165,6 +165,28 @@ namespace Habitualize.Services
             await SaveToFile(_progressPath, json);
         }
 
+        //Для телефона
+        //public async Task LoadProgress()
+        //{
+        //    if (!File.Exists(_progressPath) || new FileInfo(_progressPath).Length == 0)
+        //    {
+        //        var emptyData = new ProgressionData();
+        //        string emptyJson = JsonConvert.SerializeObject(emptyData);
+        //        await SaveToFile(_progressPath, emptyJson);
+        //    }
+        //    string json = await LoadFromFile(_progressPath);
+        //    var dataList = JsonConvert.DeserializeObject<List<ProgressionData>>(json);
+        //    var data = dataList?.FirstOrDefault();
+
+        //    if (data != null)
+        //    {
+        //        ProgressionSystem.Experience = data.Experience;
+        //        ProgressionSystem.ExpForLevel = data.ExpForLevel;
+        //        ProgressionSystem.Level = data.Level;
+        //    }
+        //}
+
+        //Для пк
         public async Task LoadProgress()
         {
             if (!File.Exists(_progressPath) || new FileInfo(_progressPath).Length == 0)
@@ -174,8 +196,7 @@ namespace Habitualize.Services
                 await SaveToFile(_progressPath, emptyJson);
             }
             string json = await LoadFromFile(_progressPath);
-            var dataList = JsonConvert.DeserializeObject<List<ProgressionData>>(json);
-            var data = dataList?.FirstOrDefault();
+            var data = JsonConvert.DeserializeObject<ProgressionData>(json);
 
             if (data != null)
             {
@@ -269,9 +290,9 @@ namespace Habitualize.Services
             byte[] originalBytes = await File.ReadAllBytesAsync(imagePath);
             using var inputStream = new MemoryStream(originalBytes);
             using var original = SKBitmap.Decode(inputStream);
-
             int targetSize = 100;
             int width, height;
+
             if (original.Width > original.Height)
             {
                 width = targetSize;
@@ -348,7 +369,6 @@ namespace Habitualize.Services
 
                     var base64Photo = await LoadUserPhotoFromFirebase(user.Key);
 
-                    // Загружаем имя пользователя по Id
                     var userName = await LoadUserNameFromFirebase(user.Key);
 
                     var friend = new Friend
