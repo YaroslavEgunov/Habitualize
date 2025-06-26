@@ -78,7 +78,7 @@
         <!-- Input -->
         <Grid Grid.Row="2" ColumnDefinitions="*,Auto" Padding="10" BackgroundColor="White">
             <Entry x:Name="MessageEntry" Placeholder="Your message..." Text="{Binding NewMessage, Mode=TwoWay}" />
-            <Button Grid.Column="1" Background="#7950F2" TextColor="White" Text="Nend sudes" Command="{Binding SendMessageCommand}" />
+            <Button Grid.Column="1" Background="#7950F2" TextColor="White" Text="Send" Command="{Binding SendMessageCommand}" />
         </Grid>
     </Grid>
 </ContentPage>

@@ -57,8 +57,10 @@
                                        HeightRequest="50"
                                        WidthRequest="50"
                                        Aspect="AspectFill"
+                                       HorizontalOptions="Start"
                                        VerticalOptions="Center"/>
                                 <Label Grid.Column="1"
+                                       TextColor="Black"
                                        Text="{Binding Name}"
                                        FontSize="14"
                                        VerticalOptions="Center"

@@ -66,6 +66,7 @@ namespace Habitualize
             InitializeComponent();
             var viewModel = new MainPageViewModel();
             bool tutorialShown = Preferences.Get("TutorialShown", false);
+            viewModel.IsTutorialActive = true;
             if (!tutorialShown)
             {
                 viewModel.IsTutorialActive = true;

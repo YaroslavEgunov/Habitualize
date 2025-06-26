@@ -52,7 +52,7 @@
                     <Label Text="{Binding TutorialText}" 
                            TextColor="Black"
                            FontSize="16"/>
-                    <Button Text="Далее"
+                    <Button Text="Next"
                             Command="{Binding NextTutorialStepCommand}" />
                 </StackLayout>
             </Frame>

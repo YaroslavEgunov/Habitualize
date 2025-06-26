@@ -8,7 +8,7 @@
                 <VerticalStackLayout Spacing="20" Padding="10">
                     <Frame BorderColor="#7950F2" CornerRadius="10" HeightRequest="150" Padding="0">
                         <Grid>
-                            <Image Source="water.png" Aspect="AspectFill" Opacity="0.25"/>
+                            <Image Source="water.png" Aspect="AspectFill" Opacity="0.7"/>
                             <VerticalStackLayout Padding="10" VerticalOptions="Center" HorizontalOptions="Center">
                                 <Label Text="Drink water"
                                    FontAttributes="Bold"
@@ -24,7 +24,7 @@
                     </Frame>
                     <Frame BorderColor="#7950F2" CornerRadius="10" HeightRequest="150" Padding="0">
                         <Grid>
-                            <Image Source="morning_exercises.png" Aspect="AspectFill" Opacity="0.25"/>
+                            <Image Source="morning_exercises.png" Aspect="AspectFill" Opacity="0.7"/>
                             <VerticalStackLayout Padding="10" VerticalOptions="Center" HorizontalOptions="Center">
                                 <Label Text="Morning exercises"
                                    FontAttributes="Bold"
@@ -40,7 +40,7 @@
                     </Frame>
                     <Frame BorderColor="#7950F2" CornerRadius="10" HeightRequest="150" Padding="0">
                         <Grid>
-                            <Image Source="teeth.jpg" Aspect="AspectFill" Opacity="0.25"/>
+                            <Image Source="teeth.jpg" Aspect="AspectFill" Opacity="0.7"/>
                             <VerticalStackLayout Padding="10" VerticalOptions="Center" HorizontalOptions="Center">
                                 <Label Text="Brush teeth"
                                    FontAttributes="Bold"
@@ -56,7 +56,7 @@
                     </Frame>
                     <Frame BorderColor="#7950F2" CornerRadius="10" HeightRequest="150" Padding="0" >
                         <Grid>
-                            <Image Source="more.jpg" Aspect="AspectFill" Opacity="0.25"/>
+                            <Image Source="more.jpg" Aspect="AspectFill" Opacity="0.7"/>
                             <VerticalStackLayout Padding="10" VerticalOptions="Center" HorizontalOptions="Center">
                                 <Label Text="And more later..."
                                    FontAttributes="Bold"

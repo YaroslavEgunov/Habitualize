@@ -94,9 +94,9 @@
                 TextColor="White"
                 IsVisible="True"/>
 
-        <!--  Testing button for resetting progress
+        <!--
         <Button Text="Сбросить прогресс"
-        Clicked="OnResetProgressClicked"
+        Clicked="CompleteAllDaysForTest"
         HorizontalOptions="End"
         BackgroundColor="Transparent"
         TextColor="Red"

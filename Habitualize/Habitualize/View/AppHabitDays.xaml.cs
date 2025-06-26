@@ -21,6 +21,7 @@ public partial class AppHabitDays : ContentView
         _startDate = DateTime.MinValue;
         _currentDayIndex = 0;
     }
+
     //For test
     private void OnResetProgressClicked(object sender, EventArgs e)
     {
@@ -39,6 +40,22 @@ public partial class AppHabitDays : ContentView
 
         _midnightTimer?.Stop();
         _midnightTimer?.Dispose();
+    }
+
+    //For test
+    public void CompleteAllDaysForTest(object sender, EventArgs e)
+    {
+        _startDate = DateTime.Now.Date.AddDays(-30); 
+        _currentDayIndex = Days.Count - 1;
+        foreach (var day in Days)
+        {
+            day.IsActive = true;
+            day.IsDone = true;
+        }
+        SaveProgress();
+        DaysCollection.ItemsSource = null;
+        DaysCollection.ItemsSource = Days;
+        UpdateResultButtonState();
     }
 
     private const string HabitProgressKey = "HabitProgress_{0}";
